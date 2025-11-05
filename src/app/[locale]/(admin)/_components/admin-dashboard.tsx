@@ -1,11 +1,6 @@
 "use client";
 import AppSidebar from "@/components/ui/app-sidebar";
-import {
-  LayoutDashboardIcon,
-  UsersIcon,
-  DollarSignIcon,
-  SparklesIcon,
-} from "lucide-react";
+import { LayoutDashboardIcon, UsersIcon, DollarSignIcon, SparklesIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 

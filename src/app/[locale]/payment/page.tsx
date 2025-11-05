@@ -8,9 +8,7 @@ import Link from "next/link";
 import type { PaymentMetadata } from "@/types/payment";
 
 function formatCurrency(amount: number, currency = "USD") {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(
-    amount
-  );
+  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(amount);
 }
 
 // Helper seguro para fechas (sin hydration mismatch)
@@ -33,9 +31,7 @@ const page = async ({
   if (!session?.user) {
     return (
       <div className="mx-auto max-w-4xl px-6 py-20 text-center">
-        <p className="text-sm text-muted-foreground">
-          You must be signed in to view this page.
-        </p>
+        <p className="text-sm text-muted-foreground">You must be signed in to view this page.</p>
       </div>
     );
   }
@@ -84,37 +80,27 @@ const page = async ({
       <div className="flex flex-col items-center justify-center space-y-6">
         {success === "true" && (
           <div className="w-full rounded-lg border border-green-200 bg-green-50 p-4 text-left">
-            <p className="text-sm font-medium text-green-800">
-              Payment Successful
-            </p>
-            <p className="text-xs text-green-700">
-              Your subscription has been activated.
-            </p>
+            <p className="text-sm font-medium text-green-800">Payment Successful</p>
+            <p className="text-xs text-green-700">Your subscription has been activated.</p>
           </div>
         )}
         {success === "false" && (
           <div className="w-full rounded-lg border border-destructive/40 bg-destructive/10 p-4 text-left">
-            <p className="text-sm font-medium text-destructive">
-              Payment Failed
-            </p>
+            <p className="text-sm font-medium text-destructive">Payment Failed</p>
             <p className="text-xs text-muted-foreground">
               {errorMsg || "We couldn't process your payment."}
             </p>
           </div>
         )}
         <CheckCircle2 className="h-16 w-16 text-green-500" />
-        <h1 className="text-3xl font-bold text-foreground">
-          Payment Successful
-        </h1>
+        <h1 className="text-3xl font-bold text-foreground">Payment Successful</h1>
         <p className="text-muted-foreground">
           Your payment has been processed successfully. Your plan is now active.
         </p>
 
         <div className="w-full space-y-4">
           <Card className="p-6 text-left">
-            <h2 className="text-lg font-semibold text-foreground mb-3">
-              Subscription Details
-            </h2>
+            <h2 className="text-lg font-semibold text-foreground mb-3">Subscription Details</h2>
             <div className="grid grid-cols-1 gap-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Plan</span>
@@ -149,18 +135,12 @@ const page = async ({
           </Card>
 
           <Card className="p-6 text-left">
-            <h2 className="text-lg font-semibold text-foreground mb-3">
-              Payment Method
-            </h2>
+            <h2 className="text-lg font-semibold text-foreground mb-3">Payment Method</h2>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-foreground">
-                  {cardLabel}
-                </p>
+                <p className="text-sm font-medium text-foreground">{cardLabel}</p>
                 <p className="text-xs text-muted-foreground">
-                  {purchase
-                    ? `Paid on ${formatDateSafe(purchase.createdAt)}`
-                    : "—"}
+                  {purchase ? `Paid on ${formatDateSafe(purchase.createdAt)}` : "—"}
                 </p>
               </div>
               <Button variant="outline" className="text-xs">

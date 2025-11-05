@@ -160,12 +160,7 @@ export default function AppSidebar({
 
             {/* Contenido adicional superior */}
             {topContent && (
-              <div
-                className={cn(
-                  "mb-4",
-                  isHovered || isOpen ? "h-auto" : "h-28 overflow-hidden"
-                )}
-              >
+              <div className={cn("mb-4", isHovered || isOpen ? "h-auto" : "h-28 overflow-hidden")}>
                 <div
                   className={cn(
                     isHovered || isOpen
@@ -186,9 +181,7 @@ export default function AppSidebar({
                   <span
                     className={cn(
                       "block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground whitespace-nowrap transition-all duration-75",
-                      isHovered || isOpen
-                        ? "opacity-100 w-auto"
-                        : "opacity-0 w-0"
+                      isHovered || isOpen ? "opacity-100 w-auto" : "opacity-0 w-0"
                     )}
                   >
                     {section.label}
@@ -225,9 +218,7 @@ export default function AppSidebar({
                         <span
                           className={cn(
                             "justify-self-start whitespace-nowrap overflow-hidden transition-all duration-75",
-                            isHovered || isOpen
-                              ? "opacity-100 w-auto"
-                              : "opacity-0 w-0"
+                            isHovered || isOpen ? "opacity-100 w-auto" : "opacity-0 w-0"
                           )}
                         >
                           {item.name}

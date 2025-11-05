@@ -5,10 +5,7 @@ import { z } from "zod";
 import { NextResponse } from "next/server";
 import { sendWaitlistWelcomeEmail } from "@/lib/emails/sendWaitlistWelcomeEmail";
 
-const generateReferralCode = customAlphabet(
-  "ABCDEFGHJKLMNPQRSTUVWXYZ23456789",
-  8
-);
+const generateReferralCode = customAlphabet("ABCDEFGHJKLMNPQRSTUVWXYZ23456789", 8);
 
 export async function POST(req: Request) {
   try {
@@ -78,9 +75,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: error.issues }, { status: 400 });
     }
     console.error(error);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Something went wrong." }, { status: 500 });
   }
 }

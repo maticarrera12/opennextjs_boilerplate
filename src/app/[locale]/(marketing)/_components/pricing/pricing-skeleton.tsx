@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 
 export function PricingSkeleton() {
   return (
@@ -42,9 +37,7 @@ export function PricingSkeleton() {
 function PlanCardSkeleton({ isPopular }: { isPopular?: boolean }) {
   return (
     <Card
-      className={`relative ${
-        isPopular ? "border-primary shadow-lg ring-2 ring-primary/20" : ""
-      }`}
+      className={`relative ${isPopular ? "border-primary shadow-lg ring-2 ring-primary/20" : ""}`}
     >
       {isPopular && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">

@@ -9,9 +9,7 @@ import { sendDeleteAccountVerification } from "./emails/sendDeleteAccountVerific
 const prisma = new PrismaClient();
 
 async function assignAdminRole(userId: string, email: string) {
-  const adminEmails =
-    process.env.ADMIN_EMAILS?.split(",").map((e) => e.trim().toLowerCase()) ||
-    [];
+  const adminEmails = process.env.ADMIN_EMAILS?.split(",").map((e) => e.trim().toLowerCase()) || [];
   const isAdmin = adminEmails.includes(email.toLowerCase());
 
   if (isAdmin) {

@@ -42,8 +42,8 @@ export const PasswordResetEmail = ({
             <Text style={paragraph}>Hi {userName},</Text>
 
             <Text style={paragraph}>
-              We received a request to reset your password. You can create a new
-              password by clicking the button below:
+              We received a request to reset your password. You can create a new password by
+              clicking the button below:
             </Text>
 
             {/* CTA Button */}
@@ -53,9 +53,7 @@ export const PasswordResetEmail = ({
               </Button>
             </Section>
 
-            <Text style={paragraph}>
-              Or copy and paste this URL into your browser:
-            </Text>
+            <Text style={paragraph}>Or copy and paste this URL into your browser:</Text>
 
             <Text style={link}>
               <Link href={resetUrl} style={anchor}>
@@ -65,27 +63,22 @@ export const PasswordResetEmail = ({
 
             <Section style={warningBox}>
               <Text style={warningText}>
-                ⏰ For security reasons, this link will expire in{" "}
-                <strong>1 hour</strong>.
+                ⏰ For security reasons, this link will expire in <strong>1 hour</strong>.
               </Text>
             </Section>
 
             <Hr style={hr} />
 
             <Text style={paragraph}>
-              If you didn&apos;t request this password reset, you can safely
-              ignore this email. Your account will remain secure.
+              If you didn&apos;t request this password reset, you can safely ignore this email. Your
+              account will remain secure.
             </Text>
           </Section>
 
           {/* Footer */}
           <Section style={footer}>
-            <Text style={footerText}>
-              © {currentYear} Your Brand. All rights reserved.
-            </Text>
-            <Text style={footerText}>
-              This is an automated message, please do not reply.
-            </Text>
+            <Text style={footerText}>© {currentYear} Your Brand. All rights reserved.</Text>
+            <Text style={footerText}>This is an automated message, please do not reply.</Text>
           </Section>
         </Container>
       </Body>

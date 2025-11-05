@@ -11,13 +11,7 @@ import { IoMdArrowForward } from "react-icons/io";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const AnimatedButton = ({
-  label,
-  route,
-  animate = true,
-  animateOnScroll = true,
-  delay = 0,
-}) => {
+const AnimatedButton = ({ label, route, animate = true, animateOnScroll = true, delay = 0 }) => {
   const { navigateWithTransition } = useViewTransition();
   const buttonRef = useRef(null);
   const circleRef = useRef(null);

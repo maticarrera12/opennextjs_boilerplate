@@ -8,10 +8,7 @@ import { prisma } from "@/lib/prisma";
 export async function GET(req: NextRequest) {
   // Only allow in development
   if (process.env.NODE_ENV === "production") {
-    return NextResponse.json(
-      { error: "Not available in production" },
-      { status: 403 }
-    );
+    return NextResponse.json({ error: "Not available in production" }, { status: 403 });
   }
 
   try {

@@ -4,22 +4,16 @@ import { NextRequest } from "next/server";
 
 const handler = toNextJsHandler(auth);
 
-async function handleOAuthCallback(
-  request: NextRequest,
-  method: "GET" | "POST"
-) {
+async function handleOAuthCallback(request: NextRequest, method: "GET" | "POST") {
   const pathname = request.nextUrl.pathname;
 
   // Interceptar callbacks de OAuth
   const isOAuthCallback =
-    pathname.includes("/callback/github") ||
-    pathname.includes("/callback/google");
+    pathname.includes("/callback/github") || pathname.includes("/callback/google");
 
   if (isOAuthCallback) {
     // Ejecutar el handler de Better Auth primero
-    const response = await (method === "GET" ? handler.GET : handler.POST)(
-      request
-    );
+    const response = await (method === "GET" ? handler.GET : handler.POST)(request);
 
     // Después de que Better Auth procese el callback, verificar y asignar rol
     // Hacer esto de forma asíncrona sin bloquear la respuesta

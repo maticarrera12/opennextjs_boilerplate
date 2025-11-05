@@ -47,8 +47,7 @@ export default function Navbar() {
         if (element) {
           const headerOffset = 64; // altura de la navbar (h-16 = 4rem = 64px)
           const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition =
-            elementPosition + window.pageYOffset - headerOffset;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
           window.scrollTo({
             top: offsetPosition,

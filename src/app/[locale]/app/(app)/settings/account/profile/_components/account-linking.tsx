@@ -14,11 +14,7 @@ import { useTranslations } from "next-intl";
 
 type Account = Awaited<ReturnType<typeof auth.api.listUserAccounts>>[number];
 
-export function AccountLinking({
-  currentAccounts,
-}: {
-  currentAccounts: Account[];
-}) {
+export function AccountLinking({ currentAccounts }: { currentAccounts: Account[] }) {
   const t = useTranslations("settings.profile.linkedAccounts");
 
   return (
@@ -35,11 +31,7 @@ export function AccountLinking({
         ) : (
           <div className="space-y-3">
             {currentAccounts.map((account) => (
-              <AccountCard
-                key={account.id}
-                provider={account.providerId}
-                account={account}
-              />
+              <AccountCard key={account.id} provider={account.providerId} account={account} />
             ))}
           </div>
         )}
@@ -49,8 +41,7 @@ export function AccountLinking({
         <h3 className="text-lg font-medium">{t("linkOther")}</h3>
         <div className="grid gap-3">
           {SUPPORTED_OAUTH_PROVIDERS.filter(
-            (provider) =>
-              !currentAccounts.find((acc) => acc.providerId === provider)
+            (provider) => !currentAccounts.find((acc) => acc.providerId === provider)
           ).map((provider) => (
             <AccountCard key={provider} provider={provider} />
           ))}
@@ -60,13 +51,7 @@ export function AccountLinking({
   );
 }
 
-function AccountCard({
-  provider,
-  account,
-}: {
-  provider: string;
-  account?: Account;
-}) {
+function AccountCard({ provider, account }: { provider: string; account?: Account }) {
   const router = useRouter();
   const t = useTranslations("settings.profile.linkedAccounts");
 
@@ -115,27 +100,18 @@ function AccountCard({
                 </p>
               ) : (
                 <p className="text-sm text-muted-foreground">
-                  {t("linkedOn")}{" "}
-                  {new Date(account.createdAt).toLocaleDateString()}
+                  {t("linkedOn")} {new Date(account.createdAt).toLocaleDateString()}
                 </p>
               )}
             </div>
           </div>
           {account == null ? (
-            <BetterAuthActionButton
-              variant="outline"
-              size="sm"
-              action={linkAccount}
-            >
+            <BetterAuthActionButton variant="outline" size="sm" action={linkAccount}>
               <Plus />
               {t("link")}
             </BetterAuthActionButton>
           ) : (
-            <BetterAuthActionButton
-              variant="destructive"
-              size="sm"
-              action={unlinkAccount}
-            >
+            <BetterAuthActionButton variant="destructive" size="sm" action={unlinkAccount}>
               <Trash2 />
               {t("unlink")}
             </BetterAuthActionButton>

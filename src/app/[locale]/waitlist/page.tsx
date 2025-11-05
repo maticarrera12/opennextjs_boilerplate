@@ -72,9 +72,7 @@ export default function WaitlistPage() {
       toast.success(result.message || "Successfully joined!");
     } catch (error) {
       console.error(error);
-      toast.error(
-        error instanceof Error ? error.message : "Failed to join waitlist"
-      );
+      toast.error(error instanceof Error ? error.message : "Failed to join waitlist");
     }
   }
 
@@ -135,9 +133,7 @@ export default function WaitlistPage() {
 
       // Si falla, intentar buscar por email
       if (!response.ok) {
-        response = await fetch(
-          `/api/waitlist/lookup?email=${encodeURIComponent(lookupValue)}`
-        );
+        response = await fetch(`/api/waitlist/lookup?email=${encodeURIComponent(lookupValue)}`);
       }
 
       if (!response.ok) {
@@ -153,20 +149,13 @@ export default function WaitlistPage() {
       setIsSubmitted(true);
 
       // Guardar en localStorage
-      localStorage.setItem(
-        "waitlist_referral_code",
-        data.referralCode || lookupValue
-      );
+      localStorage.setItem("waitlist_referral_code", data.referralCode || lookupValue);
 
       setShowLookup(false);
       toast.success("Welcome back!");
     } catch (error) {
       console.error(error);
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Failed to find your waitlist entry"
-      );
+      toast.error(error instanceof Error ? error.message : "Failed to find your waitlist entry");
     } finally {
       setIsLookingUp(false);
     }
@@ -199,25 +188,17 @@ export default function WaitlistPage() {
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 mb-4">
               <Check className="w-10 h-10 text-primary" />
             </div>
-            <h1 className="text-4xl font-bold text-foreground">
-              You&apos;re on the list! 🎉
-            </h1>
+            <h1 className="text-4xl font-bold text-foreground">You&apos;re on the list! 🎉</h1>
             <div className="flex items-center justify-center gap-6">
               {position && (
                 <div className="text-center">
-                  <p className="text-sm text-muted-foreground uppercase tracking-wide">
-                    Position
-                  </p>
+                  <p className="text-sm text-muted-foreground uppercase tracking-wide">Position</p>
                   <p className="text-3xl font-bold text-primary">#{position}</p>
                 </div>
               )}
               <div className="text-center">
-                <p className="text-sm text-muted-foreground uppercase tracking-wide">
-                  Referrals
-                </p>
-                <p className="text-3xl font-bold text-primary">
-                  {referralCount}
-                </p>
+                <p className="text-sm text-muted-foreground uppercase tracking-wide">Referrals</p>
+                <p className="text-3xl font-bold text-primary">{referralCount}</p>
               </div>
             </div>
           </div>
@@ -238,9 +219,7 @@ export default function WaitlistPage() {
                   <RefreshCw className="w-4 h-4 text-muted-foreground" />
                 </button>
               </div>
-              <p className="text-muted-foreground">
-                Share your referral link and move up faster!
-              </p>
+              <p className="text-muted-foreground">Share your referral link and move up faster!</p>
             </div>
 
             {/* Referral Code Display */}
@@ -255,11 +234,7 @@ export default function WaitlistPage() {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button
-                onClick={handleCopyReferralLink}
-                variant="outline"
-                className="flex-1 h-12"
-              >
+              <Button onClick={handleCopyReferralLink} variant="outline" className="flex-1 h-12">
                 {copied ? (
                   <>
                     <Check className="w-4 h-4 mr-2" />
@@ -272,10 +247,7 @@ export default function WaitlistPage() {
                   </>
                 )}
               </Button>
-              <Button
-                onClick={handleShare}
-                className="flex-1 h-12 bg-primary hover:bg-primary/90"
-              >
+              <Button onClick={handleShare} className="flex-1 h-12 bg-primary hover:bg-primary/90">
                 <Share2 className="w-4 h-4 mr-2" />
                 Share
               </Button>
@@ -284,8 +256,8 @@ export default function WaitlistPage() {
             {/* Info */}
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
               <p className="text-sm text-center text-foreground">
-                <strong>Pro tip:</strong> For every friend who joins using your
-                link, you&apos;ll both move up in the queue! 🚀
+                <strong>Pro tip:</strong> For every friend who joins using your link, you&apos;ll
+                both move up in the queue! 🚀
               </p>
             </div>
           </div>
@@ -312,14 +284,10 @@ export default function WaitlistPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
             <Sparkles className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">
-            Join the Waitlist
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground">Join the Waitlist</h1>
           <p className="text-xl text-muted-foreground max-w-lg mx-auto">
             Be among the first to experience the future of{" "}
-            <span className="text-primary font-semibold">
-              AI-powered brand creation
-            </span>
+            <span className="text-primary font-semibold">AI-powered brand creation</span>
           </p>
         </div>
 
@@ -327,8 +295,7 @@ export default function WaitlistPage() {
         {referralParam && (
           <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 text-center">
             <p className="text-sm text-primary font-medium">
-              🎉 You&apos;ve been referred! You&apos;ll start with a boost in
-              the queue.
+              🎉 You&apos;ve been referred! You&apos;ll start with a boost in the queue.
             </p>
           </div>
         )}
@@ -362,8 +329,7 @@ export default function WaitlistPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-foreground">
-                      Name{" "}
-                      <span className="text-muted-foreground">(optional)</span>
+                      Name <span className="text-muted-foreground">(optional)</span>
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -383,17 +349,13 @@ export default function WaitlistPage() {
                 disabled={isSubmitting}
                 className="w-full h-12 text-base font-semibold bg-primary hover:bg-primary/90"
               >
-                <LoadingSwap isLoading={isSubmitting}>
-                  Join the Waitlist
-                </LoadingSwap>
+                <LoadingSwap isLoading={isSubmitting}>Join the Waitlist</LoadingSwap>
               </Button>
             </form>
           </Form>
 
           <div className="mt-6 text-center space-y-3">
-            <p className="text-sm text-muted-foreground">
-              Get early access and exclusive updates
-            </p>
+            <p className="text-sm text-muted-foreground">Get early access and exclusive updates</p>
             <button
               onClick={() => setShowLookup(true)}
               className="text-sm text-primary hover:underline font-medium"
@@ -409,12 +371,8 @@ export default function WaitlistPage() {
             <div className="bg-card rounded-2xl border border-border p-8 max-w-md w-full shadow-xl">
               <div className="space-y-4">
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">
-                    Check Your Status
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Enter your email or referral code
-                  </p>
+                  <h3 className="text-2xl font-bold text-foreground mb-2">Check Your Status</h3>
+                  <p className="text-sm text-muted-foreground">Enter your email or referral code</p>
                 </div>
 
                 <Input
@@ -441,9 +399,7 @@ export default function WaitlistPage() {
                     className="flex-1 h-12 bg-primary hover:bg-primary/90"
                     disabled={isLookingUp}
                   >
-                    <LoadingSwap isLoading={isLookingUp}>
-                      Check Status
-                    </LoadingSwap>
+                    <LoadingSwap isLoading={isLookingUp}>Check Status</LoadingSwap>
                   </Button>
                 </div>
               </div>
@@ -458,29 +414,21 @@ export default function WaitlistPage() {
               <Sparkles className="w-6 h-6 text-primary" />
             </div>
             <h3 className="font-semibold text-foreground">Early Access</h3>
-            <p className="text-sm text-muted-foreground">
-              Be first to try new features
-            </p>
+            <p className="text-sm text-muted-foreground">Be first to try new features</p>
           </div>
           <div className="text-center space-y-2">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
               <Users className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="font-semibold text-foreground">
-              Exclusive Community
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              Connect with early adopters
-            </p>
+            <h3 className="font-semibold text-foreground">Exclusive Community</h3>
+            <p className="text-sm text-muted-foreground">Connect with early adopters</p>
           </div>
           <div className="text-center space-y-2">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
               <Share2 className="w-6 h-6 text-primary" />
             </div>
             <h3 className="font-semibold text-foreground">Referral Rewards</h3>
-            <p className="text-sm text-muted-foreground">
-              Skip ahead by inviting friends
-            </p>
+            <p className="text-sm text-muted-foreground">Skip ahead by inviting friends</p>
           </div>
         </div>
       </div>

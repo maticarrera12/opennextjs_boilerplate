@@ -59,9 +59,7 @@ export default function SettingsSidebar() {
     },
     {
       label: t("sections.developers"),
-      items: [
-        { name: t("menu.apiKeys"), href: "/app/settings/api", icon: KeyIcon },
-      ],
+      items: [{ name: t("menu.apiKeys"), href: "/app/settings/api", icon: KeyIcon }],
     },
     {
       label: t("sections.organization"),

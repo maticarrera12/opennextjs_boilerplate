@@ -42,27 +42,23 @@ export const DeleteAccountVerification = ({
             <Text style={paragraph}>Hi {userName},</Text>
 
             <Text style={paragraph}>
-              We received a request to permanently delete your account. This
-              action is irreversible and will result in the permanent deletion
-              of all your data.
+              We received a request to permanently delete your account. This action is irreversible
+              and will result in the permanent deletion of all your data.
             </Text>
 
             <Section style={dangerBox}>
               <Text style={dangerText}>
-                ⚠️ <strong>Warning:</strong> Once you confirm, you will lose
-                access to:
+                ⚠️ <strong>Warning:</strong> Once you confirm, you will lose access to:
               </Text>
               <Text style={dangerListItem}>• Your account and profile</Text>
               <Text style={dangerListItem}>• All your saved data</Text>
-              <Text style={dangerListItem}>
-                • Your subscription and credits
-              </Text>
+              <Text style={dangerListItem}>• Your subscription and credits</Text>
               <Text style={dangerListItem}>• Your purchase history</Text>
             </Section>
 
             <Text style={paragraph}>
-              If you&apos;re sure you want to proceed, click the button below to
-              confirm the deletion:
+              If you&apos;re sure you want to proceed, click the button below to confirm the
+              deletion:
             </Text>
 
             {/* CTA Button */}
@@ -72,9 +68,7 @@ export const DeleteAccountVerification = ({
               </Button>
             </Section>
 
-            <Text style={paragraph}>
-              Or copy and paste this URL into your browser:
-            </Text>
+            <Text style={paragraph}>Or copy and paste this URL into your browser:</Text>
 
             <Text style={link}>
               <Link href={verificationUrl} style={anchor}>
@@ -84,8 +78,7 @@ export const DeleteAccountVerification = ({
 
             <Section style={warningBox}>
               <Text style={warningText}>
-                ⏰ For security reasons, this link will expire in{" "}
-                <strong>1 hour</strong>.
+                ⏰ For security reasons, this link will expire in <strong>1 hour</strong>.
               </Text>
             </Section>
 
@@ -93,20 +86,15 @@ export const DeleteAccountVerification = ({
 
             <Text style={paragraph}>
               If you didn&apos;t request this account deletion, please{" "}
-              <strong>ignore this email</strong> and your account will remain
-              active and secure. We also recommend changing your password as a
-              precaution.
+              <strong>ignore this email</strong> and your account will remain active and secure. We
+              also recommend changing your password as a precaution.
             </Text>
           </Section>
 
           {/* Footer */}
           <Section style={footer}>
-            <Text style={footerText}>
-              © {currentYear} Your Brand. All rights reserved.
-            </Text>
-            <Text style={footerText}>
-              This is an automated message, please do not reply.
-            </Text>
+            <Text style={footerText}>© {currentYear} Your Brand. All rights reserved.</Text>
+            <Text style={footerText}>This is an automated message, please do not reply.</Text>
           </Section>
         </Container>
       </Body>

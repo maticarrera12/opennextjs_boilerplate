@@ -3,4 +3,3 @@ export interface PaymentMetadata {
   cardLast4?: string;
   [key: string]: unknown;
 }
-

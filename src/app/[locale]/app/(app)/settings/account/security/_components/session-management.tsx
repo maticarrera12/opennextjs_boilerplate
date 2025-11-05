@@ -32,19 +32,13 @@ export function SessionManagement({
 
   return (
     <div className="space-y-6">
-      {currentSession && (
-        <SessionCard session={currentSession} isCurrentSession />
-      )}
+      {currentSession && <SessionCard session={currentSession} isCurrentSession />}
 
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium">{t("otherSessions")}</h3>
           {otherSessions.length > 0 && (
-            <BetterAuthActionButton
-              variant="destructive"
-              size="sm"
-              action={revokeOtherSessions}
-            >
+            <BetterAuthActionButton variant="destructive" size="sm" action={revokeOtherSessions}>
               {t("revokeOtherSessions")}
             </BetterAuthActionButton>
           )}
@@ -120,11 +114,7 @@ function SessionCard({
       <CardContent>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {userAgentInfo?.device.type === "mobile" ? (
-              <Smartphone />
-            ) : (
-              <Monitor />
-            )}
+            {userAgentInfo?.device.type === "mobile" ? <Smartphone /> : <Monitor />}
             <div>
               <p className="text-sm text-muted-foreground">
                 {t("created")}: {formatDate(session.createdAt)}

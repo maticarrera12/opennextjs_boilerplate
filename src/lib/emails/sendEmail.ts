@@ -19,15 +19,11 @@ export async function sendEmail({
 }) {
   // Validar que las variables de entorno existen
   if (!process.env.RESEND_API_KEY) {
-    throw new Error(
-      "RESEND_API_KEY is not configured in environment variables"
-    );
+    throw new Error("RESEND_API_KEY is not configured in environment variables");
   }
 
   if (!process.env.RESEND_FROM_EMAIL) {
-    throw new Error(
-      "RESEND_FROM_EMAIL is not configured in environment variables"
-    );
+    throw new Error("RESEND_FROM_EMAIL is not configured in environment variables");
   }
 
   // Si se proporciona un componente React, renderizarlo

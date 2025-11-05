@@ -185,10 +185,7 @@ export class CreditService {
   }
 
   // Get credit history
-  static async getHistory(
-    userId: string,
-    options?: { limit?: number; offset?: number }
-  ) {
+  static async getHistory(userId: string, options?: { limit?: number; offset?: number }) {
     return prisma.creditTransaction.findMany({
       where: { userId },
       orderBy: { createdAt: "desc" },
@@ -229,10 +226,7 @@ export class CreditService {
       },
     });
 
-    const totalUsed = transactions.reduce(
-      (sum, t) => sum + Math.abs(t.amount),
-      0
-    );
+    const totalUsed = transactions.reduce((sum, t) => sum + Math.abs(t.amount), 0);
 
     const byFeature = transactions.reduce(
       (acc, t) => {

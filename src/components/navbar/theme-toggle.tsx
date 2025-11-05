@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { MoonIcon, SunIcon } from "lucide-react"
-import { useTheme } from "next-themes"
-import { Toggle } from "@/components/ui/toggle"
+import { MoonIcon, SunIcon } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Toggle } from "@/components/ui/toggle";
 
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
 
-  const isDark = theme === "dark"
+  const isDark = theme === "dark";
 
   return (
     <Toggle
@@ -28,5 +28,5 @@ export default function ThemeToggle() {
         aria-hidden="true"
       />
     </Toggle>
-  )
+  );
 }

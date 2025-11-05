@@ -35,9 +35,7 @@ export default function CreditsPage() {
               />
             </svg>
             <div>
-              <h3 className="font-semibold text-green-900">
-                Payment Successful!
-              </h3>
+              <h3 className="font-semibold text-green-900">Payment Successful!</h3>
               <p className="text-sm text-green-700">
                 Your credits have been added to your account.
               </p>

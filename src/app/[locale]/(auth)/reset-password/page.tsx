@@ -2,23 +2,11 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { LoadingSwap } from "@/components/ui/loading-swap";
 import { toast } from "sonner";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ResetPasswordInput, resetPasswordSchema } from "@/lib/schemas";
@@ -92,16 +80,11 @@ export default function ResetPasswordPage() {
       <Card className="w-full max-w-md mx-auto bg-card border-border">
         <CardHeader>
           <CardTitle className="text-2xl text-primary">{t("title")}</CardTitle>
-          <CardDescription className="text-muted-foreground">
-            {t("subtitle")}
-          </CardDescription>
+          <CardDescription className="text-muted-foreground">{t("subtitle")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form
-              className="space-y-4"
-              onSubmit={form.handleSubmit(handleResetPassword)}
-            >
+            <form className="space-y-4" onSubmit={form.handleSubmit(handleResetPassword)}>
               <FormField
                 control={form.control}
                 name="password"
@@ -120,9 +103,7 @@ export default function ResetPasswordPage() {
                 disabled={isSubmitting}
                 className="flex-1 w-full bg-primary hover:bg-primary/90 text-primary-foreground"
               >
-                <LoadingSwap isLoading={isSubmitting}>
-                  {t("submit")}
-                </LoadingSwap>
+                <LoadingSwap isLoading={isSubmitting}>{t("submit")}</LoadingSwap>
               </Button>
             </form>
           </Form>

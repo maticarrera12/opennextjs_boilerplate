@@ -32,10 +32,7 @@ export default function LogoMarquee() {
         }}
       >
         {duplicatedLogos.map((logo, i) => (
-          <div
-            key={i}
-            className="relative flex-shrink-0 opacity-70 hover:opacity-100 transition"
-          >
+          <div key={i} className="relative flex-shrink-0 opacity-70 hover:opacity-100 transition">
             <Image
               src={logo}
               alt={`logo-${i}`}

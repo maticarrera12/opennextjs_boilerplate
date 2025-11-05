@@ -2,13 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -19,10 +13,7 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  ProfileUpdatePasswordInput,
-  profileUpdatePasswordSchema,
-} from "@/lib/schemas";
+import { ProfileUpdatePasswordInput, profileUpdatePasswordSchema } from "@/lib/schemas";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { PasswordStrength } from "@/components/ui/password-strength";
@@ -36,8 +27,7 @@ export function PasswordForm() {
   const t = useTranslations("settings.security.password");
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showPasswordRequirements, setShowPasswordRequirements] =
-    useState(false);
+  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
 
   const form = useForm<ProfileUpdatePasswordInput>({
     resolver: zodResolver(profileUpdatePasswordSchema),
@@ -68,10 +58,7 @@ export function PasswordForm() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handlePasswordChange)}
-            className="space-y-4"
-          >
+          <form onSubmit={form.handleSubmit(handlePasswordChange)} className="space-y-4">
             {/* Current Password Field */}
             <FormField
               control={form.control}
@@ -90,9 +77,7 @@ export function PasswordForm() {
                       <button
                         type="button"
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                        onClick={() =>
-                          setShowCurrentPassword(!showCurrentPassword)
-                        }
+                        onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                       >
                         {showCurrentPassword ? (
                           <EyeOff className="w-4 h-4" />
@@ -137,10 +122,7 @@ export function PasswordForm() {
                           )}
                         </button>
                       </div>
-                      <PasswordStrength
-                        password={field.value}
-                        show={showPasswordRequirements}
-                      />
+                      <PasswordStrength password={field.value} show={showPasswordRequirements} />
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -154,10 +136,7 @@ export function PasswordForm() {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                   <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>{t("revokeOtherSessions")}</FormLabel>

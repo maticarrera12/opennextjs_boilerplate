@@ -1,12 +1,7 @@
-import React from 'react'
-
+import React from "react";
 
 const Hero = () => {
-  return (
-    <div className='min-h-screen flex items-center justify-center'>
+  return <div className="min-h-screen flex items-center justify-center"></div>;
+};
 
-    </div>
-  )
-}
-
-export default Hero
+export default Hero;

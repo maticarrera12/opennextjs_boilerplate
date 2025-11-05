@@ -68,33 +68,20 @@ export default function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-auto p-0 hover:bg-transparent">
           <Avatar>
-            <AvatarImage
-              src={session.user.image || ""}
-              alt={t("profileImage")}
-            />
+            <AvatarImage src={session.user.image || ""} alt={t("profileImage")} />
             <AvatarFallback>
-              {session.user.name
-                ? session.user.name.charAt(0).toUpperCase()
-                : "U"}
+              {session.user.name ? session.user.name.charAt(0).toUpperCase() : "U"}
             </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        className="max-w-64 min-w-56"
-        align="end"
-        sideOffset={8}
-      >
+      <DropdownMenuContent className="max-w-64 min-w-56" align="end" sideOffset={8}>
         <DropdownMenuLabel className="flex min-w-0 flex-col gap-0.5">
-          <span className="truncate text-sm font-medium text-foreground">
-            {session.user.name}
-          </span>
+          <span className="truncate text-sm font-medium text-foreground">{session.user.name}</span>
           <span className="truncate text-xs font-normal text-muted-foreground">
             {session.user.email}
           </span>
-          <span className="truncate text-xs font-semibold text-primary">
-            {userPlan} Plan
-          </span>
+          <span className="truncate text-xs font-semibold text-primary">{userPlan} Plan</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
@@ -107,11 +94,7 @@ export default function UserMenu() {
           {isAdmin && (
             <DropdownMenuItem asChild>
               <Link href={`/${locale}/dashboard`}>
-                <ShieldIcon
-                  size={16}
-                  className="opacity-60"
-                  aria-hidden="true"
-                />
+                <ShieldIcon size={16} className="opacity-60" aria-hidden="true" />
                 <span>{t("menu.adminPanel")}</span>
               </Link>
             </DropdownMenuItem>

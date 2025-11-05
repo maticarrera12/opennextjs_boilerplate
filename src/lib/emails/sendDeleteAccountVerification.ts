@@ -9,10 +9,7 @@ interface DeleteAccountVerificationData {
   url: string;
 }
 
-export async function sendDeleteAccountVerification({
-  user,
-  url,
-}: DeleteAccountVerificationData) {
+export async function sendDeleteAccountVerification({ user, url }: DeleteAccountVerificationData) {
   return sendEmail({
     to: user.email,
     subject: "Confirm your account deletion ⚠️",

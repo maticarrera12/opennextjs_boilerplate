@@ -7,9 +7,7 @@ import { cn } from "@/lib/utils";
 import type { PaymentMetadata } from "@/types/payment";
 
 function formatCurrency(amount: number, currency = "USD") {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(
-    amount
-  );
+  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(amount);
 }
 
 function startOfMonth(date = new Date()) {
@@ -31,9 +29,7 @@ const BillingPage = async () => {
   if (!session?.user) {
     return (
       <div className="mx-auto max-w-7xl px-6 py-8">
-        <p className="text-sm text-muted-foreground">
-          You must be signed in to view billing.
-        </p>
+        <p className="text-sm text-muted-foreground">You must be signed in to view billing.</p>
       </div>
     );
   }
@@ -72,10 +68,7 @@ const BillingPage = async () => {
 
   const monthlyCredits = planLimit?.monthlyCredits ?? 300;
   const usedThisMonth = Math.max(0, _sum.amount ?? 0);
-  const usagePct = Math.min(
-    100,
-    Math.round((usedThisMonth / monthlyCredits) * 100)
-  );
+  const usagePct = Math.min(100, Math.round((usedThisMonth / monthlyCredits) * 100));
   const remaining = Math.max(0, monthlyCredits - usedThisMonth);
 
   const lastPayment = purchases.find((p) => {
@@ -97,12 +90,8 @@ const BillingPage = async () => {
     <div className="mx-auto max-w-7xl px-8 py-12">
       <div className="space-y-10">
         <header>
-          <h1 className="mb-2 text-4xl font-bold text-foreground">
-            Billing & Subscription
-          </h1>
-          <p className="text-base text-muted-foreground">
-            Manage your plan, usage, and invoices.
-          </p>
+          <h1 className="mb-2 text-4xl font-bold text-foreground">Billing & Subscription</h1>
+          <p className="text-base text-muted-foreground">Manage your plan, usage, and invoices.</p>
         </header>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[2fr,1fr]">
@@ -110,12 +99,8 @@ const BillingPage = async () => {
           <Card className="p-8">
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-semibold text-foreground">
-                  Current Plan
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  Active subscription details
-                </p>
+                <h2 className="text-2xl font-semibold text-foreground">Current Plan</h2>
+                <p className="text-sm text-muted-foreground">Active subscription details</p>
               </div>
               <span
                 className={cn(
@@ -132,32 +117,22 @@ const BillingPage = async () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <Card className="p-6">
                 <p className="text-sm text-muted-foreground mb-1">Plan</p>
-                <p className="text-xl font-semibold text-foreground">
-                  {String(user?.plan ?? "-")}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Billed monthly
-                </p>
+                <p className="text-xl font-semibold text-foreground">{String(user?.plan ?? "-")}</p>
+                <p className="text-xs text-muted-foreground mt-1">Billed monthly</p>
               </Card>
 
               <Card className="p-6">
                 <p className="text-sm text-muted-foreground mb-1">Price</p>
-                <p className="text-xl font-semibold text-foreground">
-                  {formatCurrency(19)} / mo
-                </p>
+                <p className="text-xl font-semibold text-foreground">{formatCurrency(19)} / mo</p>
                 <p className="text-xs text-muted-foreground mt-1">USD</p>
               </Card>
 
               <Card className="p-6">
-                <p className="text-sm text-muted-foreground mb-1">
-                  Next renewal
-                </p>
+                <p className="text-sm text-muted-foreground mb-1">Next renewal</p>
                 <p className="text-xl font-semibold text-foreground">
                   {formatDateSafe(user?.currentPeriodEnd)}
                 </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Auto-renews
-                </p>
+                <p className="text-xs text-muted-foreground mt-1">Auto-renews</p>
               </Card>
             </div>
 
@@ -175,28 +150,17 @@ const BillingPage = async () => {
 
           {/* Usage */}
           <Card className="p-8">
-            <h2 className="mb-4 text-2xl font-semibold text-foreground">
-              Usage
-            </h2>
+            <h2 className="mb-4 text-2xl font-semibold text-foreground">Usage</h2>
             <div className="mb-3 flex items-baseline justify-between">
-              <p className="text-3xl font-semibold text-foreground">
-                {usedThisMonth}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                / {monthlyCredits} credits
-              </p>
+              <p className="text-3xl font-semibold text-foreground">{usedThisMonth}</p>
+              <p className="text-sm text-muted-foreground">/ {monthlyCredits} credits</p>
             </div>
             <div className="h-3 w-full rounded-full bg-muted">
-              <div
-                className="h-3 rounded-full bg-primary"
-                style={{ width: `${usagePct}%` }}
-              />
+              <div className="h-3 rounded-full bg-primary" style={{ width: `${usagePct}%` }} />
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
               Remaining {remaining} · Resets on{" "}
-              {formatDateSafe(
-                new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)
-              )}
+              {formatDateSafe(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1))}
             </p>
             <div className="mt-4 flex gap-3">
               <Button className="flex-1 text-sm">Buy credits</Button>
@@ -211,15 +175,11 @@ const BillingPage = async () => {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr,2fr]">
           {/* Payment Method */}
           <Card className="p-8">
-            <h2 className="mb-4 text-2xl font-semibold text-foreground">
-              Payment Method
-            </h2>
+            <h2 className="mb-4 text-2xl font-semibold text-foreground">Payment Method</h2>
             {lastPaymentLabel ? (
               <div className="flex items-center justify-between rounded-md border border-border p-5">
                 <div>
-                  <p className="text-base font-medium text-foreground">
-                    {lastPaymentLabel}
-                  </p>
+                  <p className="text-base font-medium text-foreground">{lastPaymentLabel}</p>
                   <p className="text-xs text-muted-foreground mt-1">
                     Last used on {formatDateSafe(lastPayment?.createdAt)}
                   </p>
@@ -237,9 +197,7 @@ const BillingPage = async () => {
 
           {/* Invoices */}
           <Card className="p-8">
-            <h2 className="mb-4 text-2xl font-semibold text-foreground">
-              Invoices
-            </h2>
+            <h2 className="mb-4 text-2xl font-semibold text-foreground">Invoices</h2>
             {purchases.length === 0 ? (
               <div className="rounded-md border border-border p-5 text-sm text-muted-foreground">
                 No invoices yet.
@@ -266,9 +224,7 @@ const BillingPage = async () => {
                           : "—";
                       return (
                         <tr key={p.id} className="border-t border-border">
-                          <td className="px-6 py-3">
-                            {formatDateSafe(p.createdAt)}
-                          </td>
+                          <td className="px-6 py-3">{formatDateSafe(p.createdAt)}</td>
                           <td className="px-6 py-3">{p.type}</td>
                           <td className="px-6 py-3">{p.provider}</td>
                           <td className="px-6 py-3">

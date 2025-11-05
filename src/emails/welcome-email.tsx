@@ -42,9 +42,8 @@ export const WelcomeEmail = ({
             <Text style={paragraph}>Hi {userName},</Text>
 
             <Text style={paragraph}>
-              Thank you for joining us! We&apos;re excited to have you on board.
-              To get started, please verify your email address by clicking the
-              button below:
+              Thank you for joining us! We&apos;re excited to have you on board. To get started,
+              please verify your email address by clicking the button below:
             </Text>
 
             {/* CTA Button */}
@@ -54,9 +53,7 @@ export const WelcomeEmail = ({
               </Button>
             </Section>
 
-            <Text style={paragraph}>
-              Or copy and paste this URL into your browser:
-            </Text>
+            <Text style={paragraph}>Or copy and paste this URL into your browser:</Text>
 
             <Text style={link}>
               <Link href={verificationUrl} style={anchor}>
@@ -67,19 +64,14 @@ export const WelcomeEmail = ({
             <Hr style={hr} />
 
             <Text style={paragraph}>
-              If you didn&apos;t create an account, you can safely ignore this
-              email.
+              If you didn&apos;t create an account, you can safely ignore this email.
             </Text>
           </Section>
 
           {/* Footer */}
           <Section style={footer}>
-            <Text style={footerText}>
-              © {currentYear} Your Brand. All rights reserved.
-            </Text>
-            <Text style={footerText}>
-              This is an automated message, please do not reply.
-            </Text>
+            <Text style={footerText}>© {currentYear} Your Brand. All rights reserved.</Text>
+            <Text style={footerText}>This is an automated message, please do not reply.</Text>
           </Section>
         </Container>
       </Body>

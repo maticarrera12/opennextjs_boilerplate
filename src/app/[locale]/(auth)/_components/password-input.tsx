@@ -18,8 +18,7 @@ interface PasswordInputProps<T extends FieldValues & { password: string }> {
 const PasswordInput = <T extends FieldValues & { password: string }>({
   form,
 }: PasswordInputProps<T>) => {
-  const [showPasswordRequirements, setShowPasswordRequirements] =
-    useState(false);
+  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -45,17 +44,10 @@ const PasswordInput = <T extends FieldValues & { password: string }>({
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? (
-                    <EyeOff className="w-4 h-4" />
-                  ) : (
-                    <Eye className="w-4 h-4" />
-                  )}
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-              <PasswordStrength
-                password={field.value}
-                show={showPasswordRequirements}
-              />
+              <PasswordStrength password={field.value} show={showPasswordRequirements} />
             </div>
           </FormControl>
           <FormMessage />

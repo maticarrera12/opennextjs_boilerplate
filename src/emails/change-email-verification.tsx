@@ -38,12 +38,11 @@ export const ChangeEmailVerification = ({
             <Heading style={heading}>Verify Your New Email</Heading>
             <Text style={paragraph}>Hi {userName},</Text>
             <Text style={paragraph}>
-              You recently requested to change your email address to{" "}
-              <strong>{newEmail}</strong>.
+              You recently requested to change your email address to <strong>{newEmail}</strong>.
             </Text>
             <Text style={paragraph}>
-              To complete this change, please verify your new email address by
-              clicking the button below:
+              To complete this change, please verify your new email address by clicking the button
+              below:
             </Text>
             <Section style={buttonContainer}>
               <Button style={button} href={verificationUrl}>
@@ -51,8 +50,7 @@ export const ChangeEmailVerification = ({
               </Button>
             </Section>
             <Text style={paragraph}>
-              If the button doesn&apos;t work, copy and paste this link into
-              your browser:
+              If the button doesn&apos;t work, copy and paste this link into your browser:
             </Text>
             <Text style={link}>
               <Link href={verificationUrl} style={anchor}>
@@ -61,23 +59,18 @@ export const ChangeEmailVerification = ({
             </Text>
             <Section style={warningBox}>
               <Text style={warningText}>
-                ⏰ For security reasons, this link will expire in{" "}
-                <strong>1 hour</strong>.
+                ⏰ For security reasons, this link will expire in <strong>1 hour</strong>.
               </Text>
             </Section>
             <Hr style={hr} />
             <Text style={paragraph}>
-              If you didn&apos;t request this email change, please ignore this
-              message and your email address will remain unchanged.
+              If you didn&apos;t request this email change, please ignore this message and your
+              email address will remain unchanged.
             </Text>
           </Section>
           <Section style={footer}>
-            <Text style={footerText}>
-              © {currentYear} Your Brand. All rights reserved.
-            </Text>
-            <Text style={footerText}>
-              This is an automated message, please do not reply.
-            </Text>
+            <Text style={footerText}>© {currentYear} Your Brand. All rights reserved.</Text>
+            <Text style={footerText}>This is an automated message, please do not reply.</Text>
           </Section>
         </Container>
       </Body>

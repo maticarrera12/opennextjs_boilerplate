@@ -50,16 +50,10 @@ export default function SignUpPage() {
         setError(t("error"));
       } else {
         // Redirect to verification page on success
-        router.push(
-          `/verificationEmail?email=${encodeURIComponent(data.email)}`
-        );
+        router.push(`/verificationEmail?email=${encodeURIComponent(data.email)}`);
       }
     } catch (err) {
-      setError(
-        `${t("unexpectedError")}: ${
-          err instanceof Error ? err.message : "Unknown error"
-        }`
-      );
+      setError(`${t("unexpectedError")}: ${err instanceof Error ? err.message : "Unknown error"}`);
     }
   };
 
@@ -88,9 +82,7 @@ export default function SignUpPage() {
               <Separator />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-card text-muted-foreground">
-                {t("orContinueWith")}
-              </span>
+              <span className="px-2 bg-card text-muted-foreground">{t("orContinueWith")}</span>
             </div>
           </div>
 
@@ -103,10 +95,7 @@ export default function SignUpPage() {
 
           {/* Form */}
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleSignUp)}
-              className="space-y-4"
-            >
+            <form onSubmit={form.handleSubmit(handleSignUp)} className="space-y-4">
               <FormField
                 control={form.control}
                 name="name"
@@ -142,19 +131,14 @@ export default function SignUpPage() {
                 disabled={isSubmitting}
                 className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
               >
-                <LoadingSwap isLoading={isSubmitting}>
-                  {t("submit")}
-                </LoadingSwap>
+                <LoadingSwap isLoading={isSubmitting}>{t("submit")}</LoadingSwap>
               </Button>
             </form>
           </Form>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             {t("haveAccount")}{" "}
-            <Link
-              href="/signin"
-              className="font-medium text-primary hover:text-primary/80"
-            >
+            <Link href="/signin" className="font-medium text-primary hover:text-primary/80">
               {t("signIn")}
             </Link>
           </p>

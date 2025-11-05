@@ -46,8 +46,8 @@ export const WaitlistWelcomeEmail = ({
             <Text style={paragraph}>Hi {userName},</Text>
 
             <Text style={paragraph}>
-              Thank you for joining our waitlist! We&apos;re excited to have you
-              as one of our early supporters.
+              Thank you for joining our waitlist! We&apos;re excited to have you as one of our early
+              supporters.
             </Text>
 
             {/* Position Badge */}
@@ -58,9 +58,8 @@ export const WaitlistWelcomeEmail = ({
             </Section>
 
             <Text style={paragraph}>
-              Want to skip ahead? Share your unique referral link with friends!
-              For every person who joins using your link, you&apos;ll both move
-              up in the queue.
+              Want to skip ahead? Share your unique referral link with friends! For every person who
+              joins using your link, you&apos;ll both move up in the queue.
             </Text>
 
             {/* Referral Code Box */}
@@ -87,20 +86,15 @@ export const WaitlistWelcomeEmail = ({
             <Hr style={hr} />
 
             <Text style={paragraph}>
-              We&apos;ll notify you as soon as we&apos;re ready to launch. In
-              the meantime, follow us on social media for updates and sneak
-              peeks!
+              We&apos;ll notify you as soon as we&apos;re ready to launch. In the meantime, follow
+              us on social media for updates and sneak peeks!
             </Text>
           </Section>
 
           {/* Footer */}
           <Section style={footer}>
-            <Text style={footerText}>
-              © {currentYear} Your Brand. All rights reserved.
-            </Text>
-            <Text style={footerText}>
-              You received this email because you joined our waitlist.
-            </Text>
+            <Text style={footerText}>© {currentYear} Your Brand. All rights reserved.</Text>
+            <Text style={footerText}>You received this email because you joined our waitlist.</Text>
           </Section>
         </Container>
       </Body>

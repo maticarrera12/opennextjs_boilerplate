@@ -16,10 +16,7 @@ import { LoadingSwap } from "@/components/ui/loading-swap";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
-import {
-  forgotPasswordSchema,
-  ForgotPasswordInput,
-} from "@/lib/schemas/auth.schema";
+import { forgotPasswordSchema, ForgotPasswordInput } from "@/lib/schemas/auth.schema";
 import { useRouter } from "next/navigation";
 
 function ForgotPassword() {
@@ -53,10 +50,7 @@ function ForgotPassword() {
 
   return (
     <Form {...form}>
-      <form
-        className="space-y-4"
-        onSubmit={form.handleSubmit(handleForgotPassword)}
-      >
+      <form className="space-y-4" onSubmit={form.handleSubmit(handleForgotPassword)}>
         <FormField
           control={form.control}
           name="email"
@@ -72,11 +66,7 @@ function ForgotPassword() {
         />
 
         <div className="flex gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => router.push("/signin")}
-          >
+          <Button type="button" variant="outline" onClick={() => router.push("/signin")}>
             {t("backToSignIn")}
           </Button>
           <Button

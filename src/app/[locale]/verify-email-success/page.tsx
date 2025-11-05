@@ -7,14 +7,11 @@ import { authClient } from "@/lib/auth-client";
 export default function VerifyEmailSuccessPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [status, setStatus] = useState<"loading" | "success" | "error">(
-    "loading"
-  );
+  const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
 
   // Detectar si viene de signup o cambio de email
   const callbackURL = searchParams.get("callbackURL") || "/";
-  const isChangeEmail =
-    callbackURL.includes("/profile") || callbackURL.includes("/settings");
+  const isChangeEmail = callbackURL.includes("/profile") || callbackURL.includes("/settings");
   const redirectPath = isChangeEmail ? "/app/settings/account/profile" : "/";
 
   useEffect(() => {
@@ -59,23 +56,17 @@ export default function VerifyEmailSuccessPage() {
           <>
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
             <h1 className="text-2xl font-bold mb-2">Verifying your email...</h1>
-            <p className="text-muted-foreground">
-              Please wait while we update your account.
-            </p>
+            <p className="text-muted-foreground">Please wait while we update your account.</p>
           </>
         )}
 
         {status === "success" && (
           <>
             <div className="text-green-500 text-5xl mb-4">✓</div>
-            <h1 className="text-2xl font-bold mb-2 text-foreground">
-              Email Verified!
-            </h1>
+            <h1 className="text-2xl font-bold mb-2 text-foreground">Email Verified!</h1>
             <p className="text-muted-foreground">
               Your email has been successfully verified.
-              {isChangeEmail
-                ? " Redirecting to your profile..."
-                : " Redirecting to home..."}
+              {isChangeEmail ? " Redirecting to your profile..." : " Redirecting to home..."}
             </p>
           </>
         )}
@@ -83,9 +74,7 @@ export default function VerifyEmailSuccessPage() {
         {status === "error" && (
           <>
             <div className="text-destructive text-5xl mb-4">✗</div>
-            <h1 className="text-2xl font-bold mb-2 text-destructive">
-              Verification Failed
-            </h1>
+            <h1 className="text-2xl font-bold mb-2 text-destructive">Verification Failed</h1>
             <p className="text-muted-foreground mb-4">
               There was an error verifying your email. Please try again.
             </p>

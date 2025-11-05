@@ -55,8 +55,7 @@ export default function SignInPage() {
         toast.error(t("error"));
       }
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : t("unexpectedError");
+      const errorMessage = err instanceof Error ? err.message : t("unexpectedError");
       setError(errorMessage);
       toast.error(errorMessage);
     }
@@ -87,9 +86,7 @@ export default function SignInPage() {
               <Separator />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-card text-muted-foreground">
-                {t("orContinueWith")}
-              </span>
+              <span className="px-2 bg-card text-muted-foreground">{t("orContinueWith")}</span>
             </div>
           </div>
 
@@ -102,10 +99,7 @@ export default function SignInPage() {
 
           {/* Form */}
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleSignIn)}
-              className="space-y-4"
-            >
+            <form onSubmit={form.handleSubmit(handleSignIn)} className="space-y-4">
               <FormField
                 control={form.control}
                 name="email"
@@ -183,19 +177,14 @@ export default function SignInPage() {
                 disabled={isSubmitting}
                 className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
               >
-                <LoadingSwap isLoading={isSubmitting}>
-                  {t("submit")}
-                </LoadingSwap>
+                <LoadingSwap isLoading={isSubmitting}>{t("submit")}</LoadingSwap>
               </Button>
             </form>
           </Form>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             {t("noAccount")}{" "}
-            <Link
-              href="/signup"
-              className="font-medium text-primary hover:text-primary/80"
-            >
+            <Link href="/signup" className="font-medium text-primary hover:text-primary/80">
               {t("signUp")}
             </Link>
           </p>

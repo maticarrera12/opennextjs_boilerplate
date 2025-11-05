@@ -41,19 +41,13 @@ const BentoShowcase = () => {
               <br className="hidden md:block" />
               Showcase
             </h2>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              Discover amazing capabilities
-            </p>
+            <p className="text-xs text-muted-foreground mt-0.5">Discover amazing capabilities</p>
           </div>
 
           {/* Date Card */}
           <div className="col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1 bg-card border border-border rounded-xl flex flex-col items-center justify-center gap-0.5 p-2 md:p-3">
-            <div className="text-xs md:text-sm font-semibold text-muted-foreground">
-              Mon
-            </div>
-            <div className="text-2xl md:text-3xl font-bold text-foreground">
-              24
-            </div>
+            <div className="text-xs md:text-sm font-semibold text-muted-foreground">Mon</div>
+            <div className="text-2xl md:text-3xl font-bold text-foreground">24</div>
           </div>
 
           {/* Icon Card */}
@@ -66,16 +60,12 @@ const BentoShowcase = () => {
           {/* Stats Card */}
           <div className="col-span-2 row-span-2 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2 bg-card border border-border rounded-xl p-3 md:p-4 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-medium text-muted-foreground">
-                Metrics
-              </span>
+              <span className="text-xs font-medium text-muted-foreground">Metrics</span>
               <button className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm hover:bg-primary/90 transition">
                 +
               </button>
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-              2.4K
-            </div>
+            <div className="text-2xl md:text-3xl font-bold text-foreground mb-2">2.4K</div>
             <div className="h-12 md:h-14 relative">
               <svg className="w-full h-full" viewBox="0 0 200 60">
                 <polyline
@@ -85,29 +75,19 @@ const BentoShowcase = () => {
                   strokeWidth="2"
                   className="text-primary"
                 />
-                <circle
-                  cx="100"
-                  cy="25"
-                  r="4"
-                  fill="currentColor"
-                  className="text-primary"
-                />
+                <circle cx="100" cy="25" r="4" fill="currentColor" className="text-primary" />
               </svg>
             </div>
           </div>
 
           {/* Timer Card */}
           <div className="col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1 bg-card border border-border rounded-xl flex items-center justify-center">
-            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
-              24:00
-            </div>
+            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">24:00</div>
           </div>
 
           {/* Device Preview */}
           <div className="col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1 bg-card border border-border rounded-xl flex items-center justify-center p-2 md:p-3 overflow-hidden relative">
-            <span className="text-xs md:text-sm text-muted-foreground">
-              Cool feature
-            </span>
+            <span className="text-xs md:text-sm text-muted-foreground">Cool feature</span>
           </div>
 
           {/* CTA Card */}
@@ -118,13 +98,9 @@ const BentoShowcase = () => {
                 <br />
                 Today
               </h3>
-              <div className="text-xs text-muted-foreground mt-0.5">
-                Build something amazing
-              </div>
+              <div className="text-xs text-muted-foreground mt-0.5">Build something amazing</div>
             </div>
-            <div className="text-3xl md:text-4xl lg:text-5xl opacity-20">
-              🚀
-            </div>
+            <div className="text-3xl md:text-4xl lg:text-5xl opacity-20">🚀</div>
           </div>
         </div>
       </div>

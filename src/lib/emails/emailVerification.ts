@@ -9,10 +9,7 @@ interface EmailVerificationData {
   url: string;
 }
 
-export async function sendEmailVerificationEmail({
-  user,
-  url,
-}: EmailVerificationData) {
+export async function sendEmailVerificationEmail({ user, url }: EmailVerificationData) {
   return sendEmail({
     to: user.email,
     subject: "Welcome! Verify your email address 🎉",

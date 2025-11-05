@@ -38,13 +38,11 @@ export default async function LocaleLayout({
     headers: await headers(),
   });
 
-   const CrispWithNoSSR = dynamic(() => import("../../components/crisp"));
+  const CrispWithNoSSR = dynamic(() => import("../../components/crisp"));
 
   return (
     <html lang={locale}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}

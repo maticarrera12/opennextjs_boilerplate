@@ -122,9 +122,7 @@ export function PricingCards() {
     } catch (error) {
       console.error("Checkout error:", error);
       const errorMessage =
-        error instanceof Error
-          ? error.message
-          : "Failed to create checkout session";
+        error instanceof Error ? error.message : "Failed to create checkout session";
 
       alert(`❌ Error: ${errorMessage}`);
 
@@ -140,9 +138,7 @@ export function PricingCards() {
     <div id="pricing" className="w-full py-16 bg-background">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-foreground mb-4">
-            {t("title")}
-          </h2>
+          <h2 className="text-4xl font-bold text-foreground mb-4">{t("title")}</h2>
           <p className="text-xl text-muted-foreground">{t("subtitle")}</p>
 
           {/* Toggle Monthly/Annual */}
@@ -219,14 +215,7 @@ export function PricingCards() {
   );
 }
 
-function PlanCard({
-  plan,
-  interval,
-  isPopular,
-  t,
-  onChoosePlan,
-  currentUserPlan,
-}: PlanCardProps) {
+function PlanCard({ plan, interval, isPopular, t, onChoosePlan, currentUserPlan }: PlanCardProps) {
   const price =
     interval === "monthly"
       ? plan.price.monthly
@@ -234,18 +223,13 @@ function PlanCard({
         ? plan.price.annual
         : plan.price.monthly;
   const pricePerMonth =
-    interval === "annual" && "annual" in plan.price
-      ? Math.round(plan.price.annual / 12)
-      : price;
+    interval === "annual" && "annual" in plan.price ? Math.round(plan.price.annual / 12) : price;
 
-  const isCurrentPlan =
-    currentUserPlan?.toUpperCase() === plan.id.toUpperCase();
+  const isCurrentPlan = currentUserPlan?.toUpperCase() === plan.id.toUpperCase();
 
   return (
     <Card
-      className={`relative ${
-        isPopular ? "border-primary shadow-lg ring-2 ring-primary/20" : ""
-      }`}
+      className={`relative ${isPopular ? "border-primary shadow-lg ring-2 ring-primary/20" : ""}`}
     >
       {isPopular && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-xs font-semibold">
@@ -256,9 +240,7 @@ function PlanCard({
       <CardHeader className="text-center pb-4">
         <CardTitle className="text-2xl">{plan.name}</CardTitle>
         <div className="mt-4 flex items-baseline justify-center">
-          <span className="text-5xl font-bold text-foreground">
-            ${pricePerMonth}
-          </span>
+          <span className="text-5xl font-bold text-foreground">${pricePerMonth}</span>
           <span className="ml-2 text-muted-foreground">{t("perMonth")}</span>
         </div>
         {interval === "annual" && (
@@ -273,10 +255,8 @@ function PlanCard({
           <li className="flex items-center gap-2">
             <Check className="h-4 w-4 text-primary flex-shrink-0" />
             <span className="text-sm text-foreground">
-              <strong>{plan.credits.monthly}</strong>{" "}
-              {t("plans.free.features.credits")}
-              {plan.credits.rollover &&
-                ` (${t("plans.free.features.rollover")})`}
+              <strong>{plan.credits.monthly}</strong> {t("plans.free.features.credits")}
+              {plan.credits.rollover && ` (${t("plans.free.features.rollover")})`}
             </span>
           </li>
           {plan.features.map((feature: string, idx: number) => (
@@ -317,9 +297,7 @@ function CreditPackCard({ pack, t, onBuyCredits }: CreditPackCardProps) {
       <CardHeader className="text-center pb-4">
         <CardTitle className="text-2xl">{pack.name}</CardTitle>
         <div className="mt-4 flex items-baseline justify-center">
-          <span className="text-5xl font-bold text-foreground">
-            ${pack.price}
-          </span>
+          <span className="text-5xl font-bold text-foreground">${pack.price}</span>
         </div>
         <CardDescription className="mt-2">
           {pack.credits} {t("creditPacks.credits")}
@@ -336,8 +314,7 @@ function CreditPackCard({ pack, t, onBuyCredits }: CreditPackCardProps) {
           <li className="flex items-center gap-2">
             <Check className="h-4 w-4 text-primary flex-shrink-0" />
             <span className="text-sm text-foreground">
-              <strong>{pack.credits}</strong>{" "}
-              {t("creditPacks.features.addedInstantly")}
+              <strong>{pack.credits}</strong> {t("creditPacks.features.addedInstantly")}
             </span>
           </li>
           <li className="flex items-center gap-2">
@@ -354,9 +331,7 @@ function CreditPackCard({ pack, t, onBuyCredits }: CreditPackCardProps) {
           </li>
           <li className="flex items-center gap-2">
             <Check className="h-4 w-4 text-primary flex-shrink-0" />
-            <span className="text-sm text-foreground">
-              {t("creditPacks.features.useAnytime")}
-            </span>
+            <span className="text-sm text-foreground">{t("creditPacks.features.useAnytime")}</span>
           </li>
         </ul>
       </CardContent>

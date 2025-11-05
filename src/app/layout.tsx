@@ -1,11 +1,6 @@
 import { headers } from "next/headers";
 
-
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "";
 

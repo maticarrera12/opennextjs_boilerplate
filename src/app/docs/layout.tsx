@@ -12,11 +12,7 @@ const navbar = (
 
 const footer = <Footer> {new Date().getFullYear()} © OpenNextJS.</Footer>;
 
-export default async function DocsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function DocsLayout({ children }: { children: React.ReactNode }) {
   const pageMap = await getPageMap("/docs");
 
   return (

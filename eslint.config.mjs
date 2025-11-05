@@ -16,7 +16,7 @@ export default [
         ecmaVersion: 2022,
         sourceType: "module",
       },
-  
+
       globals: {
         window: true,
         document: true,
@@ -54,7 +54,6 @@ export default [
       // 💅 Prettier
       "prettier/prettier": "error",
 
-
       "unused-imports/no-unused-imports": "error",
       "import/order": [
         "warn",
@@ -74,13 +73,6 @@ export default [
     },
   },
   {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "dist/**",
-      "build/**",
-      "next-env.d.ts",
-    ],
+    ignores: ["node_modules/**", ".next/**", "out/**", "dist/**", "build/**", "next-env.d.ts"],
   },
 ];

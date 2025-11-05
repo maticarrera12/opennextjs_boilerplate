@@ -20,11 +20,7 @@ const page = async () => {
 
   return (
     <div className="space-y-6">
-      {hasPassword ? (
-        <PasswordForm />
-      ) : (
-        <SetPasswordButton email={user.email} />
-      )}
+      {hasPassword ? <PasswordForm /> : <SetPasswordButton email={user.email} />}
 
       <Card>
         <CardContent>

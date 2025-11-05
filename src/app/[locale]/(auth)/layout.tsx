@@ -3,11 +3,7 @@ import { Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/navbar/theme-toggle";
 
-export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative min-h-screen">
       {/* Header with Home button */}

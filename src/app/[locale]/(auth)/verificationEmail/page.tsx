@@ -64,9 +64,7 @@ export default function VerificationEmailPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="max-w-md w-full p-8 bg-card rounded-xl shadow-sm border border-border">
-        <h1 className="text-2xl font-bold mb-4 text-foreground">
-          {t("title")}
-        </h1>
+        <h1 className="text-2xl font-bold mb-4 text-foreground">{t("title")}</h1>
         <EmailVerification email={email} />
         <div className="text-center mt-4">
           <p className="text-sm text-muted-foreground">{t("footer")}</p>

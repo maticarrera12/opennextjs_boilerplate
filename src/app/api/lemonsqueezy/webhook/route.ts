@@ -60,10 +60,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ received: true });
   } catch (error) {
     console.error("Lemon Squeezy webhook error:", error);
-    return NextResponse.json(
-      { error: "Webhook handler failed" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Webhook handler failed" }, { status: 500 });
   }
 }
 
@@ -102,8 +99,7 @@ async function handleLSSubscriptionUpdate(data: any) {
   }
 
   const planConfig = PLANS[plan];
-  const isNewSubscription =
-    status === "active" && user.subscriptionId !== subscriptionId;
+  const isNewSubscription = status === "active" && user.subscriptionId !== subscriptionId;
 
   // Update user
   await prisma.user.update({
@@ -225,9 +221,7 @@ async function handleLSOrderCreated(data: any) {
   }
 
   // Check if it's a credit pack
-  const pack = Object.values(CREDIT_PACKS).find(
-    (p) => p.lemonSqueezy.variantId === variantId
-  );
+  const pack = Object.values(CREDIT_PACKS).find((p) => p.lemonSqueezy.variantId === variantId);
 
   if (pack) {
     // Add credits
@@ -307,10 +301,7 @@ function mapLSStatus(status: string): PlanStatus {
 
 function getPlanFromVariantId(variantId: string): keyof typeof PLANS | null {
   for (const [planName, config] of Object.entries(PLANS)) {
-    if (
-      config.lemonSqueezy?.monthly === variantId ||
-      config.lemonSqueezy?.annual === variantId
-    ) {
+    if (config.lemonSqueezy?.monthly === variantId || config.lemonSqueezy?.annual === variantId) {
       return planName as keyof typeof PLANS;
     }
   }

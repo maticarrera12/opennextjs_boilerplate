@@ -123,11 +123,7 @@
   inset: 0;
   border-radius: 0.5rem;
   z-index: -1;
-  background: linear-gradient(
-    to right,
-    rgba(251, 146, 60, 0.6),
-    rgba(59, 130, 246, 0.7)
-  );
+  background: linear-gradient(to right, rgba(251, 146, 60, 0.6), rgba(59, 130, 246, 0.7));
 }
 
 .dark .hero-gradient-title {

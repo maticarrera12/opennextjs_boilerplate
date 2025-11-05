@@ -23,15 +23,12 @@ const Hero = () => {
     inline-block px-6 py-3 rounded-lg -skew-x-3 transform rotate-[-1deg]
   "
             >
-              {t("heading.part1")} <span>{t("heading.highlight")}</span>{" "}
-              {t("heading.part2")}
+              {t("heading.part1")} <span>{t("heading.highlight")}</span> {t("heading.part2")}
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
               {t("description.part1")}{" "}
-              <span className="font-semibold">
-                {t("description.highlight")}
-              </span>{" "}
+              <span className="font-semibold">{t("description.highlight")}</span>{" "}
               {t("description.part2")}
             </p>
             <div className="flex items-center justify-center gap-4 pt-4">
@@ -65,9 +62,7 @@ const Hero = () => {
             ></div>
             <div className="relative aspect-[4/3] bg-muted rounded-lg flex items-center justify-center overflow-hidden z-10">
               <div className="absolute inset-0 flex items-center justify-center z-10">
-                <p className="text-2xl font-bold text-muted-foreground">
-                  {t("imagePlaceholder")}
-                </p>
+                <p className="text-2xl font-bold text-muted-foreground">{t("imagePlaceholder")}</p>
               </div>
               {/* Uncomment and add your image when ready */}
               {/* <Image
