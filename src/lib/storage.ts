@@ -84,6 +84,7 @@ export async function deleteImages(urls: string[]): Promise<void> {
  * so you'd need to track this in your database
  */
 export async function getUserStorageUsage(_userId: string): Promise<number> {
+  void _userId;
   // TODO: Implement by querying BrandAsset table
   // and summing fileSize for the user
   return 0;
