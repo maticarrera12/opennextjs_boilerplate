@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 
+import { FeatureTabs } from "./_components/feature-tabs";
 import LogoMarquee from "./_components/logo-marquee";
 import BentoShowcase from "@/app/[locale]/(marketing)/_components/bento-showcase";
 import Faq from "@/app/[locale]/(marketing)/_components/faq";
@@ -13,6 +14,7 @@ const page = () => {
       <Hero />
       <LogoMarquee />
       <BentoShowcase />
+      <FeatureTabs />
       <PricingCards />
       <Faq />
     </div>

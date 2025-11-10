@@ -286,6 +286,60 @@
       }
     }
   },
+  "featureTabs": {
+    "tabs": {
+      "auth": "Autenticación",
+      "payments": "Pagos",
+      "storage": "Almacenamiento",
+      "admin": "Panel de Administración",
+      "ai": "IA y Marca"
+    },
+    "auth": {
+      "title": "Autenticación",
+      "items": [
+        "Autenticación Plug & Play con Better Auth.",
+        "Soporte para Email, OAuth (Google / GitHub) y Magic Links.",
+        "Acceso basado en roles y sesiones seguras.",
+        "Campos de usuario personalizados integrados con Prisma."
+      ]
+    },
+    "payments": {
+      "title": "Pagos",
+      "items": [
+        "Integración con Stripe y Lemon Squeezy.",
+        "Suscripciones, créditos y campañas LTD listas.",
+        "Webhooks automáticos y plan gating.",
+        "Panel de facturación con análisis en tiempo real."
+      ]
+    },
+    "storage": {
+      "title": "Almacenamiento y Cargas",
+      "items": [
+        "Carga de archivos con Vercel Blob o Cloudinary.",
+        "Gestión optimizada de imágenes.",
+        "URLs firmadas y seguras con expiración.",
+        "Cargas de arrastrar y soltar preconfiguradas."
+      ]
+    },
+    "admin": {
+      "title": "Panel de Administración",
+      "items": [
+        "Vista general completa de los datos y usuarios de tu aplicación.",
+        "Seguimiento de suscripciones, uso y análisis en tiempo real.",
+        "Gestiona usuarios, planes, créditos y salud del sistema.",
+        "Construido con Tremor + Shadcn UI para un diseño moderno y limpio."
+      ]
+    },
+    "ai": {
+      "title": "Herramientas de IA y Marca",
+      "items": [
+        "Integración lista para usar con la API de OpenAI.",
+        "Genera texto, imágenes, paletas de colores y más.",
+        "Sistema de créditos basado en uso con seguimiento.",
+        "Almacenamiento persistente mediante el modelo BrandAsset."
+      ]
+    }
+  },
   "hero": {
     "heading": {
       "part1": "Título Conciso que Describe",

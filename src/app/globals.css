@@ -111,24 +111,6 @@
   --sidebar-border: oklch(0.28 0.06 264);
   --sidebar-ring: oklch(0.65 0.18 264);
 }
-.hero-gradient-title {
-  position: relative;
-  color: #1f2937;
-  background: #ffffff !important; /* Fondo blanco fijo para que el gradiente siempre se vea igual */
-}
-
-.hero-gradient-title::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 0.5rem;
-  z-index: -1;
-  background: linear-gradient(to right, rgba(251, 146, 60, 0.6), rgba(59, 130, 246, 0.7));
-}
-
-.dark .hero-gradient-title {
-  background: #ffffff !important; /* Mantener fondo blanco incluso en dark mode */
-}
 
 /* default shadcn theme
 @theme inline {
@@ -248,15 +230,6 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-/* Fixed gradient for hero heading - not affected by theme */
-.hero-gradient-title span {
-  color: #3b82f6 !important;
-}
-
-.dark .hero-gradient-title span {
-  color: #3b82f6 !important;
 }
 
 /* Modern scrollbars */

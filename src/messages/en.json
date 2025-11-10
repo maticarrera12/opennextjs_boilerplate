@@ -300,6 +300,60 @@
     "cta": "Get Started",
     "imagePlaceholder": "Replace image"
   },
+  "featureTabs": {
+    "tabs": {
+      "auth": "Authentication",
+      "payments": "Payments",
+      "storage": "Storage",
+      "admin": "Admin Dashboard",
+      "ai": "AI & Brand"
+    },
+    "auth": {
+      "title": "Authentication",
+      "items": [
+        "Plug & Play auth with Better Auth.",
+        "Supports Email, OAuth (Google / GitHub) & Magic Links.",
+        "Role-based access and secure sessions.",
+        "Custom user fields integrated with Prisma."
+      ]
+    },
+    "payments": {
+      "title": "Payments",
+      "items": [
+        "Integrates Stripe & Lemon Squeezy.",
+        "Subscriptions, credits, and LTD campaigns ready.",
+        "Automatic webhooks & plan gating.",
+        "Billing panel with real-time analytics."
+      ]
+    },
+    "storage": {
+      "title": "Storage & Uploads",
+      "items": [
+        "Upload files with Vercel Blob or Cloudinary.",
+        "Optimized image management.",
+        "Secure, signed URLs with expiration.",
+        "Drag & drop uploads preconfigured."
+      ]
+    },
+    "admin": {
+      "title": "Admin Dashboard",
+      "items": [
+        "Comprehensive overview of your app's data and users.",
+        "Track subscriptions, usage, and analytics in real-time.",
+        "Manage users, plans, credits, and system health.",
+        "Built with Tremor + Shadcn UI for a modern and clean layout."
+      ]
+    },
+    "ai": {
+      "title": "AI & Brand Tools",
+      "items": [
+        "Ready-to-use OpenAI API integration.",
+        "Generate text, images, color palettes, and more.",
+        "Usage-based credit system with tracking.",
+        "Persistent storage via the BrandAsset model."
+      ]
+    }
+  },
   "faq": {
     "title": "FAQ",
     "subtitle": "Frequently asked questions",
