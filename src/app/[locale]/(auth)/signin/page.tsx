@@ -1,5 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -31,6 +32,7 @@ export default function SignInPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const t = useTranslations("auth.signin");
+  const queryClient = useQueryClient();
 
   const form = useForm<SignInInput>({
     resolver: zodResolver(signInSchema),
@@ -49,6 +51,7 @@ export default function SignInPage() {
       const result = await signIn(data.email, data.password);
 
       if (result && result.user) {
+        queryClient.invalidateQueries({ queryKey: ["session"] });
         toast.success(t("success"));
         router.push(searchParams.get("callbackUrl") || "/");
       } else {

@@ -1,4 +1,5 @@
 "use client";
+import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { LogOutIcon, ArrowLeftIcon, type LucideIcon } from "lucide-react";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import React, { useState } from "react";
 
 import { LanguageSwitcher } from "@/components/navbar/languaje-switcher";
 import ThemeToggle from "@/components/navbar/theme-toggle";
+import { useLocaleRouting } from "@/hooks/useLocaleRouting";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
@@ -43,15 +45,18 @@ export default function AppSidebar({
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const queryClient = useQueryClient();
+  const { push } = useLocaleRouting();
 
   const handleSignOut = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          window.location.href = "/";
-        },
-      },
-    });
+    await authClient.signOut();
+    queryClient.removeQueries({ queryKey: ["session"], exact: true });
+    queryClient.removeQueries({ queryKey: ["adminRole"], exact: true });
+    queryClient.removeQueries({ queryKey: ["userPlan"], exact: true });
+    queryClient.removeQueries({ queryKey: ["credits"], exact: true });
+
+    queryClient.invalidateQueries();
+    push("/");
   };
 
   return (

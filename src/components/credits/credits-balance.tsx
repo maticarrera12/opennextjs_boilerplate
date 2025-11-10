@@ -1,7 +1,7 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 import { useSession } from "@/lib/auth-client";
 
@@ -15,19 +15,16 @@ interface CreditInfo {
 
 export function CreditBalance() {
   const { data: session } = useSession();
-  const [credits, setCredits] = useState<CreditInfo | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (session?.user) {
-      fetchCredits();
-    }
-  }, [session]);
-
-  async function fetchCredits() {
-    try {
-      setError(null);
+  const {
+    data: credits,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<CreditInfo>({
+    queryKey: ["credits", session?.user?.id],
+    queryFn: async () => {
+      if (!session?.user) throw new Error("No session available");
       const res = await fetch("/api/credits/balance");
       if (!res.ok) {
         const message =
@@ -36,28 +33,23 @@ export function CreditBalance() {
             : "Unable to fetch credits at this time.";
         throw new Error(message);
       }
-      const data = await res.json();
-      setCredits(data);
-    } catch (error) {
-      const message =
-        error instanceof Error && error.message
-          ? error.message
-          : "Unexpected error while fetching credits.";
-      setCredits(null);
-      setError(message);
-    } finally {
-      setLoading(false);
-    }
-  }
+      return res.json();
+    },
+    enabled: !!session?.user,
+    retry: 1,
+    refetchInterval: 60000,
+  });
 
-  if (loading) {
+  if (isLoading) {
     return <div className="h-24 rounded-md bg-muted animate-pulse" />;
   }
 
-  if (!credits || error) {
+  if (isError || !credits) {
     return (
       <div className="rounded-md border border-border bg-card p-3">
-        <p className="text-sm text-destructive">{error ?? "Unable to load credit information."}</p>
+        <p className="text-sm text-destructive">
+          {(error as Error)?.message ?? "Unable to load credit information."}
+        </p>
       </div>
     );
   }
@@ -73,14 +65,12 @@ export function CreditBalance() {
         <span className="text-xs text-muted-foreground">{credits.plan}</span>
       </div>
 
-      {/* Balance Display */}
       <div className="mb-2">
         <div className="flex items-baseline justify-between">
           <span className="text-2xl font-semibold text-foreground">{credits.balance}</span>
           <span className="text-xs text-muted-foreground">/ {credits.monthlyAllocation}</span>
         </div>
 
-        {/* Progress Bar */}
         <div className="mt-1 h-1.5 w-full rounded-full bg-muted">
           <div
             className={`h-1.5 rounded-full transition-all ${
@@ -91,7 +81,6 @@ export function CreditBalance() {
         </div>
       </div>
 
-      {/* Usage Stats */}
       <div className="space-y-1 text-xs text-muted-foreground">
         <div className="flex justify-between">
           <span>Used this month:</span>
@@ -108,14 +97,12 @@ export function CreditBalance() {
         )}
       </div>
 
-      {/* Low Balance Warning */}
       {isLow && (
         <div className="mt-2 rounded-md border border-destructive/30 bg-destructive/10 p-2">
           <p className="text-xs text-destructive">Low balance</p>
         </div>
       )}
 
-      {/* Actions */}
       <div className="mt-3 flex gap-2">
         <Link
           href="/pricing"

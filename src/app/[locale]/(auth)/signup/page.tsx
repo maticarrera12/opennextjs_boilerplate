@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -29,6 +30,7 @@ export default function SignUpPage() {
   const [error, setError] = useState("");
   const router = useRouter();
   const t = useTranslations("auth.signup");
+  const queryClient = useQueryClient();
 
   const form = useForm<SignUpInput>({
     resolver: zodResolver(signUpSchema),
@@ -50,6 +52,7 @@ export default function SignUpPage() {
       if (!result.user) {
         setError(t("error"));
       } else {
+        queryClient.invalidateQueries({ queryKey: ["session"] });
         // Redirect to verification page on success
         router.push(`/verificationEmail?email=${encodeURIComponent(data.email)}`);
       }

@@ -14,7 +14,7 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { useLocaleRouting } from "@/hooks/useLocaleRouting";
-import { authClient } from "@/lib/auth-client";
+import { useSessionQuery } from "@/hooks/useSessionQuery";
 
 // Navigation links
 const navigationLinks = [
@@ -24,7 +24,7 @@ const navigationLinks = [
 ];
 
 export default function Navbar() {
-  const { data: session, isPending: loading } = authClient.useSession();
+  const { data: session, isLoading } = useSessionQuery();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { locale, push } = useLocaleRouting();
 
@@ -167,7 +167,7 @@ export default function Navbar() {
                 Waitlist
               </Button>
               {/* User menu */}
-              {!loading &&
+              {!isLoading &&
                 (session?.user ? (
                   <UserMenu />
                 ) : (
