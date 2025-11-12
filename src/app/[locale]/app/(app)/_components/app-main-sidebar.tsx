@@ -48,7 +48,7 @@ export default function AppMainSidebar() {
       items: [
         {
           name: t("menu.settings"),
-          href: "/app/settings/account/profile",
+          href: "/settings/account/profile",
           icon: SettingsIcon,
           matchPrefixes: ["/app/settings"],
         },

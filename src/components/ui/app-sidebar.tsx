@@ -106,7 +106,13 @@ export default function AppSidebar({
       )}
 
       {/* Overlay to dim background including header */}
-      {isOpen && <div className="fixed inset-0 z-30 bg-black/60 md:hidden" aria-hidden="true" />}
+      {isOpen && (
+        <div
+          onClick={() => setIsOpen(false)}
+          className="fixed inset-0 z-30 bg-black/60 md:hidden"
+          aria-hidden="true"
+        />
+      )}
 
       {/* Sidebar */}
       <motion.aside
@@ -119,6 +125,7 @@ export default function AppSidebar({
           "z-40 h-screen shrink-0 text-white",
           "fixed left-0 top-0 md:sticky md:top-0",
           "md:translate-x-0",
+          "transition-transform duration-200 ease-in-out",
           isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
           variant === "flush"
             ? "bg-background border-r border-border/80 shadow-none"
@@ -158,7 +165,7 @@ export default function AppSidebar({
                     href={withLocale(backHref)}
                     className={cn(
                       "grid h-9 place-items-center rounded-md text-sm transition-colors",
-                      "hover:bg-white/10 hover:text-white"
+                      "hover:bg-white/10 hover:text-white rounded-lg"
                     )}
                     style={{
                       display: "grid",
@@ -175,7 +182,7 @@ export default function AppSidebar({
                     onClick={onBack ?? (() => router.back())}
                     className={cn(
                       "grid h-9 w-full place-items-center rounded-md text-sm transition-colors text-white",
-                      "hover:bg-white/10 hover:text-white"
+                      "hover:bg-white/10 hover:text-white rounded-lg"
                     )}
                     style={{
                       display: "grid",
@@ -264,7 +271,7 @@ export default function AppSidebar({
                           "group grid h-10 w-full grid-cols-[24px_1fr] items-center gap-3 pl-4 pr-0 text-sm transition-colors duration-150",
                           isActive
                             ? "bg-background text-primary rounded-l-xl"
-                            : "text-white hover:bg-white/10 hover:text-white"
+                            : "text-white hover:bg-white/10 hover:text-white rounded-tl-xl rounded-bl-xl"
                         )}
                       >
                         <Icon
@@ -357,14 +364,6 @@ export default function AppSidebar({
           </div>
         </div>
       </motion.aside>
-
-      {/* Overlay mobile */}
-      {isOpen && (
-        <div
-          onClick={() => setIsOpen(false)}
-          className="fixed inset-0 top-14 z-30 bg-black/50 md:hidden"
-        />
-      )}
     </>
   );
 }
