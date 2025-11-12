@@ -31,8 +31,6 @@ interface AppSidebarProps {
   topContent?: React.ReactNode;
   topContentHeightClass?: string;
   bottomContent?: React.ReactNode;
-  backHref?: string;
-  onBack?: () => void;
   variant?: "card" | "flush";
 }
 
@@ -43,11 +41,9 @@ export default function AppSidebar({
   topContent,
   topContentHeightClass,
   bottomContent,
-  backHref,
-  onBack,
   variant = "card",
 }: AppSidebarProps) {
-  const { locale, pathname, push, router } = useLocaleRouting();
+  const { locale, pathname, push } = useLocaleRouting();
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const queryClient = useQueryClient();
@@ -81,29 +77,40 @@ export default function AppSidebar({
   return (
     <>
       {/* Navbar mobile */}
-      {!isOpen && (
-        <button
-          onClick={() => setIsOpen(true)}
-          className="fixed top-3 left-3 z-50 flex h-9 w-9 items-center justify-center rounded-lg bg-transparent text-black md:hidden"
-          aria-label="Open sidebar"
+      <button
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-expanded={isOpen}
+        className={cn(
+          "group fixed top-3 left-3 z-50 flex h-9 w-9 items-center justify-center rounded-lg bg-transparent transition-colors md:hidden",
+          isOpen ? "text-white" : "text-black"
+        )}
+        aria-label="Toggle sidebar"
+      >
+        <svg
+          className="pointer-events-none stroke-current"
+          width={20}
+          height={20}
+          viewBox="0 0 24 24"
+          fill="none"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            className="pointer-events-none"
-            width={20}
-            height={20}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M4 6H20" />
-            <path d="M4 12H20" />
-            <path d="M4 18H20" />
-          </svg>
-        </button>
-      )}
+          <path
+            d="M4 12L20 12"
+            className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
+          />
+          <path
+            d="M4 12H20"
+            className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
+          />
+          <path
+            d="M4 12H20"
+            className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
+          />
+        </svg>
+      </button>
 
       {/* Overlay to dim background including header */}
       {isOpen && (
@@ -133,70 +140,21 @@ export default function AppSidebar({
         )}
       >
         <div className="relative flex h-full w-full flex-col">
-          {isOpen && (
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute top-3 right-3 z-50 flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-white md:hidden"
-              aria-label="Close sidebar"
-            >
-              <svg
-                className="pointer-events-none"
-                width={18}
-                height={18}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 6L6 18" />
-                <path d="M6 6L18 18" />
-              </svg>
-            </button>
-          )}
           {/* -------- TOP AREA (scrollable) -------- */}
           <div className="flex-1 overflow-y-auto pl-4 pr-0 py-4 scrollbar-hide">
             {/* Back button */}
-            {(backHref || onBack) && (
-              <div className="mb-3 text-white pr-0">
-                {backHref ? (
-                  <Link
-                    href={withLocale(backHref)}
-                    className={cn(
-                      "grid h-9 place-items-center rounded-md text-sm transition-colors",
-                      "hover:bg-white/10 hover:text-white rounded-lg"
-                    )}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "24px 1fr",
-                      gap: "12px",
-                      paddingInlineStart: "8px",
-                      paddingInlineEnd: "0px",
-                    }}
-                  >
-                    <ArrowLeftIcon size={18} className="justify-self-start text-white" />
-                  </Link>
-                ) : (
-                  <button
-                    onClick={onBack ?? (() => router.back())}
-                    className={cn(
-                      "grid h-9 w-full place-items-center rounded-md text-sm transition-colors text-white",
-                      "hover:bg-white/10 hover:text-white rounded-lg"
-                    )}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "24px 1fr",
-                      gap: "12px",
-                      paddingInlineStart: "8px",
-                      paddingInlineEnd: "0px",
-                    }}
-                  >
-                    <ArrowLeftIcon size={18} className="justify-self-start text-white" />
-                  </button>
+
+            <div className="mb-3 text-white pr-0">
+              <Link
+                href={withLocale("/")}
+                className={cn(
+                  "flex h-9 w-full items-center justify-end rounded-md text-sm transition-colors",
+                  "hover:bg-white/10 hover:text-white rounded-lg pr-4"
                 )}
-              </div>
-            )}
+              >
+                <ArrowLeftIcon size={24} className="text-white" />
+              </Link>
+            </div>
 
             {/* Título */}
             <div

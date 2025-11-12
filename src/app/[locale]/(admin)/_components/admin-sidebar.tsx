@@ -1,14 +1,11 @@
 "use client";
 import { LayoutDashboardIcon, UsersIcon, DollarSignIcon, SparklesIcon } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import AppSidebar from "@/components/ui/app-sidebar";
 
 export default function AdminSidebar() {
   const t = useTranslations("admin");
-  const pathname = usePathname();
-  const locale = pathname.split("/")[1] || "en";
 
   const sidebarSections = [
     {
@@ -39,11 +36,6 @@ export default function AdminSidebar() {
   ];
 
   return (
-    <AppSidebar
-      title={t("title")}
-      sections={sidebarSections}
-      logoutLabel={t("menu.logout")}
-      backHref={`/${locale}`}
-    />
+    <AppSidebar title={t("title")} sections={sidebarSections} logoutLabel={t("menu.logout")} />
   );
 }

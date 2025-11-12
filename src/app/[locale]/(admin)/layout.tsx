@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
-import AdminSidebar from "./_components/admin-dashboard";
+import AdminSidebar from "./_components/admin-sidebar";
 import { auth, prisma } from "@/lib/auth";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {

@@ -10,11 +10,9 @@ import { useTranslations } from "next-intl";
 
 import { CreditBalance } from "@/components/credits/credits-balance";
 import AppSidebar from "@/components/ui/app-sidebar";
-import { useLocaleRouting } from "@/hooks/useLocaleRouting";
 
 export default function AppMainSidebar() {
   const t = useTranslations("app");
-  const { router } = useLocaleRouting();
 
   const sidebarSections = [
     {
@@ -63,7 +61,6 @@ export default function AppMainSidebar() {
       logoutLabel={t("menu.logout")}
       topContent={<CreditBalance />}
       topContentHeightClass="h-44"
-      onBack={() => router.back()}
     />
   );
 }

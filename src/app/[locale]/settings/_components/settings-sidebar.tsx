@@ -1,13 +1,11 @@
 "use client";
 import { UserIcon, LockIcon, CreditCardIcon, KeyIcon, UsersIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import AppSidebar from "@/components/ui/app-sidebar";
 
 export default function SettingsSidebar() {
   const t = useTranslations("settings");
-  const router = useRouter();
 
   const sidebarSections = [
     {
@@ -57,11 +55,6 @@ export default function SettingsSidebar() {
   ];
 
   return (
-    <AppSidebar
-      title={t("title")}
-      sections={sidebarSections}
-      logoutLabel={t("menu.logout")}
-      onBack={() => router.back()}
-    />
+    <AppSidebar title={t("title")} sections={sidebarSections} logoutLabel={t("menu.logout")} />
   );
 }
