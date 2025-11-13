@@ -1,17 +1,10 @@
 import { headers } from "next/headers";
-import type { ReactNode } from "react";
 
 import SettingsSidebar from "./_components/settings-sidebar";
 import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 
-export default async function SettingsLayout({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: { locale: string };
-}) {
+export default async function SettingsLayout({ children, params }: any) {
   const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session?.user) {
