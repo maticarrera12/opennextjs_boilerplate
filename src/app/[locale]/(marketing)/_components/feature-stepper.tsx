@@ -50,7 +50,7 @@ export default function FeatureStepper() {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto py-20">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-4 max-w-6xl mx-auto py-20">
       <div className="space-y-6">
         {steps.map((step, i) => {
           const isActive = current === i;

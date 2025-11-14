@@ -12,17 +12,16 @@ const Hero = () => {
   const t = useTranslations("hero");
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 md:px-6 lg:px-8">
-      <div className="container max-w-6xl mx-auto">
-        <div className="flex flex-col items-center space-y-12 py-20">
+      <div className="container max-w-6xl mx-auto w-full">
+        <div className="flex flex-col items-center space-y-12 py-20 w-full">
           {/* Content Section */}
-          <div className="text-center space-y-6 max-w-3xl">
-            <h1
-              className="bg-linear-to-r from-indigo-500 to-orange-600 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight inline-block px-6 py-3 rounded-lg -skew-x-3 transform -rotate-1 text-gray-900 dark:text-gray-900
-  "
-            >
-              {t("heading.part1")} <span className="text-pink-200">{t("heading.highlight")}</span>{" "}
-              {t("heading.part2")}
-            </h1>
+          <div className="text-center space-y-6 max-w-3xl w-full px-2">
+            <div className="w-full">
+              <h1 className="bg-linear-to-r from-indigo-500 to-orange-600 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight inline-block px-3 sm:px-6 py-3 rounded-lg -skew-x-3 transform -rotate-1 text-gray-900 dark:text-gray-900 max-w-full">
+                {t("heading.part1")} <span className="text-pink-200">{t("heading.highlight")}</span>{" "}
+                {t("heading.part2")}
+              </h1>
+            </div>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
               {t("description.part1")}{" "}

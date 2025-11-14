@@ -155,10 +155,14 @@ export default function Navbar() {
             </div>
             {/* Right side */}
             <div className="flex items-center gap-2">
-              {/* Theme toggle */}
-              <ThemeToggle />
-              {/* Language selector */}
-              <LanguageSwitcher />
+              {/* Theme toggle - hidden on mobile */}
+              <div className="hidden md:block">
+                <ThemeToggle />
+              </div>
+              {/* Language selector - hidden on mobile */}
+              <div className="hidden md:block">
+                <LanguageSwitcher />
+              </div>
 
               <Button
                 onClick={() => push("/waitlist")}
@@ -223,6 +227,16 @@ export default function Navbar() {
                     );
                   })}
                 </nav>
+
+                {/* Mobile-only controls */}
+                <div className="mt-auto pt-4 border-t space-y-2 flex flex-row gap-2">
+                  <div className="flex items-center justify-between px-3 py-2">
+                    <ThemeToggle />
+                  </div>
+                  <div className="flex items-center justify-between px-3 py-2">
+                    <LanguageSwitcher />
+                  </div>
+                </div>
               </div>
             </motion.aside>
           </>

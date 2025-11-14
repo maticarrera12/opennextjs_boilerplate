@@ -1,56 +1,56 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Save, Bell, Plug, Calendar } from "lucide-react";
+import { ShieldCheck, CreditCard, Cloud, Globe } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
 const items = [
   {
-    title: "Save your files",
-    desc: "We automatically save your files as you type.",
+    title: "Authentication",
+    desc: "Plug & Play auth with Better Auth. Supports Email, OAuth, and Magic Links.",
     img: "https://picsum.photos/800/600?random=1",
-    icon: Save,
+    icon: ShieldCheck,
   },
   {
-    title: "Notifications",
-    desc: "Get notified when something happens.",
+    title: "Payments",
+    desc: "Stripe & Lemon Squeezy integration. Subscriptions and billing ready.",
     img: "https://picsum.photos/800/600?random=2",
-    icon: Bell,
+    icon: CreditCard,
   },
   {
-    title: "Integrations",
-    desc: "Supports 100+ integrations and counting.",
+    title: "Storage",
+    desc: "Upload files with Vercel Blob or Cloudinary. Optimized image management.",
     img: "https://picsum.photos/800/600?random=3",
-    icon: Plug,
+    icon: Cloud,
   },
   {
-    title: "Calendar",
-    desc: "Use the calendar to filter your files by date.",
+    title: "Internationalization",
+    desc: "Multi-language support with next-intl. Built-in i18n routing.",
     img: "https://picsum.photos/800/600?random=4",
-    icon: Calendar,
+    icon: Globe,
   },
 ];
 
 export default function BentoShowcase() {
   return (
-    <div className="w-full max-w-6xl mx-auto grid gap-6 py-16">
+    <div className="w-full max-w-6xl mx-auto px-4 md:px-6 grid gap-2 py-16">
       {/* ROW 1 → 70 / 30 */}
-      <div className="grid grid-cols-10 gap-6">
-        <div className="col-span-7">
+      <div className="grid grid-cols-1 md:grid-cols-10 gap-2 w-full">
+        <div className="col-span-1 md:col-span-7 w-full min-w-0">
           <BentoCard {...items[0]} />
         </div>
-        <div className="col-span-3">
+        <div className="col-span-1 md:col-span-3 w-full min-w-0">
           <BentoCard {...items[1]} />
         </div>
       </div>
 
       {/* ROW 2 → 30 / 70 */}
-      <div className="grid grid-cols-10 gap-6">
-        <div className="col-span-3">
+      <div className="grid grid-cols-1 md:grid-cols-10 gap-2 w-full">
+        <div className="col-span-1 md:col-span-3 w-full min-w-0">
           <BentoCard {...items[2]} />
         </div>
-        <div className="col-span-7">
+        <div className="col-span-1 md:col-span-7 w-full min-w-0">
           <BentoCard {...items[3]} />
         </div>
       </div>
@@ -65,17 +65,25 @@ function BentoCard({ title, desc, img, icon: Icon }: any) {
     <motion.div
       whileHover={{ scale: 1.01 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="relative group h-[260px] md:h-[300px] rounded-2xl overflow-hidden border border-white/10 bg-black"
+      className="relative group w-full h-[260px] md:h-[300px] rounded-2xl overflow-hidden border border-white/10 bg-black"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Background image */}
-      <Image
-        src={img}
-        fill
-        alt=""
-        className="object-cover absolute inset-0 opacity-[0.25] group-hover:opacity-[0.45] transition-all duration-500"
-      />
+      <motion.div
+        className="absolute inset-0"
+        animate={{
+          scale: isHovered ? 1.15 : 1,
+        }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <Image
+          src={img}
+          fill
+          alt=""
+          className="object-cover opacity-[0.35] group-hover:opacity-[0.55] transition-all duration-500"
+        />
+      </motion.div>
 
       {/* Light translucent overlay on hover */}
       <motion.div className="absolute inset-0 bg-white/0 group-hover:bg-white/[0.08] transition-all duration-500" />

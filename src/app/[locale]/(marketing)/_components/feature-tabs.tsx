@@ -11,7 +11,7 @@ export function FeatureTabs() {
   const t = useTranslations("featureTabs");
 
   return (
-    <Tabs defaultValue="auth" className="w-full max-w-4xl py-20  md:mx-auto space-y-3">
+    <Tabs defaultValue="auth" className="w-full max-w-4xl py-20 px-4  md:mx-auto space-y-3">
       {/* TAB LIST */}
       <TabsList className="flex w-full justify-between bg-card/60 backdrop-blur-md py-8 px-2 rounded-full border border-border">
         {[
