@@ -1,6 +1,7 @@
 "use client";
 import { useQueryClient } from "@tanstack/react-query";
 import { BoltIcon, BookOpenIcon, LogOutIcon, PinIcon, UserPenIcon, ShieldIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -23,9 +24,10 @@ import { authClient } from "@/lib/auth-client";
 export default function UserMenu() {
   const { data: session } = useSessionQuery();
   const { data: adminData } = useAdminRoleQuery(!!session?.user);
-  const { locale, push } = useLocaleRouting();
+  const { locale } = useLocaleRouting();
   const t = useTranslations("userMenu");
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   if (!session?.user) return null;
   const isAdmin = adminData?.isAdmin ?? false;
@@ -33,13 +35,8 @@ export default function UserMenu() {
 
   const handleSignOut = async () => {
     await authClient.signOut();
-    queryClient.removeQueries({ queryKey: ["session"], exact: true });
-    queryClient.removeQueries({ queryKey: ["adminRole"], exact: true });
-    queryClient.removeQueries({ queryKey: ["userPlan"], exact: true });
-    queryClient.removeQueries({ queryKey: ["credits"], exact: true });
-
-    queryClient.invalidateQueries();
-    push("/");
+    queryClient.clear();
+    router.refresh();
   };
 
   return (

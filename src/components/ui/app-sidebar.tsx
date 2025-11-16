@@ -4,6 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ArrowLeftDoubleIcon } from "hugeicons-react";
 import { LogOutIcon, type LucideIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 import { LanguageSwitcher } from "@/components/navbar/languaje-switcher";
@@ -45,16 +46,16 @@ export default function AppSidebar({
   bottomContent,
   variant = "card",
 }: AppSidebarProps) {
-  const { pathname, push } = useLocaleRouting();
+  const { pathname } = useLocaleRouting();
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const handleSignOut = async () => {
     await authClient.signOut();
-    queryClient.removeQueries({ queryKey: ["session"], exact: true });
-    queryClient.invalidateQueries();
-    push("/");
+    queryClient.clear();
+    router.refresh();
   };
 
   return (
