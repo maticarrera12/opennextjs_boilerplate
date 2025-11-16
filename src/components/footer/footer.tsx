@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-import Logo from "@/components/navbar/logo";
+import Logo from "@/components/ui/logo";
 import { Link } from "@/i18n/routing";
 
 export default function Footer() {

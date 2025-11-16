@@ -15,7 +15,7 @@ const SocialAuthButtons = () => {
       <BetterAuthActionButton
         key={provider}
         variant="outline"
-        className="!bg-indigo-100 dark:!bg-indigo-950 !text-indigo-900 dark:!text-indigo-50 !border-indigo-200 dark:!border-indigo-800 hover:!bg-indigo-50 dark:hover:!bg-indigo-900 hover:!text-indigo-900 dark:hover:!text-indigo-50"
+        className="bg-card text-foreground"
         action={() => {
           return authClient.signIn.social({ provider, callbackURL: "/" });
         }}

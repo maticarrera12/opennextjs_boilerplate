@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { AuthShell } from "../_components/auth-shell";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -87,17 +88,24 @@ export default function ForgotPasswordPage() {
   const t = useTranslations("auth.forgotPassword");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-primary">{t("title")}</h1>
-          <p className="mt-2 text-sm text-muted-foreground">{t("subtitle")}</p>
-        </div>
+    <AuthShell
+      title="Don't worry it happens! Resetting your password is quick and easy."
+      subtitle="Just enter your registered email address below, and we'll send you a secure link to reset your password. Follow the instructions in the email, and you'll be back in your account in no time!"
+      cardTitle="Follow the instructions"
+      cardSubtitle="If you don't see the email in your inbox, be sure to check your spam or junk folder."
+    >
+      <div className="flex items-center justify-center bg-background px-4">
+        <div className=" w-full space-y-8">
+          <div>
+            <h1 className="text-3xl font-bold text-primary">{t("title")}</h1>
+            <p className="mt-2 text-sm text-muted-foreground">{t("subtitle")}</p>
+          </div>
 
-        <div className="bg-card rounded-xl shadow-sm border border-border p-8">
-          <ForgotPassword />
+          <div>
+            <ForgotPassword />
+          </div>
         </div>
       </div>
-    </div>
+    </AuthShell>
   );
 }

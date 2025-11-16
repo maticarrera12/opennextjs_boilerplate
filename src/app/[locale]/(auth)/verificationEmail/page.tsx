@@ -3,6 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useRef, useState } from "react";
 
+import { AuthShell } from "../_components/auth-shell";
 import BetterAuthActionButton from "@/app/[locale]/(auth)/_components/better-auth-action-button";
 import { authClient } from "@/lib/auth-client";
 
@@ -63,14 +64,21 @@ export default function VerificationEmailPage() {
   const t = useTranslations("auth.verification");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="max-w-md w-full p-8 bg-card rounded-xl shadow-sm border border-border">
-        <h1 className="text-2xl font-bold mb-4 text-foreground">{t("title")}</h1>
-        <EmailVerification email={email} />
-        <div className="text-center mt-4">
-          <p className="text-sm text-muted-foreground">{t("footer")}</p>
+    <AuthShell
+      title="Verify your email address"
+      subtitle="We've sent a verification link to your email. Please check your inbox and click the link to activate your account."
+      cardTitle="Check your inbox"
+      cardSubtitle="If you don't see the email, check your spam folder or click the button below to resend the verification email."
+    >
+      <div className="flex items-center justify-center px-4">
+        <div>
+          <h1 className="text-2xl font-bold mb-4 text-foreground">{t("title")}</h1>
+          <EmailVerification email={email} />
+          <div className="text-center mt-4">
+            <p className="text-sm text-muted-foreground">{t("footer")}</p>
+          </div>
         </div>
       </div>
-    </div>
+    </AuthShell>
   );
 }

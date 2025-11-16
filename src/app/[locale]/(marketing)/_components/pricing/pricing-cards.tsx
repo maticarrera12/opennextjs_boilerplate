@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/card";
 import { Modal } from "@/components/ui/modal";
 import { Separator } from "@/components/ui/separator";
+import { useLocaleRouting } from "@/hooks/useLocaleRouting";
 import { authClient } from "@/lib/auth-client";
 import { PLANS, CREDIT_PACKS } from "@/lib/credits/constants";
 
@@ -38,6 +39,7 @@ interface CreditPackCardProps {
 export function PricingCards() {
   const t = useTranslations("pricing");
   const locale = useLocale();
+  const { push } = useLocaleRouting();
   const [interval, setInterval] = useState<"monthly" | "annual">("monthly");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<{
@@ -67,12 +69,12 @@ export function PricingCards() {
   const handleChoosePlan = (planKey: string) => {
     const plan = PLANS[planKey as keyof typeof PLANS];
     if (plan.id === "free") {
-      window.location.href = "/app";
+      push("/signin");
       return;
     }
 
     if (!session?.user) {
-      window.location.href = `/${locale}/signin`;
+      push("/signin");
       return;
     }
 
@@ -82,7 +84,7 @@ export function PricingCards() {
 
   const handleBuyCredits = (packKey: string) => {
     if (!session?.user) {
-      window.location.href = `/${locale}/signin`;
+      push("/signin");
       return;
     }
 
@@ -189,7 +191,7 @@ export function PricingCards() {
         </div>
 
         {/* Credit Packs Section */}
-        <div className="mt-20">
+        {/* <div className="mt-20">
           <h3 className="text-2xl font-bold text-foreground text-center mb-8">
             {t("creditPacks.title")}
           </h3>
@@ -203,7 +205,7 @@ export function PricingCards() {
               />
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Payment Modal */}
@@ -257,7 +259,7 @@ function PlanCard({ plan, interval, isPopular, t, onChoosePlan, currentUserPlan 
         <Button
           onClick={onChoosePlan}
           disabled={isCurrentPlan}
-          className={`w-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 rounded-full mt-4 font-semibold transition ${
+          className={`w-full bg-primary cursor-pointer text-primary-foreground hover:bg-primary/90 py-6 rounded-full mt-4 font-semibold transition ${
             isCurrentPlan ? "cursor-not-allowed border border-primary/20" : ""
           }`}
         >

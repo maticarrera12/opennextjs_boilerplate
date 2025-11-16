@@ -3,8 +3,8 @@
 import { Bell, Boxes, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import Logo from "../navbar/logo";
 import UserMenu from "../navbar/user-menu";
+import Logo from "../ui/logo";
 import { useFormattedDate } from "@/hooks/useFormattedData";
 import { useSessionQuery } from "@/hooks/useSessionQuery";
 import { Link } from "@/i18n/routing";

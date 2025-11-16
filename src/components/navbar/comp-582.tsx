@@ -4,10 +4,10 @@ import { FileTextIcon, GlobeIcon, HomeIcon } from "lucide-react";
 import { useState } from "react";
 
 import { LanguageSwitcher } from "@/components/navbar/languaje-switcher";
-import Logo from "@/components/navbar/logo";
 import ThemeToggle from "@/components/navbar/theme-toggle";
 import UserMenu from "@/components/navbar/user-menu";
 import { Button } from "@/components/ui/button";
+import Logo from "@/components/ui/logo";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -166,7 +166,8 @@ export default function Navbar() {
 
               <Button
                 onClick={() => push("/waitlist")}
-                className="text-sm  cursor-pointer border-2 bg-transparent border-indigo-700 hover:bg-indigo-700 text-foreground"
+                variant="outline"
+                className="text-sm cursor-pointer bg-transparent border-2 text-foreground hover:bg-transparent"
               >
                 Waitlist
               </Button>
@@ -177,7 +178,7 @@ export default function Navbar() {
                 ) : (
                   <Button
                     onClick={() => push("/signin")}
-                    className="text-sm bg-indigo-600 text-white hover:bg-indigo- cursor-pointer"
+                    className="text-sm  text-white dark:text-black cursor-pointer"
                   >
                     Sign In
                   </Button>

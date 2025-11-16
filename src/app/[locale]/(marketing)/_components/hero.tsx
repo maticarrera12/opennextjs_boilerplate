@@ -17,15 +17,15 @@ const Hero = () => {
           {/* Content Section */}
           <div className="text-center space-y-6 max-w-3xl w-full px-2">
             <div className="w-full">
-              <h1 className="bg-linear-to-r from-indigo-500 to-orange-600 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight inline-block px-3 sm:px-6 py-3 rounded-lg -skew-x-3 transform -rotate-1 text-gray-900 dark:text-gray-900 max-w-full">
-                {t("heading.part1")} <span className="text-pink-200">{t("heading.highlight")}</span>{" "}
+              <h1 className="bg-linear-to-r bg-black dark:bg-white text-white dark:text-black text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight inline-block px-3 sm:px-6 py-3 rounded-lg -skew-x-3 transform -rotate max-w-full">
+                {t("heading.part1")} <span className="font-bold">{t("heading.highlight")}</span>{" "}
                 {t("heading.part2")}
               </h1>
             </div>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
               {t("description.part1")}{" "}
-              <span className="font-semibold text-pink-200">{t("description.highlight")}</span>{" "}
+              <span className="font-bold">{t("description.highlight")}</span>{" "}
               {t("description.part2")}
             </p>
             <div className="flex items-center justify-center gap-4 pt-4">
