@@ -1,6 +1,6 @@
 "use client";
 import { useQueryClient } from "@tanstack/react-query";
-import { BoltIcon, BookOpenIcon, LogOutIcon, PinIcon, UserPenIcon, ShieldIcon } from "lucide-react";
+import { BoltIcon, LogOutIcon, ShieldIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
@@ -74,22 +74,7 @@ export default function UserMenu() {
               </Link>
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem>
-            <BookOpenIcon size={16} className="opacity-60" /> <span>{t("menu.option3")}</span>
-          </DropdownMenuItem>
         </DropdownMenuGroup>
-
-        <DropdownMenuSeparator />
-
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <PinIcon size={16} className="opacity-60" /> <span>{t("menu.option4")}</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <UserPenIcon size={16} className="opacity-60" /> <span>{t("menu.option5")}</span>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut}>
           <LogOutIcon size={16} className="opacity-60" /> <span>{t("menu.logout")}</span>

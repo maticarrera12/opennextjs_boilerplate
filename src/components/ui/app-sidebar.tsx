@@ -11,6 +11,7 @@ import { LanguageSwitcher } from "@/components/navbar/languaje-switcher";
 import ThemeToggle from "@/components/navbar/theme-toggle";
 import { useLocaleRouting } from "@/hooks/useLocaleRouting";
 import { Link } from "@/i18n/routing";
+import { signOut } from "@/lib/actions/auth-actions";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
@@ -120,12 +121,12 @@ export default function AppSidebar({
           {/* -------- TOP AREA -------- */}
           <div className="flex-1 overflow-y-auto px-4 py-4 scrollbar-hide">
             {/* Go back button */}
-            <div className="mb-3 text-foreground pr-0">
+            <div className="mb-3 text-foreground">
               <Link
                 href="/"
                 className={cn(
-                  "flex h-9 w-full items-center justify-end rounded-md text-sm transition-colors",
-                  "hover:bg-white/10 rounded-lg pr-4"
+                  "flex h-9 w-9 items-center justify-center rounded-full text-sm transition-colors",
+                  "hover:bg-white/10"
                 )}
               >
                 <ArrowLeftDoubleIcon />
@@ -236,18 +237,18 @@ export default function AppSidebar({
               <button
                 onClick={() => {
                   setIsOpen(false);
-                  handleSignOut();
+                  signOut();
                 }}
                 className={cn(
                   "grid h-9 w-full grid-cols-[24px_1fr] items-center rounded-md text-sm text-foreground",
                   "hover:bg-white/10"
                 )}
               >
-                <LogOutIcon size={18} className="text-foreground" />
+                <LogOutIcon size={18} className="text-foreground ml-4" />
                 <span
                   className={cn(
-                    "whitespace-nowrap transition-all",
-                    isHovered || isOpen ? "opacity-100" : "opacity-0 w-0"
+                    "whitespace-nowrap transition-all ml-4",
+                    isHovered || isOpen ? "opacity-100" : "opacity-0 w-0 ml-0"
                   )}
                 >
                   {logoutLabel}
