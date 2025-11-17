@@ -302,4 +302,7 @@
     display: grid;
     place-items: center;
   }
+  #react-query-devtools-toggle {
+    display: none !important;
+  }
 }

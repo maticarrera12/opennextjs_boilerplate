@@ -20,7 +20,7 @@ export default async function LegalLayout({ children }: { children: React.ReactN
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <Head />
-      <body suppressHydrationWarning>
+      <body>
         <Layout
           navbar={navbar}
           pageMap={pageMap}

@@ -169,7 +169,28 @@ export default function AppSidebar({
                   {section.items.map((item) => {
                     const Icon = item.icon;
 
-                    const isActive = pathname.startsWith(item.href);
+                    // Check if the pathname matches exactly or starts with the href
+                    // If matchPrefixes is provided, use those instead
+                    let isActive = false;
+                    if (item.matchPrefixes && item.matchPrefixes.length > 0) {
+                      isActive = item.matchPrefixes.some((prefix) => pathname.startsWith(prefix));
+                    } else {
+                      // Check if pathname matches this item's href
+                      const matchesThisItem =
+                        pathname === item.href || pathname.startsWith(item.href + "/");
+
+                      if (matchesThisItem) {
+                        // Only mark as active if no other item in the section has a longer href that also matches
+                        const hasMoreSpecificMatch = section.items.some(
+                          (otherItem) =>
+                            otherItem !== item &&
+                            otherItem.href.length > item.href.length &&
+                            (pathname === otherItem.href ||
+                              pathname.startsWith(otherItem.href + "/"))
+                        );
+                        isActive = !hasMoreSpecificMatch;
+                      }
+                    }
 
                     return (
                       <Link
@@ -179,13 +200,15 @@ export default function AppSidebar({
                         className={cn(
                           "group grid h-10 grid-cols-[24px_1fr] items-center gap-3 px-4 text-sm",
                           isActive
-                            ? "bg-background rounded-md"
-                            : "text-foreground hover:bg-white/10 rounded-l-xl"
+                            ? "bg-black text-white dark:text-black dark:bg-white rounded-md"
+                            : "text-foreground hover:bg-black/10 dark:hover:bg-white/10 rounded-md"
                         )}
                       >
                         <Icon
                           size={18}
-                          className={cn(isActive ? "text-foreground" : "text-foreground")}
+                          className={cn(
+                            isActive ? "text-white dark:text-black" : "text-foreground"
+                          )}
                         />
                         <span
                           className={cn(
