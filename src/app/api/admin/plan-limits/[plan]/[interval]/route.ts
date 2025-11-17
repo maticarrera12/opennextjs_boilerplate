@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function PATCH(
   req: Request,
-  context: { params: Promise<{ plan: PlanType; interval: PlanInterval }> }
+  context: { params: Promise<{ plan: string; interval: string }> }
 ) {
   try {
     const { plan, interval } = await context.params;
@@ -14,8 +14,8 @@ export async function PATCH(
     const updated = await prisma.planLimit.update({
       where: {
         plan_interval: {
-          plan,
-          interval,
+          plan: plan as PlanType,
+          interval: interval as PlanInterval,
         },
       },
       data: {
