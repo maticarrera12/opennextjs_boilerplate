@@ -3,62 +3,74 @@
 import { LanguageSquareIcon } from "hugeicons-react";
 import React from "react";
 
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
 import { useLocaleRouting } from "@/hooks/useLocaleRouting";
 import { cn } from "@/lib/utils";
 
 const languages = [
-  { value: "en", label: "English" },
-  { value: "es", label: "Español" },
+  { value: "en", label: "English", flag: "🇬🇧" },
+  { value: "es", label: "Español", flag: "🇪🇸" },
 ];
 
 interface LanguageSwitcherProps {
   variant?: "default" | "sidebar";
+  onOpenChange?: (isOpen: boolean) => void;
 }
 
-export function LanguageSwitcher({ variant = "default" }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ variant = "default", onOpenChange }: LanguageSwitcherProps) {
   const { router, pathname, locale } = useLocaleRouting();
 
   const handleChange = (nextLocale: string) => {
     router.replace(pathname, { locale: nextLocale });
   };
 
+  const currentLang = languages.find((l) => l.value === locale) || languages[0];
+
   return (
-    <Select value={locale} onValueChange={handleChange}>
+    <Select value={locale} onValueChange={handleChange} onOpenChange={onOpenChange}>
       <SelectTrigger
         className={cn(
-          "h-8 border-none px-2 shadow-none [&>svg]:shrink-0",
+          "relative flex items-center gap-2 transition-all duration-200 outline-none focus:ring-0 ring-0 focus:ring-offset-0",
+          "h-9 rounded-lg px-2 text-sm font-medium",
           variant === "sidebar"
-            ? "bg-white/10 text-white hover:bg-white/20 hover:text-white [&>svg]:text-white"
-            : "hover:bg-accent hover:text-accent-foreground [&>svg]:text-muted-foreground/80"
+            ? cn(
+                "bg-transparent border border-transparent",
+                "text-muted-foreground hover:text-foreground",
+                "hover:bg-muted/60"
+              )
+            : cn(
+                "bg-background border border-border/40 shadow-sm",
+                "text-foreground hover:bg-muted/40"
+              )
         )}
         aria-label="Select language"
       >
-        <LanguageSquareIcon
-          size={24}
-          aria-hidden="true"
-          className={variant === "sidebar" ? "text-white" : undefined}
-        />
-        <SelectValue
-          className={cn("hidden sm:inline-flex", variant === "sidebar" ? "text-white" : undefined)}
-        />
+        <LanguageSquareIcon size={20} className="shrink-0" />
+
+        <span
+          className={cn("truncate", variant === "sidebar" ? "text-current" : "text-foreground/80")}
+        >
+          {currentLang.label}
+        </span>
       </SelectTrigger>
+
       <SelectContent
+        align={variant === "sidebar" ? "start" : "end"}
         className={cn(
-          "[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2",
-          variant === "sidebar" ? "bg-primary text-white" : undefined
+          "min-w-[150px] overflow-hidden rounded-xl border border-border p-1 shadow-lg backdrop-blur-xl z-50",
+          "bg-popover/95 text-popover-foreground",
+          "animate-in fade-in zoom-in-95 duration-200"
         )}
       >
         {languages.map((lang) => (
-          <SelectItem key={lang.value} value={lang.value}>
+          <SelectItem
+            key={lang.value}
+            value={lang.value}
+            className="cursor-pointer rounded-lg focus:bg-accent focus:text-accent-foreground pl-8"
+          >
             <span className="flex items-center gap-2">
-              <span className="truncate">{lang.label}</span>
+              <span className="text-base leading-none">{lang.flag}</span>
+              <span>{lang.label}</span>
             </span>
           </SelectItem>
         ))}

@@ -37,7 +37,9 @@ export default function UsersPage() {
 
   return (
     <div className="container mx-auto py-10">
-      <WorldUserMap />
+      <div className="mb-6">
+        <WorldUserMap />
+      </div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold tracking-tight">Gestión de Usuarios</h1>
         <div className="text-sm text-muted-foreground">Total: {data?.length || 0} usuarios</div>

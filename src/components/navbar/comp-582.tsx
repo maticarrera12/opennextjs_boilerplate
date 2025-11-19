@@ -1,7 +1,8 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
-import { FileTextIcon, GlobeIcon, HomeIcon } from "lucide-react";
-import { useState } from "react";
+
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { BookOpen01Icon, Home12Icon, SaleTag01Icon } from "hugeicons-react";
+import { useState, useEffect } from "react";
 
 import { LanguageSwitcher } from "@/components/navbar/languaje-switcher";
 import ThemeToggle from "@/components/navbar/theme-toggle";
@@ -15,33 +16,62 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useLocaleRouting } from "@/hooks/useLocaleRouting";
 import { useSessionQuery } from "@/hooks/useSessionQuery";
+import { cn } from "@/lib/utils";
 
-// Navigation links
 const navigationLinks = [
-  { href: "/", label: "Home", icon: HomeIcon, scrollTo: "top" },
-  { href: "#pricing", label: "Pricing", icon: GlobeIcon, scrollTo: "pricing" },
-  { href: "/docs", label: "Docs", icon: FileTextIcon },
+  { href: "/", label: "Home", icon: Home12Icon, scrollTo: "top" },
+  { href: "#pricing", label: "Pricing", icon: SaleTag01Icon, scrollTo: "pricing" },
+  { href: "/docs", label: "Docs", icon: BookOpen01Icon },
 ];
+
+const sidebarVariants: Variants = {
+  closed: {
+    x: "-100%",
+    opacity: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 400,
+      damping: 40,
+    },
+  },
+  open: {
+    x: "0%",
+    opacity: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 300,
+      damping: 30,
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  closed: { x: -20, opacity: 0 },
+  open: {
+    x: 0,
+    opacity: 1,
+    transition: { type: "spring" as const, stiffness: 300, damping: 24 },
+  },
+};
 
 export default function Navbar() {
   const { data: session, isLoading } = useSessionQuery();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { locale, push } = useLocaleRouting();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const getLocalizedPath = (path: string) => {
-    if (!path.startsWith("/")) {
-      return path;
-    }
-
-    // /docs no debe tener locale
-    if (path === "/docs" || path.startsWith("/docs/")) {
-      return path;
-    }
-
-    if (path === "/") {
-      return `/${locale}`;
-    }
-
+    if (!path.startsWith("/")) return path;
+    if (path === "/docs" || path.startsWith("/docs/")) return path;
+    if (path === "/") return `/${locale}`;
     return `/${locale}${path}`;
   };
 
@@ -49,38 +79,26 @@ export default function Navbar() {
     e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
     link: (typeof navigationLinks)[0]
   ) => {
-    // Siempre cerrar el menú mobile al hacer clic
     setIsMobileMenuOpen(false);
 
-    // Si tiene scrollTo, hacer scroll suave en lugar de navegación
     if (link.scrollTo) {
       e.preventDefault();
-
       if (link.scrollTo === "top") {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         const element = document.getElementById(link.scrollTo);
         if (element) {
-          const headerOffset = 64; // altura de la navbar (h-16 = 4rem = 64px)
+          const headerOffset = 80;
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         }
       }
-
       return;
     }
-    // Si no tiene scrollTo, navegar respetando el locale actual
+
     if (link.href.startsWith("/")) {
       e.preventDefault();
-      // /docs no debe usar locale
       if (link.href === "/docs" || link.href.startsWith("/docs/")) {
         window.location.href = link.href;
       } else {
@@ -91,21 +109,26 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 border-b bg-background">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
+      <header
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+          scrolled
+            ? "bg-background/80 backdrop-blur-xl border-border shadow-sm"
+            : "bg-background/0 border-transparent"
+        )}
+      >
+        <div className="mx-auto px-4 md:px-6">
           <div className="flex h-16 items-center justify-between gap-4">
-            {/* Left side */}
             <div className="flex flex-1 items-center gap-2">
-              {/* Mobile menu trigger */}
               <Button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="group size-8 md:hidden"
+                className="group size-10 md:hidden hover:bg-muted/50 rounded-full"
                 variant="ghost"
                 size="icon"
                 aria-expanded={isMobileMenuOpen}
               >
                 <svg
-                  className="pointer-events-none stroke-current"
+                  className="pointer-events-none stroke-foreground"
                   width={24}
                   height={24}
                   viewBox="0 0 24 24"
@@ -114,46 +137,41 @@ export default function Navbar() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  {/* Top line */}
                   <path
                     d="M6 12H18"
                     className="origin-center -translate-y-[6px] transition-all duration-300 
-      group-aria-expanded:translate-y-0 
-      group-aria-expanded:rotate-45"
+                      group-aria-expanded:translate-y-0 
+                      group-aria-expanded:rotate-45"
                   />
-
-                  {/* Middle line */}
                   <path
                     d="M4 12H20"
                     className="origin-center transition-all duration-300 
-      group-aria-expanded:opacity-0"
+                      group-aria-expanded:opacity-0"
                   />
-
-                  {/* Bottom line */}
                   <path
                     d="M6 12H18"
                     className="origin-center translate-y-[6px] transition-all duration-300 
-      group-aria-expanded:translate-y-0 
-      group-aria-expanded:-rotate-45"
+                      group-aria-expanded:translate-y-0 
+                      group-aria-expanded:-rotate-45"
                   />
                 </svg>
               </Button>
+
               <div className="flex items-center gap-6">
-                {/* Logo */}
                 <button
                   onClick={(e) =>
                     handleNavigation(e, {
                       href: "/",
                       label: "Home",
-                      icon: HomeIcon,
+                      icon: Home12Icon,
                       scrollTo: "top",
                     })
                   }
-                  className="text-primary hover:text-primary/90 cursor-pointer bg-transparent border-none p-0"
+                  className="text-primary hover:text-primary/90 cursor-pointer bg-transparent border-none p-0 transition-transform active:scale-95"
                 >
                   <Logo />
                 </button>
-                {/* Desktop navigation - text links */}
+
                 <NavigationMenu className="hidden md:flex">
                   <NavigationMenuList className="gap-1">
                     {navigationLinks.map((link) => (
@@ -161,7 +179,7 @@ export default function Navbar() {
                         <a
                           href={getLocalizedPath(link.href)}
                           onClick={(e) => handleNavigation(e, link)}
-                          className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+                          className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-muted/50"
                         >
                           {link.label}
                         </a>
@@ -171,13 +189,11 @@ export default function Navbar() {
                 </NavigationMenu>
               </div>
             </div>
-            {/* Right side */}
-            <div className="flex items-center gap-2">
-              {/* Theme toggle - hidden on mobile */}
+
+            <div className="flex items-center gap-3">
               <div className="hidden md:block">
                 <ThemeToggle />
               </div>
-              {/* Language selector - hidden on mobile */}
               <div className="hidden md:block">
                 <LanguageSwitcher />
               </div>
@@ -185,19 +201,16 @@ export default function Navbar() {
               <Button
                 onClick={() => push("/waitlist")}
                 variant="outline"
-                className="text-sm cursor-pointer bg-transparent border-2 text-foreground hover:bg-transparent"
+                className="text-sm cursor-pointer rounded-full bg-transparent border-2 text-foreground hover:bg-muted hidden sm:flex"
               >
                 Waitlist
               </Button>
-              {/* User menu */}
+
               {!isLoading &&
                 (session?.user ? (
                   <UserMenu />
                 ) : (
-                  <Button
-                    onClick={() => push("/signin")}
-                    className="text-sm  text-white dark:text-black cursor-pointer"
-                  >
+                  <Button onClick={() => push("/signin")} className="text-sm rounded-full px-5">
                     Sign In
                   </Button>
                 ))}
@@ -206,56 +219,69 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile sidebar menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 top-16 z-40 bg-black/50 md:hidden"
+              className="fixed inset-0 top-16 z-40 bg-black/20 backdrop-blur-sm md:hidden"
             />
 
-            {/* Sidebar */}
             <motion.aside
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="fixed left-0 top-16 z-50 h-[calc(100vh-4rem)] w-64 border-r bg-background shadow-lg md:hidden"
+              variants={sidebarVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              className="fixed left-0 top-16 z-50 h-[calc(100vh-4rem)] w-[85%] max-w-[300px] border-r bg-background/95 backdrop-blur-xl shadow-2xl md:hidden"
             >
-              <div className="flex h-full flex-col p-4">
-                {/* Navigation links */}
-                <nav className="flex flex-col gap-2">
+              <div className="flex h-full flex-col p-6">
+                <nav className="flex flex-col gap-4">
                   {navigationLinks.map((link) => {
                     const Icon = link.icon;
                     return (
-                      <a
+                      <motion.a
                         key={link.label}
+                        variants={itemVariants}
                         href={link.href}
                         onClick={(e) => handleNavigation(e, link)}
-                        className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-accent hover:text-foreground transition-colors"
+                        className="group flex items-center gap-4 rounded-xl px-4 py-3 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
                       >
-                        <Icon size={18} className="text-muted-foreground" />
+                        <div className="p-2 bg-muted/50 rounded-lg group-hover:bg-background group-hover:shadow-sm transition-all">
+                          <Icon size={20} />
+                        </div>
                         <span>{link.label}</span>
-                      </a>
+                      </motion.a>
                     );
                   })}
                 </nav>
 
-                {/* Mobile-only controls */}
-                <div className="mt-auto pt-4 border-t space-y-2 flex flex-row gap-2">
-                  <div className="flex items-center justify-between px-3 py-2">
+                <motion.div
+                  variants={itemVariants}
+                  className="mt-auto pt-6 border-t border-border/50 space-y-4"
+                >
+                  <div className="flex items-center justify-between px-2">
+                    <span className="text-sm font-medium text-muted-foreground">Appearance</span>
                     <ThemeToggle />
                   </div>
-                  <div className="flex items-center justify-between px-3 py-2">
+                  <div className="flex items-center justify-between px-2">
+                    <span className="text-sm font-medium text-muted-foreground">Language</span>
                     <LanguageSwitcher />
                   </div>
-                </div>
+
+                  <Button
+                    className="w-full rounded-full mt-4"
+                    onClick={() => {
+                      push("/waitlist");
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    Join Waitlist
+                  </Button>
+                </motion.div>
               </div>
             </motion.aside>
           </>

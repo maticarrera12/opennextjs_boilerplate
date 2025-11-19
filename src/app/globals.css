@@ -154,72 +154,106 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  /* Revolut usa esquinas redondeadas pronunciadas */
+  --radius: 1rem;
+
+  /* BLANCO PURO DE FONDO */
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(0.98 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --foreground: oklch(0.13 0.02 260); /* Casi negro, ligero tinte azul profundo */
+
+  /* Tarjetas con un gris muy sutil y frío */
+  --card: oklch(0.99 0.005 260);
+  --card-foreground: oklch(0.13 0.02 260);
+
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --popover-foreground: oklch(0.13 0.02 260);
+
+  /* EL AZUL REVOLUT (Electric Blue) */
+  --primary: oklch(0.58 0.233 260);
+  --primary-foreground: oklch(1 0 0); /* Texto blanco sobre azul */
+
+  /* Grises fríos para elementos secundarios */
+  --secondary: oklch(0.96 0.01 260);
+  --secondary-foreground: oklch(0.35 0.03 260);
+
+  --muted: oklch(0.96 0.01 260);
+  --muted-foreground: oklch(0.55 0.03 260);
+
+  --accent: oklch(0.96 0.01 260);
+  --accent-foreground: oklch(0.25 0.02 260);
+
+  --destructive: oklch(0.6 0.22 25); /* Rojo financiero */
+  --destructive-foreground: oklch(0.98 0 0);
+
+  /* Bordes sutiles y azulados */
+  --border: oklch(0.92 0.01 260);
+  --input: oklch(0.92 0.01 260);
+  --ring: oklch(0.58 0.233 260); /* Anillo de foco azul */
+
+  /* Colores funcionales (Gráficos y dinero) */
+  --chart-1: oklch(0.58 0.233 260); /* Azul Marca */
+  --chart-2: oklch(0.65 0.18 150); /* Verde (Ingresos) */
+  --chart-3: oklch(0.85 0.15 90); /* Amarillo */
+  --chart-4: oklch(0.6 0.2 25); /* Rojo (Gastos) */
+  --chart-5: oklch(0.7 0.15 320); /* Violeta/Rosa */
+
+  --sidebar: oklch(0.985 0.005 260);
+  --sidebar-foreground: oklch(0.13 0.02 260);
+  --sidebar-primary: oklch(0.58 0.233 260);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.95 0.01 260);
+  --sidebar-accent-foreground: oklch(0.13 0.02 260);
+  --sidebar-border: oklch(0.92 0.01 260);
+  --sidebar-ring: oklch(0.58 0.233 260);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(1 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* NEGRO PROFUNDO (Casi puro, con matiz navy muy oscuro) */
+  --background: oklch(0.13 0.02 260);
+  --foreground: oklch(0.98 0.005 260);
+
+  /* Tarjetas ligeramente más claras para profundidad */
+  --card: oklch(0.16 0.02 260);
+  --card-foreground: oklch(0.98 0.005 260);
+
+  --popover: oklch(0.13 0.02 260);
+  --popover-foreground: oklch(0.98 0.005 260);
+
+  /* El azul brilla más en modo oscuro */
+  --primary: oklch(0.62 0.22 260);
+  --primary-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.25 0.03 260);
+  --secondary-foreground: oklch(0.98 0.005 260);
+
+  --muted: oklch(0.25 0.03 260);
+  --muted-foreground: oklch(0.7 0.02 260);
+
+  --accent: oklch(0.25 0.03 260);
+  --accent-foreground: oklch(0.98 0.005 260);
+
+  --destructive: oklch(0.6 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.25 0.03 260);
+  --input: oklch(0.25 0.03 260);
+  --ring: oklch(0.62 0.22 260);
+
+  /* Gráficos ajustados para fondo oscuro */
+  --chart-1: oklch(0.62 0.22 260); /* Azul */
+  --chart-2: oklch(0.7 0.16 150); /* Verde pastel neón */
+  --chart-3: oklch(0.88 0.14 90); /* Amarillo */
+  --chart-4: oklch(0.65 0.2 25); /* Rojo */
+  --chart-5: oklch(0.75 0.14 320); /* Rosa */
+
+  --sidebar: oklch(0.16 0.02 260);
+  --sidebar-foreground: oklch(0.98 0.005 260);
+  --sidebar-primary: oklch(0.62 0.22 260);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.25 0.03 260);
+  --sidebar-accent-foreground: oklch(0.98 0.005 260);
+  --sidebar-border: oklch(0.25 0.03 260);
+  --sidebar-ring: oklch(0.62 0.22 260);
 }
 
 @layer base {
@@ -268,10 +302,13 @@
     top: -15px;
     width: 100px;
     height: 100px;
-    background: var(--primary);
+    background: black;
     border-bottom-left-radius: 50%;
   }
 
+  .dark .auth-cta-container .auth-cta-card .auth-cta-box .auth-cta-badge {
+    background: white;
+  }
   .auth-cta-container .auth-cta-card .auth-cta-box .auth-cta-badge::before {
     content: "";
     position: absolute;
@@ -281,7 +318,11 @@
     height: 30px;
     background: transparent;
     border-top-right-radius: 30px;
-    box-shadow: 5px -10px 0 5px var(--primary);
+    box-shadow: 5px -10px 0 5px black;
+  }
+
+  .dark .auth-cta-container .auth-cta-card .auth-cta-box .auth-cta-badge::before {
+    box-shadow: 5px -10px 0 5px white;
   }
 
   .auth-cta-container .auth-cta-card .auth-cta-box .auth-cta-badge::after {
@@ -293,7 +334,7 @@
     height: 30px;
     background: transparent;
     border-top-right-radius: 30px;
-    box-shadow: 5px -10px 0 5px var(--primary);
+    box-shadow: 5px -10px 0 5px black;
   }
 
   .auth-cta-container .auth-cta-card .auth-cta-box .auth-cta-badge .auth-cta-badge-inner {
@@ -303,6 +344,9 @@
     border-radius: 50%;
     display: grid;
     place-items: center;
+  }
+  .dark .auth-cta-container .auth-cta-card .auth-cta-box .auth-cta-badge::after {
+    box-shadow: 5px -10px 0 5px white;
   }
   #react-query-devtools-toggle {
     display: none !important;

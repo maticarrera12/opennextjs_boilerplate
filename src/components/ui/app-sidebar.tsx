@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeftDoubleIcon } from "hugeicons-react";
-import { LogOutIcon, type LucideIcon } from "lucide-react";
+import { ArrowLeft02Icon, Logout01Icon } from "hugeicons-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { LanguageSwitcher } from "@/components/navbar/languaje-switcher";
 import ThemeToggle from "@/components/navbar/theme-toggle";
@@ -16,7 +15,7 @@ import { cn } from "@/lib/utils";
 export interface SidebarItem {
   name: string;
   href: string;
-  icon: LucideIcon;
+  icon: any;
   localeAware?: boolean;
   matchPrefixes?: string[];
 }
@@ -32,8 +31,6 @@ interface AppSidebarProps {
   logoutLabel: string;
   topContent?: React.ReactNode;
   topContentHeightClass?: string;
-  bottomContent?: React.ReactNode;
-  variant?: "card" | "flush";
 }
 
 export default function AppSidebar({
@@ -42,13 +39,22 @@ export default function AppSidebar({
   logoutLabel,
   topContent,
   topContentHeightClass,
-  bottomContent,
-  variant = "card",
 }: AppSidebarProps) {
   const { pathname } = useLocaleRouting();
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  const [isLocked, setIsLocked] = useState(false);
+
   const router = useRouter();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const handleSignOut = async () => {
     setIsOpen(false);
@@ -56,186 +62,135 @@ export default function AppSidebar({
     router.refresh();
   };
 
+  const handleMouseLeave = (e: React.MouseEvent) => {
+    if (isMobile) return;
+    if (isLocked) return;
+
+    const relatedTarget = e.relatedTarget;
+    const isEnteringPortal =
+      relatedTarget &&
+      typeof relatedTarget === "object" &&
+      "closest" in relatedTarget &&
+      typeof relatedTarget.closest === "function" &&
+      (relatedTarget.closest("[data-radix-popper-content-wrapper]") ||
+        relatedTarget.closest('[role="listbox"]'));
+
+    if (isEnteringPortal) return;
+
+    setIsHovered(false);
+  };
+
+  const sidebarVariants = {
+    collapsed: { width: 80 },
+    expanded: { width: 200 },
+  };
+  const contentVariants = {
+    collapsed: { opacity: 0, x: -10 },
+    expanded: { opacity: 1, x: 0, transition: { delay: 0.1, duration: 0.2 } },
+  };
+  const labelVariants = {
+    collapsed: { opacity: 0, height: "auto" },
+    expanded: { opacity: 1, height: "auto", transition: { delay: 0.1, duration: 0.2 } },
+  };
+  const footerToolsVariants = {
+    collapsed: { height: 0, opacity: 0, marginBottom: 0, overflow: "hidden" },
+    expanded: { height: "auto", opacity: 1, marginBottom: 8, overflow: "visible" },
+  };
+
+  const animateState = isMobile
+    ? { opacity: 1, display: "block" }
+    : isHovered || isLocked
+      ? "expanded"
+      : "collapsed";
+
+  const sidebarAnimate = isMobile
+    ? { x: isOpen ? 0 : "-100%", width: "85%", maxWidth: 280 }
+    : isHovered || isLocked
+      ? "expanded"
+      : "collapsed";
+
+  const footerToolsState = isMobile ? "expanded" : isHovered || isLocked ? "expanded" : "collapsed";
+
   return (
     <>
-      {/* -------- MOBILE TOGGLE -------- */}
-      <button
-        onClick={() => setIsOpen((prev) => !prev)}
-        aria-expanded={isOpen}
-        className={cn(
-          "group fixed top-3 left-3 z-50 flex h-9 w-9 items-center justify-center rounded-lg bg-transparent transition-colors md:hidden",
-          isOpen ? "text-foreground" : "text-black dark:text-white"
-        )}
-        aria-label="Toggle sidebar"
-      >
-        <svg
-          className="pointer-events-none stroke-current"
-          width={24}
-          height={24}
-          viewBox="0 0 24 24"
-          fill="none"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          {/* Top line */}
-          <path
-            d="M6 12H18"
-            className="origin-center -translate-y-[6px] transition-all duration-300 
-      group-aria-expanded:translate-y-0 
-      group-aria-expanded:rotate-45"
-          />
-
-          {/* Middle line */}
-          <path
-            d="M4 12H20"
-            className="origin-center transition-all duration-300 
-      group-aria-expanded:opacity-0"
-          />
-
-          {/* Bottom line */}
-          <path
-            d="M6 12H18"
-            className="origin-center translate-y-[6px] transition-all duration-300 
-      group-aria-expanded:translate-y-0 
-      group-aria-expanded:-rotate-45"
-          />
-        </svg>
-      </button>
-
-      {/* -------- OVERLAY (MOBILE) -------- */}
-      {isOpen && (
-        <div
-          onClick={() => setIsOpen(false)}
-          className="fixed inset-0 z-30 bg-black/60 md:hidden"
-        />
-      )}
-
-      {/* -------- SIDEBAR -------- */}
       <motion.aside
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() => !isMobile && setIsHovered(true)}
+        onMouseLeave={handleMouseLeave}
         initial={false}
-        animate={{ width: isHovered || isOpen ? 240 : 80 }}
-        transition={{ duration: 0.12, ease: "easeInOut" }}
+        animate={sidebarAnimate}
+        variants={!isMobile ? sidebarVariants : undefined}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className={cn(
-          "z-40 h-screen shrink-0 fixed left-0 top-0 md:sticky md:top-0 transition-transform",
-          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
-          variant === "flush" ? "bg-background border-r border-border/80" : "bg-card"
+          "z-40 h-screen shrink-0 fixed left-0 top-0 md:sticky md:top-0 border-r",
+          "bg-background/95 backdrop-blur-xl border-border/60 shadow-2xl md:shadow-none",
+          isMobile ? "block" : "flex flex-col"
         )}
       >
-        <div className="flex h-full flex-col">
-          {/* -------- TOP AREA -------- */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 scrollbar-hide">
-            {/* Go back button */}
-            <div className="mb-3 flex justify-end md:justify-start text-foreground">
-              <Link
-                href="/"
-                className={cn(
-                  "flex h-9 w-9 items-center justify-center rounded-full text-sm transition-colors",
-                  "hover:bg-white/10"
-                )}
-              >
-                <ArrowLeftDoubleIcon />
-              </Link>
-            </div>
-
-            {/* Title */}
-            <div
+        <div className="flex h-full flex-col py-4 w-full">
+          <div className="px-3 mb-4">
+            <Link
+              href="/"
               className={cn(
-                "mb-4 h-6 transition-all",
-                isHovered || isOpen ? "opacity-100" : "opacity-0"
+                "flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors mb-3",
+                isMobile ? "absolute right-4 top-6" : "w-8 h-8"
               )}
             >
-              <span className="text-lg font-semibold text-foreground whitespace-nowrap">
-                {title}
-              </span>
+              <ArrowLeft02Icon size={18} />
+            </Link>
+            <div className="h-7 flex items-center">
+              <motion.div
+                variants={!isMobile ? contentVariants : undefined}
+                initial={false}
+                animate={animateState}
+                className="whitespace-nowrap overflow-hidden"
+              >
+                <span className="text-lg font-bold tracking-tight">{title}</span>
+              </motion.div>
             </div>
+          </div>
 
-            {/* Optional top content */}
-            {topContent && (
-              <div className="mb-4 pr-4">
-                <div
-                  className={cn(
-                    isHovered || isOpen ? "opacity-100 visible" : "opacity-0 invisible",
-                    "transition-opacity",
-                    topContentHeightClass
-                  )}
-                >
-                  {topContent}
-                </div>
-              </div>
-            )}
-
-            {/* Sections */}
+          <div className="flex-1 overflow-y-auto px-2 scrollbar-hide space-y-6">
             {sections.map((section) => (
-              <div key={section.label} className="mb-4">
-                {/* Section label */}
-                <div className="h-5 mb-1">
-                  <span
-                    className={cn(
-                      "block text-[11px] font-semibold uppercase tracking-wider text-foreground/70 transition-all",
-                      isHovered || isOpen ? "opacity-100" : "opacity-0"
-                    )}
+              <div key={section.label}>
+                <div className="px-3 mb-2 h-5 flex items-center">
+                  <motion.span
+                    variants={!isMobile ? labelVariants : undefined}
+                    animate={
+                      isMobile ? { opacity: 1 } : isHovered || isLocked ? "expanded" : "collapsed"
+                    }
+                    className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60 whitespace-nowrap"
                   >
                     {section.label}
-                  </span>
+                  </motion.span>
                 </div>
-
-                {/* Items */}
-                <nav className="flex flex-col">
+                <nav className="flex flex-col gap-0.5">
                   {section.items.map((item) => {
                     const Icon = item.icon;
-
-                    // Check if the pathname matches exactly or starts with the href
-                    // If matchPrefixes is provided, use those instead
-                    let isActive = false;
-                    if (item.matchPrefixes && item.matchPrefixes.length > 0) {
-                      isActive = item.matchPrefixes.some((prefix) => pathname.startsWith(prefix));
-                    } else {
-                      // Check if pathname matches this item's href
-                      const matchesThisItem =
-                        pathname === item.href || pathname.startsWith(item.href + "/");
-
-                      if (matchesThisItem) {
-                        // Only mark as active if no other item in the section has a longer href that also matches
-                        const hasMoreSpecificMatch = section.items.some(
-                          (otherItem) =>
-                            otherItem !== item &&
-                            otherItem.href.length > item.href.length &&
-                            (pathname === otherItem.href ||
-                              pathname.startsWith(otherItem.href + "/"))
-                        );
-                        isActive = !hasMoreSpecificMatch;
-                      }
-                    }
-
+                    const isActive =
+                      pathname === item.href ||
+                      (item.matchPrefixes &&
+                        item.matchPrefixes.some((prefix) => pathname.startsWith(prefix)));
                     return (
                       <Link
-                        key={item.name}
                         href={item.href}
+                        key={item.name}
                         onClick={() => setIsOpen(false)}
                         className={cn(
-                          "group grid h-10 grid-cols-[24px_1fr] items-center gap-3 px-4 text-sm",
-                          isActive
-                            ? "bg-black text-white dark:text-black dark:bg-white rounded-md"
-                            : "text-foreground hover:bg-black/10 dark:hover:bg-white/10 rounded-md"
+                          "group relative flex items-center gap-3 px-2 py-2 rounded-lg transition-all duration-200",
+                          !isActive && "hover:bg-muted/50",
+                          isActive && "bg-primary text-primary-foreground"
                         )}
                       >
-                        <Icon
-                          size={18}
-                          className={cn(
-                            isActive ? "text-white dark:text-black" : "text-foreground"
-                          )}
-                        />
-                        <span
-                          className={cn(
-                            "whitespace-nowrap transition-all",
-                            isHovered || isOpen ? "opacity-100 w-auto" : "opacity-0 w-0"
-                          )}
+                        <div className="shrink-0 w-6 h-6 flex items-center justify-center">
+                          <Icon size={20} />
+                        </div>
+                        <motion.span
+                          variants={!isMobile ? contentVariants : undefined}
+                          animate={animateState}
+                          className="whitespace-nowrap text-sm"
                         >
                           {item.name}
-                        </span>
+                        </motion.span>
                       </Link>
                     );
                   })}
@@ -244,41 +199,39 @@ export default function AppSidebar({
             ))}
           </div>
 
-          {/* -------- BOTTOM AREA -------- */}
-          <div className="border-t border-foreground/10 pr-0">
-            {/* Theme + Language */}
-            <div className="px-4 py-2">
-              <div
-                className={cn(
-                  "flex items-center gap-2 w-full text-foreground",
-                  isHovered || isOpen ? "opacity-100" : "opacity-0 pointer-events-none",
-                  "transition-opacity"
-                )}
+          <div
+            className="px-2 pt-4 mt-2 border-t border-border/40"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex flex-col">
+              <motion.div
+                variants={!isMobile ? footerToolsVariants : undefined}
+                initial={false}
+                animate={footerToolsState}
+                className="overflow-hidden"
               >
-                <ThemeToggle />
-                <div className="h-6 w-px bg-white/20" />
-                <LanguageSwitcher />
-              </div>
-            </div>
+                <div className="flex items-center justify-start gap-1.5 pb-1">
+                  <ThemeToggle />
+                  <div className="w-px h-4 bg-border" />
+                  <LanguageSwitcher variant="sidebar" onOpenChange={setIsLocked} />
+                </div>
+              </motion.div>
 
-            {/* Logout */}
-            <div className="px-4 py-1.5">
               <button
                 onClick={handleSignOut}
-                className={cn(
-                  "grid h-9 w-full grid-cols-[24px_1fr] items-center rounded-md text-sm text-foreground",
-                  "hover:bg-white/10"
-                )}
+                title={logoutLabel}
+                className="group flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all w-full"
               >
-                <LogOutIcon size={18} className="text-foreground ml-4" />
-                <span
-                  className={cn(
-                    "whitespace-nowrap transition-all ml-4",
-                    isHovered || isOpen ? "opacity-100" : "opacity-0 w-0 ml-0"
-                  )}
+                <div className="shrink-0 w-6 h-6 flex items-center justify-center">
+                  <Logout01Icon size={20} />
+                </div>
+                <motion.span
+                  variants={!isMobile ? contentVariants : undefined}
+                  animate={animateState}
+                  className="whitespace-nowrap font-medium text-sm"
                 >
                   {logoutLabel}
-                </span>
+                </motion.span>
               </button>
             </div>
           </div>
