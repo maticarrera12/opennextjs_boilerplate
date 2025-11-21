@@ -86,7 +86,8 @@ model Session {
   userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  impersonatedBy String?
+  
   @@map("session")
 }
 
