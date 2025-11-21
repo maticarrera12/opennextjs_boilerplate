@@ -152,7 +152,7 @@ async function main() {
   const admin = await prisma.user.upsert({
     where: { email: adminEmail },
     update: {
-      role: "ADMIN",
+      role: "admin",
       plan: "PRO",
       credits: { increment: 200 },
     },
@@ -160,7 +160,7 @@ async function main() {
       name: "Admin User",
       email: adminEmail,
       emailVerified: true,
-      role: "ADMIN",
+      role: "admin",
       plan: "PRO",
       planStatus: "ACTIVE",
       credits: 200,
@@ -177,7 +177,7 @@ async function main() {
       name: "Example User",
       email: "user@example.com",
       emailVerified: true,
-      role: "USER",
+      role: "user",
       plan: "FREE",
       planStatus: "ACTIVE",
       credits: 20,

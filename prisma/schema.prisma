@@ -34,7 +34,7 @@ model User {
   // ============================================
   
   // Roles & Access
-  role          Role       @default(USER)
+  role          String     @default("user")
 
   // Current Plan
   plan          PlanType    @default(FREE)
@@ -123,11 +123,6 @@ model Verification {
 // ============================================
 // ENUMS
 // ============================================
-
-enum Role {
-  USER
-  ADMIN
-}
 
 enum PlanType {
   FREE    

@@ -18,7 +18,7 @@ async function assignAdminRole(userId: string, email: string) {
     try {
       await prisma.user.update({
         where: { id: userId },
-        data: { role: "ADMIN" },
+        data: { role: "admin" },
       });
     } catch (error) {
       const message =
@@ -76,7 +76,7 @@ export const auth = betterAuth({
       role: {
         type: "string",
         required: false,
-        defaultValue: "USER",
+        defaultValue: "user",
         input: false,
       },
     },
@@ -110,7 +110,8 @@ export const auth = betterAuth({
   plugins: [
     nextCookies(),
     admin({
-      adminRoles: ["ADMIN"],
+      adminRoles: ["admin"],
+      defaultRoles: ["user"],
     }),
   ],
 });
