@@ -1,12 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft02Icon, Logout01Icon } from "hugeicons-react";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 import { LanguageSwitcher } from "@/components/navbar/languaje-switcher";
 import ThemeToggle from "@/components/navbar/theme-toggle";
+import { useSidebar } from "@/contexts/sidebar-context";
 import { useLocaleRouting } from "@/hooks/useLocaleRouting";
 import { Link } from "@/i18n/routing";
 import { signOut } from "@/lib/actions/auth-actions";
@@ -41,7 +42,7 @@ export default function AppSidebar({
   topContentHeightClass,
 }: AppSidebarProps) {
   const { pathname } = useLocaleRouting();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useSidebar();
   const [isHovered, setIsHovered] = useState(false);
 
   const [isLocked, setIsLocked] = useState(false);
@@ -113,6 +114,19 @@ export default function AppSidebar({
 
   return (
     <>
+      {/* Overlay para mobile */}
+      <AnimatePresence>
+        {isMobile && isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm md:hidden"
+          />
+        )}
+      </AnimatePresence>
+
       <motion.aside
         onMouseEnter={() => !isMobile && setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
@@ -128,25 +142,46 @@ export default function AppSidebar({
       >
         <div className="flex h-full flex-col py-4 w-full">
           <div className="px-3 mb-4">
-            <Link
-              href="/"
-              className={cn(
-                "flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors mb-3",
-                isMobile ? "absolute right-4 top-6" : "w-8 h-8"
-              )}
-            >
-              <ArrowLeft02Icon size={18} />
-            </Link>
-            <div className="h-7 flex items-center">
-              <motion.div
-                variants={!isMobile ? contentVariants : undefined}
-                initial={false}
-                animate={animateState}
-                className="whitespace-nowrap overflow-hidden"
-              >
-                <span className="text-lg font-bold tracking-tight">{title}</span>
-              </motion.div>
-            </div>
+            {isMobile ? (
+              <>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="absolute right-4 top-6 flex items-center justify-center w-8 h-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                  aria-label="Cerrar menú"
+                >
+                  <ArrowLeft02Icon size={18} />
+                </button>
+                <div className="h-7 flex items-center mt-12">
+                  <motion.div
+                    variants={!isMobile ? contentVariants : undefined}
+                    initial={false}
+                    animate={animateState}
+                    className="whitespace-nowrap overflow-hidden"
+                  >
+                    <span className="text-lg font-bold tracking-tight">{title}</span>
+                  </motion.div>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/"
+                  className="flex items-center justify-center w-8 h-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors mb-3"
+                >
+                  <ArrowLeft02Icon size={18} />
+                </Link>
+                <div className="h-7 flex items-center">
+                  <motion.div
+                    variants={!isMobile ? contentVariants : undefined}
+                    initial={false}
+                    animate={animateState}
+                    className="whitespace-nowrap overflow-hidden"
+                  >
+                    <span className="text-lg font-bold tracking-tight">{title}</span>
+                  </motion.div>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="flex-1 overflow-y-auto px-2 scrollbar-hide space-y-6">

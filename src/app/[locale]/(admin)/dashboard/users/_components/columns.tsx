@@ -78,10 +78,7 @@ function ActionsCell({ user }: { user: UserColumn }) {
         <DropdownMenuSeparator />
 
         {/* Acción Real de Impersonate */}
-        <DropdownMenuItem
-          onClick={handleImpersonate}
-          className="bg-indigo-50 text-indigo-700 focus:bg-indigo-100 focus:text-indigo-800 cursor-pointer"
-        >
+        <DropdownMenuItem onClick={handleImpersonate} className="text-primary cursor-pointer">
           <LogIn className="mr-2 h-4 w-4" />
           Impersonar
         </DropdownMenuItem>
