@@ -6,7 +6,7 @@ import { PLANS, CREDIT_PACKS } from "@/lib/credits/constants";
 import { prisma } from "@/lib/prisma";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-09-30.clover",
+  apiVersion: "2025-10-29.clover",
 });
 
 export async function POST(req: NextRequest) {
