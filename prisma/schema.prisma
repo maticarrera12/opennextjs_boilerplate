@@ -3,12 +3,12 @@
 // ============================================
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/client"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // ============================================
@@ -34,7 +34,7 @@ model User {
   // ============================================
   
   // Roles & Access
-  role          Role       @default(USER)
+  role          String     @default("user")
 
   // Current Plan
   plan          PlanType    @default(FREE)
@@ -86,7 +86,8 @@ model Session {
   userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  impersonatedBy String?
+  
   @@map("session")
 }
 
@@ -123,11 +124,6 @@ model Verification {
 // ============================================
 // ENUMS
 // ============================================
-
-enum Role {
-  USER
-  ADMIN
-}
 
 enum PlanType {
   FREE    

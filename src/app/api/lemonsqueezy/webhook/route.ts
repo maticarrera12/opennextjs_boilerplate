@@ -1,9 +1,9 @@
 // app/api/webhooks/lemonsqueezy/route.ts
 
-import { PlanStatus } from "@prisma/client";
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 
+import { PlanStatus } from "@/generated/client/client";
 import { CreditService } from "@/lib/credits";
 import { PLANS, CREDIT_PACKS } from "@/lib/credits/constants";
 import { prisma } from "@/lib/prisma";

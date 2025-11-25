@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
@@ -8,7 +7,7 @@ import { sendEmailVerificationEmail } from "./emails/emailVerification";
 import { sendChangeEmailVerification } from "./emails/sendChangeEmailVerification";
 import { sendDeleteAccountVerification } from "./emails/sendDeleteAccountVerification";
 import { sendPasswordResetEmail } from "./emails/sendPasswordResetEmail";
-const prisma = new PrismaClient();
+import { prisma } from "./prisma";
 
 async function assignAdminRole(userId: string, email: string) {
   const adminEmails = process.env.ADMIN_EMAILS?.split(",").map((e) => e.trim().toLowerCase()) || [];
@@ -18,7 +17,7 @@ async function assignAdminRole(userId: string, email: string) {
     try {
       await prisma.user.update({
         where: { id: userId },
-        data: { role: "ADMIN" },
+        data: { role: "admin" },
       });
     } catch (error) {
       const message =
@@ -76,7 +75,7 @@ export const auth = betterAuth({
       role: {
         type: "string",
         required: false,
-        defaultValue: "USER",
+        defaultValue: "user",
         input: false,
       },
     },
@@ -110,7 +109,8 @@ export const auth = betterAuth({
   plugins: [
     nextCookies(),
     admin({
-      adminRoles: ["ADMIN"],
+      adminRoles: ["admin"],
+      defaultRoles: ["user"],
     }),
   ],
 });

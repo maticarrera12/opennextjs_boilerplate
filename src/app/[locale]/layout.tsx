@@ -6,6 +6,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { Toaster } from "sonner";
 
 import { AppProviders } from "../../../app-providers";
+import { StopImpersonatingBanner } from "@/components/ui/stop-impersonation";
 import { loadMessages } from "@/lib/load-messages";
 import MessagesProvider from "@/providers/message-provider";
 
@@ -23,7 +24,7 @@ const geistMono = Geist_Mono({
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   subsets: ["latin"],
-  weight: ["400"], // Solo existe 400
+  weight: ["400"],
   style: ["normal", "italic"],
 });
 
@@ -44,6 +45,7 @@ export default async function LocaleLayout({ children, params }: any) {
         <MessagesProvider locale={locale} messages={messages}>
           <AppProviders>
             {children}
+            <StopImpersonatingBanner />
             <Toaster position="top-right" richColors />
             <Analytics />
             <SpeedInsights />

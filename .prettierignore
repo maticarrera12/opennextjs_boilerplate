@@ -1,5 +1,6 @@
 node_modules
 .next
+.git
 build
 out
 dist
@@ -10,3 +11,5 @@ dist
 .env
 .env.production.local
 .env.example
+src/generated
+src/generated/client

@@ -6,150 +6,193 @@ import {
   CreditCardIcon,
   LanguageSquareIcon,
   SecurityValidationIcon,
+  ArrowRight01Icon,
 } from "hugeicons-react";
-import Image from "next/image";
-import { useState } from "react";
+
+import { cn } from "@/lib/utils";
 
 const items = [
   {
+    id: "auth",
     title: "Authentication",
-    desc: "Plug & Play auth with Better Auth. Supports Email, OAuth, and Magic Links.",
-    img: "https://picsum.photos/800/600?random=1",
+    desc: "Plug & Play auth with Better Auth. Secure by default.",
     icon: SecurityValidationIcon,
+    colSpan: "md:col-span-7",
   },
   {
+    id: "payments",
     title: "Payments",
-    desc: "Stripe & Lemon Squeezy integration. Subscriptions and billing ready.",
-    img: "https://picsum.photos/800/600?random=2",
+    desc: "Global billing ready.",
     icon: CreditCardIcon,
+    colSpan: "md:col-span-3",
   },
   {
-    title: "Storage",
-    desc: "Upload files with Vercel Blob or Cloudinary. Optimized image management.",
-    img: "https://picsum.photos/800/600?random=3",
+    id: "storage",
+    title: "Cloud Storage",
+    desc: "Optimized file management.",
     icon: CloudUploadIcon,
+    colSpan: "md:col-span-4",
   },
   {
-    title: "Internationalization",
-    desc: "Multi-language support with next-intl. Built-in i18n routing.",
-    img: "https://picsum.photos/800/600?random=4",
+    id: "i18n",
+    title: "Global Scale",
+    desc: "Multi-language support built-in with automatic routing.",
     icon: LanguageSquareIcon,
+    colSpan: "md:col-span-6",
   },
 ];
 
 export default function BentoShowcase() {
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 md:px-6 grid gap-2 py-16">
-      {/* ROW 1 → 70 / 30 */}
-      <div className="grid grid-cols-1 md:grid-cols-10 gap-2 w-full">
-        <div className="col-span-1 md:col-span-7 w-full min-w-0">
-          <BentoCard {...items[0]} />
-        </div>
-        <div className="col-span-1 md:col-span-3 w-full min-w-0">
-          <BentoCard {...items[1]} />
-        </div>
+    <div className="w-full max-w-7xl mx-auto px-4 md:px-6 py-24">
+      <div className="mb-12 md:mb-16 text-center max-w-2xl mx-auto space-y-4">
+        <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground">
+          Everything you need
+        </h2>
+        <p className="text-muted-foreground text-lg">Built with the best tools in the industry.</p>
       </div>
 
-      {/* ROW 2 → 30 / 70 */}
-      <div className="grid grid-cols-1 md:grid-cols-10 gap-2 w-full">
-        <div className="col-span-1 md:col-span-3 w-full min-w-0">
-          <BentoCard {...items[2]} />
-        </div>
-        <div className="col-span-1 md:col-span-7 w-full min-w-0">
-          <BentoCard {...items[3]} />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-10 gap-4 md:gap-6 w-full auto-rows-[300px] md:auto-rows-[360px]">
+        {items.map((item, i) => (
+          <BentoCard key={i} {...item} />
+        ))}
       </div>
     </div>
   );
 }
 
-function BentoCard({ title, desc, img, icon: Icon }: any) {
-  const [isHovered, setIsHovered] = useState(false);
-
+function BentoCard({ title, desc, icon: Icon, colSpan, id }: any) {
   return (
     <motion.div
-      whileHover={{ scale: 1.01 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="relative group w-full h-[260px] md:h-[300px] rounded-2xl overflow-hidden border border-white/10 bg-black"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5 }}
+      className={cn(
+        "relative group overflow-hidden rounded-[2rem] bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-black/5 transition-all duration-500",
+        colSpan
+      )}
     >
-      {/* Background image */}
-      <motion.div
-        className="absolute inset-0"
-        animate={{
-          scale: isHovered ? 1.15 : 1,
-        }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
-        <Image
-          src={img}
-          fill
-          alt=""
-          className="object-cover opacity-[0.35] group-hover:opacity-[0.55] transition-all duration-500"
-        />
-      </motion.div>
+      <div className="relative z-10 flex flex-col h-full p-8">
+        <div className="flex items-start justify-between">
+          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 text-primary">
+            <Icon className="w-6 h-6" variant="bulk" />
+          </div>
 
-      {/* Light translucent overlay on hover */}
-      <motion.div className="absolute inset-0 bg-white/0 group-hover:bg-white/[0.08] transition-all duration-500" />
-
-      {/* Animated glow */}
-      <motion.div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none"
-        animate={{ opacity: [0, 0.2, 0.1, 0.2, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div className="absolute inset-0 bg-white/20 blur-3xl" />
-      </motion.div>
-
-      {/* Content (bottom aligned) */}
-      <motion.div
-        className="absolute bottom-0 left-0 right-0 p-6 z-20 flex flex-col gap-2"
-        animate={{
-          y: isHovered ? -24 : 0,
-        }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-      >
-        {/* Icon */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="mb-1"
-        >
-          <Icon className="w-6 h-6 text-white/90" />
-        </motion.div>
-
-        {/* Title and Description Container */}
-        <div className="flex flex-col gap-2">
-          <h3 className="text-lg md:text-xl font-semibold text-white">{title}</h3>
-          <p className="text-neutral-300 text-sm leading-tight">{desc}</p>
+          <div className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+            <div className="w-8 h-8 rounded-full bg-foreground text-background flex items-center justify-center">
+              <ArrowRight01Icon className="w-4 h-4" />
+            </div>
+          </div>
         </div>
 
-        {/* Learn More */}
-        <motion.div
-          animate={{
-            opacity: isHovered ? 1 : 0,
-            height: isHovered ? "auto" : 0,
-          }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="overflow-hidden"
-        >
-          <motion.div
-            className="text-white text-sm flex items-center gap-1 mt-2"
-            animate={{
-              opacity: isHovered ? 1 : 0,
-              y: isHovered ? 0 : -10,
-            }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            Learn more →
-          </motion.div>
-        </motion.div>
-      </motion.div>
+        <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">
+          {title}
+        </h3>
+        <p className="text-muted-foreground text-base max-w-[90%] leading-relaxed">{desc}</p>
 
-      {/* Border glow */}
-      <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-white/20 group-hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] transition-all duration-500" />
+        <div className="flex-1 relative mt-4 min-h-[120px] w-full flex items-end justify-center md:justify-end overflow-hidden">
+          <CardVisual id={id} />
+        </div>
+      </div>
+
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
     </motion.div>
   );
 }
+
+const CardVisual = ({ id }: { id: string }) => {
+  switch (id) {
+    case "auth":
+      return (
+        <div className="relative w-full h-full flex items-center justify-center md:justify-end md:pr-10">
+          <motion.div
+            className="absolute right-0 md:right-10 bottom-0 md:bottom-10 w-48 bg-white dark:bg-neutral-900 border border-border rounded-xl shadow-xl p-3 flex items-center gap-3"
+            whileHover={{ y: -5, scale: 1.02 }}
+          >
+            <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-600">
+              <SecurityValidationIcon className="w-4 h-4" />
+            </div>
+            <div className="flex flex-col gap-1">
+              <div className="h-2 w-20 bg-neutral-200 dark:bg-neutral-700 rounded-full" />
+              <div className="h-1.5 w-12 bg-neutral-100 dark:bg-neutral-800 rounded-full" />
+            </div>
+            <div className="ml-auto w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+          </motion.div>
+          <div className="absolute right-10 bottom-5 w-32 h-32 bg-green-500/20 blur-[60px] rounded-full pointer-events-none" />
+        </div>
+      );
+    case "payments":
+      return (
+        <div className="relative w-full h-full">
+          <motion.div
+            className="absolute -right-4 -bottom-12 w-48 h-32 bg-gradient-to-bl from-primary to-blue-600 rounded-xl shadow-2xl flex flex-col p-4 justify-between text-white"
+            whileHover={{ y: -10, rotate: -3 }}
+            style={{ rotate: -6 }}
+          >
+            <div className="flex justify-between">
+              <div className="w-6 h-4 bg-white/20 rounded-sm" />
+              <CreditCardIcon className="w-5 h-5 text-white/60" />
+            </div>
+            <div className="flex gap-2 mt-auto">
+              <div className="h-1.5 w-8 bg-white/40 rounded-full" />
+              <div className="h-1.5 w-8 bg-white/40 rounded-full" />
+              <div className="h-1.5 w-8 bg-white/40 rounded-full" />
+            </div>
+          </motion.div>
+        </div>
+      );
+    case "storage":
+      return (
+        <div className="relative w-full h-full flex items-end justify-center pb-4">
+          <motion.div
+            className="relative w-40 h-28 bg-neutral-100 dark:bg-neutral-800 rounded-t-xl border-t border-x border-border flex items-center justify-center shadow-lg"
+            whileHover={{ y: 5 }}
+          >
+            <div className="absolute -top-4 left-0 w-16 h-6 bg-neutral-200 dark:bg-neutral-700 rounded-t-lg" />
+            <CloudUploadIcon className="w-12 h-12 text-primary/50" />
+
+            <motion.div
+              className="absolute -top-8 right-4 w-12 h-16 bg-white dark:bg-neutral-900 border border-border rounded shadow-md rotate-12"
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 3, repeat: Infinity }}
+            />
+          </motion.div>
+        </div>
+      );
+    case "i18n":
+      return (
+        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0 grid grid-cols-6 gap-4 opacity-20">
+            {Array.from({ length: 24 }).map((_, i) => (
+              <div key={i} className="w-1 h-1 bg-foreground rounded-full" />
+            ))}
+          </div>
+
+          <motion.div
+            className="absolute top-1/2 left-1/4 bg-white dark:bg-neutral-800 px-3 py-1 rounded-full shadow-lg border border-border text-xs font-bold"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            Hello
+          </motion.div>
+          <motion.div
+            className="absolute top-1/3 right-1/4 bg-primary text-white px-3 py-1 rounded-full shadow-lg text-xs font-bold"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          >
+            Hola
+          </motion.div>
+          <motion.div
+            className="absolute bottom-1/3 left-1/2 bg-neutral-900 text-white dark:bg-white dark:text-black px-3 py-1 rounded-full shadow-lg text-xs font-bold"
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          >
+            Bonjour
+          </motion.div>
+        </div>
+      );
+    default:
+      return null;
+  }
+};

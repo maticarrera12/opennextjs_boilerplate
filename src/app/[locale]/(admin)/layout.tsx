@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 
 import AdminSidebar from "./_components/admin-sidebar";
 import Header from "@/components/header/header";
+import { SidebarProvider } from "@/contexts/sidebar-context";
 import { Link, redirect } from "@/i18n/routing";
 import { auth, prisma } from "@/lib/auth";
 
@@ -19,7 +20,7 @@ const layout = async ({ children, params }: any) => {
     select: { role: true },
   });
 
-  if (user?.role !== "ADMIN") {
+  if (user?.role !== ("admin" as string)) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
@@ -36,13 +37,15 @@ const layout = async ({ children, params }: any) => {
   }
 
   return (
-    <div className="flex min-h-screen bg-card">
-      <AdminSidebar />
-      <main className="flex-1 ml-6 mr-6 my-6 md:ml-0 rounded-lg overflow-y-auto bg-background">
-        <Header />
-        <div className="mx-auto max-w-7xl p-6 md:p-10">{children}</div>
-      </main>
-    </div>
+    <SidebarProvider>
+      <div className="flex min-h-screen bg-card">
+        <AdminSidebar />
+        <main className="flex-1 ml-6 mr-6 my-6 md:ml-0 rounded-lg overflow-y-auto bg-background">
+          <Header />
+          <div className="mx-auto max-w-7xl p-6 md:p-10">{children}</div>
+        </main>
+      </div>
+    </SidebarProvider>
   );
 };
 

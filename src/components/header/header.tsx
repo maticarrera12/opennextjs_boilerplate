@@ -4,15 +4,19 @@ import { Archive02Icon, Notification01Icon, SparklesIcon } from "hugeicons-react
 import { useTranslations } from "next-intl";
 
 import UserMenu from "../navbar/user-menu";
+import { Button } from "../ui/button";
 import Logo from "../ui/logo";
+import { useSidebar } from "@/contexts/sidebar-context";
 import { useFormattedDate } from "@/hooks/useFormattedData";
 import { useSessionQuery } from "@/hooks/useSessionQuery";
 import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 const Header = () => {
   const { data: session } = useSessionQuery();
   const t = useTranslations("header");
   const formatted = useFormattedDate();
+  const { isOpen, setIsOpen } = useSidebar();
   const rawFirstName = session?.user.name?.trim().split(/\s+/)?.[0] ?? "";
   const formattedFirstName =
     rawFirstName.length > 0
@@ -23,6 +27,48 @@ const Header = () => {
   return (
     <header className="mx-auto mt-10 w-full max-w-6xl px-4 md:px-6">
       <div className="flex items-center justify-between gap-2">
+        {/* Botón de menú hamburguesa para mobile */}
+        <Button
+          onClick={() => setIsOpen(!isOpen)}
+          className={cn(
+            "group size-10 md:hidden hover:bg-muted/50 rounded-full",
+            "fixed top-4 left-4 z-50"
+          )}
+          variant="ghost"
+          size="icon"
+          aria-expanded={isOpen}
+        >
+          <svg
+            className="pointer-events-none stroke-foreground"
+            width={24}
+            height={24}
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path
+              d="M6 12H18"
+              className={cn(
+                "origin-center -translate-y-[6px] transition-all duration-300",
+                isOpen && "translate-y-0 rotate-45"
+              )}
+            />
+            <path
+              d="M4 12H20"
+              className={cn("origin-center transition-all duration-300", isOpen && "opacity-0")}
+            />
+            <path
+              d="M6 12H18"
+              className={cn(
+                "origin-center translate-y-[6px] transition-all duration-300",
+                isOpen && "translate-y-0 -rotate-45"
+              )}
+            />
+          </svg>
+        </Button>
+
         <div className="hidden md:flex flex-1 items-center justify-between">
           <div className="flex items-center gap-2 rounded-full border p-1">
             <div>
@@ -50,31 +96,33 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="flex h-16 items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Logo />
+        <div className="flex items-center gap-4">
+          <div className="flex h-16 items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <Logo />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm font-medium text-foreground">
+                {t("greeting", { name: greetingName })}
+              </span>
+              <span className="text-xs text-muted-foreground">{t("subtitle")}</span>
+            </div>
           </div>
-          <div className="flex flex-col gap-0.5">
-            <span className="text-sm font-medium text-foreground">
-              {t("greeting", { name: greetingName })}
+
+          <div className="flex items-center gap-3 rounded-full border border-gray-300 dark:border-neutral-700 px-1 py-1 shadow-sm">
+            {/* Icon circle */}
+            <div className="flex items-center justify-center w-9 h-9 rounded-full  dark:bg-neutral-800">
+              <Notification01Icon className="w-4 h-4 text-muted-foreground" />
+            </div>
+
+            {/* Date */}
+            <span className="font-medium text-sm md:text-base">{formatted}</span>
+
+            {/* Badge count */}
+            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-black text-white text-xs font-semibold">
+              5
             </span>
-            <span className="text-xs text-muted-foreground">{t("subtitle")}</span>
           </div>
-        </div>
-
-        <div className="flex items-center gap-3 rounded-full border border-gray-300 dark:border-neutral-700 px-1 py-1 shadow-sm">
-          {/* Icon circle */}
-          <div className="flex items-center justify-center w-9 h-9 rounded-full  dark:bg-neutral-800">
-            <Notification01Icon className="w-4 h-4 text-muted-foreground" />
-          </div>
-
-          {/* Date */}
-          <span className="font-medium text-sm md:text-base">{formatted}</span>
-
-          {/* Badge count */}
-          <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-black text-white text-xs font-semibold">
-            5
-          </span>
         </div>
       </div>
     </header>
