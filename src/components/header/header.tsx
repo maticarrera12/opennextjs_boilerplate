@@ -25,7 +25,7 @@ const Header = () => {
   const greetingName = formattedFirstName || session?.user.name || session?.user.email || "";
 
   return (
-    <header className="mx-auto mt-10 w-full max-w-6xl px-4 md:px-6">
+    <header className="pl-8 lg:pl-0 mx-auto lg:mt-10 mt-0 w-full max-w-6xl px-4 md:px-6">
       <div className="flex items-center justify-between gap-2">
         {/* Botón de menú hamburguesa para mobile */}
         <Button
