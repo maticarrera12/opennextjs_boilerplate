@@ -199,6 +199,7 @@
       "apiKeys": "API Keys",
       "members": "Members",
       "invitations": "Invitations",
+      "organization": "Organization",
       "logout": "Log Out"
     },
     "profile": {

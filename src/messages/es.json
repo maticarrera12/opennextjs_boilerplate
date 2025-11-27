@@ -198,6 +198,7 @@
       "planPayments": "Plan y Pagos",
       "apiKeys": "Claves API",
       "members": "Miembros",
+      "organization": "Organización",
       "invitations": "Invitaciones",
       "logout": "Cerrar Sesión"
     },

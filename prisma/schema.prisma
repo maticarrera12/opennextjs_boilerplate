@@ -21,13 +21,15 @@ model User {
   email         String    @unique
   emailVerified Boolean   @default(false)
   image         String?
-  theme          String?   @default("system")
-  language       String?   @default("en")
-  banned        Boolean  @default(false)
+  theme         String?   @default("system")
+  language      String?   @default("en")
+  banned        Boolean   @default(false)
   
   // Better Auth relations
   sessions      Session[]
-  accounts      Account[]      
+  accounts      Account[]
+  members       Member[]
+  invitations   Invitation[] // RELACIÓN AGREGADA
   
   // ============================================
   // AI BRAND KIT - User Extensions
@@ -87,6 +89,7 @@ model Session {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   impersonatedBy String?
+  activeOrganizationId String? 
   
   @@map("session")
 }
@@ -119,6 +122,58 @@ model Verification {
   updatedAt  DateTime @default(now()) @updatedAt
 
   @@map("verification")
+}
+
+// ============================================
+// BETTER AUTH - ORGANIZATION PLUGIN
+// ============================================
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  logo      String?
+  metadata  Json?
+  
+  members      Member[]
+  invitations  Invitation[] // RELACIÓN AGREGADA
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@map("organization")
+}
+
+model Member {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role           String       @default("member") // "owner", "admin", "member"
+  
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([organizationId, userId])
+  @@index([userId])
+  @@index([organizationId])
+  @@map("member")
+}
+model Invitation {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email          String
+  role           String?
+  status         String       @default("pending")
+  expiresAt      DateTime
+  inviterId      String
+  user           User         @relation(fields: [inviterId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+  
+  @@map("invitation")
 }
 
 // ============================================

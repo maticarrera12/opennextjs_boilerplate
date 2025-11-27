@@ -1,11 +1,12 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
-import { admin } from "better-auth/plugins";
+import { admin as adminPlugin, organization } from "better-auth/plugins";
 
 import { sendEmailVerificationEmail } from "./emails/emailVerification";
 import { sendChangeEmailVerification } from "./emails/sendChangeEmailVerification";
 import { sendDeleteAccountVerification } from "./emails/sendDeleteAccountVerification";
+import { sendOrganizationInviteEmail } from "./emails/sendOrganizationInviteEmail";
 import { sendPasswordResetEmail } from "./emails/sendPasswordResetEmail";
 import { prisma } from "./prisma";
 
@@ -108,12 +109,48 @@ export const auth = betterAuth({
   },
   plugins: [
     nextCookies(),
-    admin({
+    adminPlugin({
       adminRoles: ["admin"],
       defaultRoles: ["user"],
     }),
+    organization({
+      sendInvitationEmail: async ({ email, organization, inviter, invitation }) => {
+        await sendOrganizationInviteEmail({
+          email,
+          organization,
+          inviter,
+          invitation,
+        });
+      },
+    }),
   ],
+  databaseHooks: {
+    session: {
+      create: {
+        before: async (session) => {
+          const lastMembership = await prisma.member.findFirst({
+            where: {
+              userId: session.userId,
+            },
+            orderBy: {
+              createdAt: "desc",
+            },
+            select: {
+              organizationId: true,
+            },
+          });
+
+          return {
+            data: {
+              ...session,
+
+              activeOrganizationId: lastMembership?.organizationId ?? null,
+            },
+          };
+        },
+      },
+    },
+  },
 });
 
-// Exportar prisma y helper para uso manual
 export { prisma, assignAdminRole };

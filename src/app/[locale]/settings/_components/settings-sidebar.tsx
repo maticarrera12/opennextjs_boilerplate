@@ -2,6 +2,7 @@
 import {
   CreditCardPosIcon,
   SquareLockPasswordIcon,
+  Structure03Icon,
   UserAdd02Icon,
   UserGroupIcon,
   UserIcon,
@@ -47,6 +48,11 @@ export default function SettingsSidebar() {
     {
       label: t("sections.organization"),
       items: [
+        {
+          name: t("menu.organization"),
+          href: "/settings/organization",
+          icon: Structure03Icon,
+        },
         {
           name: t("menu.members"),
           href: "/settings/organization/members",

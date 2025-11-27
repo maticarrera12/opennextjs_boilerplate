@@ -14,7 +14,6 @@ const layout = async ({ children, params }: any) => {
     return null;
   }
 
-  // Verificar rol ADMIN desde la base de datos
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
     select: { role: true },
