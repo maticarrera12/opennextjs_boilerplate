@@ -2,6 +2,7 @@
 
 import {
   Analytics01Icon,
+  Calendar01Icon,
   DashboardSquare02Icon,
   Dollar01Icon,
   SparklesIcon,
@@ -35,6 +36,11 @@ export default function AdminSidebar() {
           name: t("menu.productUsage"),
           href: "/dashboard/usage",
           icon: SparklesIcon,
+        },
+        {
+          name: t("menu.calendar"),
+          href: "/dashboard/calendar",
+          icon: Calendar01Icon,
         },
       ],
     },

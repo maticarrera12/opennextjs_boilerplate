@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { columns, UserColumn } from "./_components/columns";
 import { DataTable } from "./_components/data-table";
 import WorldUserMap from "./_components/world-user-map";
+import PageBreadcrumb from "../../_components/page-bread-crumb";
 
 export default function UsersPage() {
   const fetchUsers = async (): Promise<UserColumn[]> => {
@@ -37,6 +38,7 @@ export default function UsersPage() {
 
   return (
     <div className="container mx-auto py-10">
+      <PageBreadcrumb pageTitle="Users" />
       <div>
         <div className="mb-6">
           <WorldUserMap />

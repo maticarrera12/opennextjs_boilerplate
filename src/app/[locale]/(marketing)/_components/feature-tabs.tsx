@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import {
-  AiBrain03Icon,
   CloudUploadIcon,
   CreditCardIcon,
   DashboardSquare02Icon,
@@ -23,7 +22,6 @@ export function FeatureTabs() {
     { value: "payments", label: t("tabs.payments"), icon: CreditCardIcon },
     { value: "storage", label: t("tabs.storage"), icon: CloudUploadIcon },
     { value: "admin", label: t("tabs.admin"), icon: DashboardSquare02Icon },
-    { value: "ai", label: t("tabs.ai"), icon: AiBrain03Icon },
   ];
 
   return (
@@ -97,7 +95,7 @@ function FeatureCard({
           <h3 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight leading-[1.1]">
             {title}
           </h3>
-          <div className="h-1 w-20 bg-gradient-to-r from-primary to-transparent rounded-full" />
+          <div className="h-1 w-20 bg-linear-to-r from-primary to-transparent rounded-full" />
         </div>
 
         <ul className="space-y-4">
@@ -115,7 +113,7 @@ function FeatureCard({
         </ul>
       </div>
 
-      <div className="order-1 md:order-2 w-full aspect-[4/3] bg-muted/30 rounded-[2rem] border border-border/50 overflow-hidden relative flex items-center justify-center">
+      <div className="order-1 md:order-2 w-full aspect-4/3 bg-muted/30 rounded-4xl border border-border/50 overflow-hidden relative flex items-center justify-center">
         <TabVisual type={value} />
       </div>
     </motion.div>
@@ -167,16 +165,6 @@ const TabVisual = ({ type }: { type: string }) => {
           </div>
           <div className="absolute top-10 left-20 w-10 h-12 bg-white dark:bg-neutral-700 shadow-md rounded border border-border -rotate-12" />
           <div className="absolute top-8 right-20 w-10 h-12 bg-white dark:bg-neutral-700 shadow-md rounded border border-border rotate-12" />
-        </div>
-      );
-    case "ai":
-      return (
-        <div className="relative flex items-center justify-center">
-          <div className="absolute w-40 h-40 bg-purple-500/20 blur-[40px] rounded-full animate-pulse" />
-          <AiBrain03Icon className="w-24 h-24 text-foreground relative z-10" />
-          <div className="absolute -right-12 -top-8 bg-white dark:bg-neutral-900 px-3 py-2 rounded-lg rounded-bl-none shadow-lg text-xs border border-border">
-            Analysis Complete
-          </div>
         </div>
       );
     case "admin":
