@@ -7,7 +7,7 @@
       "option3": "Documentación",
       "option4": "Marcadores",
       "option5": "Editar Perfil",
-      "adminPanel": "Panel de Administración",
+      "adminPanel": "Administración",
       "logout": "Cerrar Sesión"
     }
   },
@@ -292,7 +292,7 @@
       "auth": "Autenticación",
       "payments": "Pagos",
       "storage": "Almacenamiento",
-      "admin": "Panel de Administración",
+      "admin": "Administración",
       "ai": "IA y Marca"
     },
     "auth": {
@@ -323,7 +323,7 @@
       ]
     },
     "admin": {
-      "title": "Panel de Administración",
+      "title": "Administración",
       "items": [
         "Vista general completa de los datos y usuarios de tu aplicación.",
         "Seguimiento de suscripciones, uso y análisis en tiempo real.",
@@ -413,7 +413,7 @@
     }
   },
   "admin": {
-    "title": "Panel de Administración",
+    "title": "Administración",
     "sections": {
       "main": "Principal"
     },

@@ -10,11 +10,12 @@ import { OrganizationSelect } from "./_components/organization-select";
 import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 
-const OrganizationPage = async ({ params }: { params: { locale: string } }) => {
+const OrganizationPage = async ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = await params;
   const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session?.user) {
-    redirect({ href: "/signin", locale: params.locale });
+    redirect({ href: "/signin", locale });
     return null;
   }
 

@@ -4,9 +4,11 @@ import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { MoreHorizontalIcon, PlusSignIcon } from "hugeicons-react";
 import { useMemo } from "react";
+import { toast } from "sonner";
 
 import KanbanCard from "./kanban-card";
 import { Column, Task } from "./types";
+import { deleteColumn } from "@/actions/column-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useColumnModal } from "@/hooks/use-column-modal";
 import { useTaskModal } from "@/hooks/use-task-modal";
 import { cn } from "@/lib/utils";
 
@@ -25,6 +28,7 @@ interface KanbanColumnProps {
 
 export default function KanbanColumn({ column, tasks }: KanbanColumnProps) {
   const { onOpen } = useTaskModal();
+  const { onOpen: onOpenColumn } = useColumnModal();
   const taskIds = useMemo(() => tasks.map((task) => task.id), [tasks]);
 
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
@@ -33,8 +37,22 @@ export default function KanbanColumn({ column, tasks }: KanbanColumnProps) {
       type: "Column",
       column,
     },
-    disabled: true, // Disable dragging columns for now, focus on tasks
+    disabled: false, // Enable dragging columns
   });
+
+  const handleDelete = async () => {
+    const result = await deleteColumn(column.id);
+    if (result.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Column deleted successfully");
+    }
+  };
+
+  const handleClearAll = async () => {
+    // TODO: Implement clear all tasks in column
+    toast.info("Clear all tasks feature coming soon");
+  };
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -42,10 +60,16 @@ export default function KanbanColumn({ column, tasks }: KanbanColumnProps) {
   };
 
   const columnColorMap: Record<string, string> = {
-    todo: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
-    "in-progress": "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300",
-    completed: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+    gray: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+    blue: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+    green: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+    orange: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300",
+    purple: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+    red: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
   };
+
+  const columnColor = column.color || "gray";
+  const taskCount = column._count?.tasks ?? tasks.length;
 
   return (
     <div
@@ -56,14 +80,18 @@ export default function KanbanColumn({ column, tasks }: KanbanColumnProps) {
         isDragging && "opacity-50"
       )}
     >
-      <div className="flex items-center justify-between mb-4" {...attributes} {...listeners}>
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between mb-4">
+        <div
+          className="flex items-center gap-2 flex-1 cursor-grab active:cursor-grabbing"
+          {...attributes}
+          {...listeners}
+        >
           <h3 className="font-semibold text-base">{column.title}</h3>
           <Badge
             variant="secondary"
-            className={cn("rounded-full px-2 h-5 text-xs font-medium", columnColorMap[column.id])}
+            className={cn("rounded-full px-2 h-5 text-xs font-medium", columnColorMap[columnColor])}
           >
-            {tasks.length}
+            {taskCount}
           </Badge>
         </div>
         <div className="flex items-center gap-1">
@@ -74,9 +102,17 @@ export default function KanbanColumn({ column, tasks }: KanbanColumnProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Edit Column</DropdownMenuItem>
-              <DropdownMenuItem>Clear All Tasks</DropdownMenuItem>
-              <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
+                  onOpenColumn("edit", { id: column.id, title: column.title, color: column.color })
+                }
+              >
+                Edit Column
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleClearAll}>Clear All Tasks</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleDelete} className="text-destructive">
+                Delete
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

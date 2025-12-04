@@ -12,6 +12,7 @@ import Image from "next/image";
 import { toast } from "sonner";
 
 import { Task } from "./types";
+import { deleteTask } from "@/actions/task-actions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTaskModal } from "@/hooks/use-task-modal";
-import { deleteTask } from "@/lib/actions/task-actions";
 import { cn } from "@/lib/utils";
 
 interface KanbanCardProps {
@@ -97,30 +97,51 @@ export default function KanbanCard({ task }: KanbanCardProps) {
           </DropdownMenu>
         </CardHeader>
 
-        <CardContent className="p-4 pt-0 pb-3">
+        <CardContent className="p-4 pt-0 pb-3 space-y-3">
+          {/* Image */}
           {task.image && (
-            <div className="mb-3 relative w-full h-32 rounded-md overflow-hidden">
-              <Image src={task.image} alt={task.title} fill className="object-cover" unoptimized />
+            <div className="relative w-full h-32 rounded-md overflow-hidden border">
+              <Image
+                src={task.image}
+                alt={task.title}
+                fill
+                className="object-contain"
+                unoptimized
+              />
             </div>
           )}
 
-          <div className="flex items-center text-xs text-muted-foreground mb-3">
-            <Calendar01Icon size={14} className="mr-1.5" />
-            <span>{task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "No date"}</span>
-          </div>
+          {/* Description */}
+          {task.description && (
+            <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+              {task.description}
+            </p>
+          )}
 
-          <div className="flex flex-wrap gap-1.5">
-            {/* Default Priority Tag if no other tags */}
-            {(!task.tags || (task.tags as any[]).length === 0) && task.priority && (
+          {/* Priority Badge */}
+          {task.priority && (
+            <div className="flex items-center gap-1.5">
               <Badge
-                variant="secondary"
-                className="font-normal text-[10px] px-2 py-0.5 h-5 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 capitalize"
+                variant="outline"
+                className={cn(
+                  "font-normal text-[10px] px-2 py-0.5 h-5 capitalize",
+                  task.priority === "high" &&
+                    "border-red-300 text-red-700 dark:border-red-800 dark:text-red-400",
+                  task.priority === "medium" &&
+                    "border-orange-300 text-orange-700 dark:border-orange-800 dark:text-orange-400",
+                  task.priority === "low" &&
+                    "border-blue-300 text-blue-700 dark:border-blue-800 dark:text-blue-400"
+                )}
               >
                 {task.priority}
               </Badge>
-            )}
-            {Array.isArray(task.tags) &&
-              task.tags.map((tag: any, index: number) => (
+            </div>
+          )}
+
+          {/* Tags */}
+          {Array.isArray(task.tags) && task.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {task.tags.map((tag: any, index: number) => (
                 <Badge
                   key={index}
                   variant="secondary"
@@ -132,7 +153,16 @@ export default function KanbanCard({ task }: KanbanCardProps) {
                   {tag.label}
                 </Badge>
               ))}
-          </div>
+            </div>
+          )}
+
+          {/* Due Date */}
+          {task.dueDate && (
+            <div className="flex items-center text-xs text-muted-foreground">
+              <Calendar01Icon size={14} className="mr-1.5" />
+              <span>{new Date(task.dueDate).toLocaleDateString()}</span>
+            </div>
+          )}
         </CardContent>
 
         <CardFooter className="pt-0 flex items-center justify-between border-t bg-muted/5 p-3 mt-1">
@@ -152,9 +182,13 @@ export default function KanbanCard({ task }: KanbanCardProps) {
           </div>
 
           <Avatar className="h-6 w-6 border-2 border-background">
-            <AvatarImage src={task.assigneeAvatar || undefined} />
+            <AvatarImage src={task.user?.image || task.assigneeAvatar || undefined} />
             <AvatarFallback className="text-[10px]">
-              {task.assigneeName ? task.assigneeName.substring(0, 2).toUpperCase() : "??"}
+              {task.user?.name
+                ? task.user.name.substring(0, 2).toUpperCase()
+                : task.assigneeName
+                  ? task.assigneeName.substring(0, 2).toUpperCase()
+                  : "??"}
             </AvatarFallback>
           </Avatar>
         </CardFooter>

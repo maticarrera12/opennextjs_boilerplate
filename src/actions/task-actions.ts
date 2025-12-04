@@ -20,6 +20,15 @@ export async function getTasks() {
     where: {
       userId: session.user.id,
     },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+    },
     orderBy: {
       order: "asc",
     },
@@ -33,6 +42,9 @@ export async function createTask(data: {
   status: string;
   priority?: string;
   dueDate?: Date;
+  description?: string;
+  tags?: Array<{ label: string; color: string }>;
+  image?: string;
 }) {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -56,18 +68,32 @@ export async function createTask(data: {
 
     const newOrder = lastTask ? lastTask.order + 1 : 0;
 
+    const taskData = {
+      title: data.title,
+      status: data.status,
+      priority: data.priority || "medium",
+      dueDate: data.dueDate,
+      description: data.description || null,
+      tags: data.tags || null,
+      image: data.image || null,
+      order: newOrder,
+      userId: session.user.id,
+      assigneeName: session.user.name,
+      assigneeAvatar: session.user.image,
+    };
+
+    console.log("Creating task with data:", {
+      ...taskData,
+      image: taskData.image ? `${taskData.image.substring(0, 50)}...` : null,
+    });
+
     const task = await prisma.task.create({
-      data: {
-        title: data.title,
-        status: data.status,
-        priority: data.priority || "medium",
-        dueDate: data.dueDate,
-        order: newOrder,
-        userId: session.user.id,
-        tags: [], // Default empty tags
-        assigneeName: session.user.name,
-        assigneeAvatar: session.user.image,
-      },
+      data: taskData,
+    });
+
+    console.log("Task created successfully:", {
+      id: task.id,
+      image: task.image ? `${task.image.substring(0, 50)}...` : null,
     });
 
     revalidatePath("/dashboard/tasks/kanban");

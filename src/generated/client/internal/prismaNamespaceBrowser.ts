@@ -64,6 +64,7 @@ export const ModelName = {
   BrandAsset: 'BrandAsset',
   PlanLimit: 'PlanLimit',
   WaitlistUser: 'WaitlistUser',
+  KanbanColumn: 'KanbanColumn',
   Task: 'Task'
 } as const
 
@@ -311,6 +312,19 @@ export const WaitlistUserScalarFieldEnum = {
 export type WaitlistUserScalarFieldEnum = (typeof WaitlistUserScalarFieldEnum)[keyof typeof WaitlistUserScalarFieldEnum]
 
 
+export const KanbanColumnScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  order: 'order',
+  color: 'color',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type KanbanColumnScalarFieldEnum = (typeof KanbanColumnScalarFieldEnum)[keyof typeof KanbanColumnScalarFieldEnum]
+
+
 export const TaskScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -323,6 +337,7 @@ export const TaskScalarFieldEnum = {
   tags: 'tags',
   assigneeName: 'assigneeName',
   assigneeAvatar: 'assigneeAvatar',
+  columnId: 'columnId',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

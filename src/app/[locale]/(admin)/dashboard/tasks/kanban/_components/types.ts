@@ -8,8 +8,9 @@ export interface TaskTag {
 export interface Task {
   id: string;
   title: string;
-  status: string; // Using string to be compatible with Prisma, but ideally TaskStatus
+  status: string; // References KanbanColumn.id
   dueDate?: Date | string | null;
+  description?: string | null;
   comments?: number; // Optional for now as DB doesn't track yet
   attachments?: number; // Optional
   assigneeName?: string | null;
@@ -18,9 +19,20 @@ export interface Task {
   image?: string | null;
   priority?: string | null;
   order?: number;
+  columnId?: string | null;
+  user?: {
+    id: string;
+    name: string | null;
+    image: string | null;
+  };
 }
 
 export interface Column {
-  id: TaskStatus;
+  id: string;
   title: string;
+  order?: number;
+  color?: string | null;
+  _count?: {
+    tasks: number;
+  };
 }

@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 
-import { uploadUserAvatar } from "@/actions/upload-actions";
+import { uploadImage } from "@/actions/upload-actions";
 
 /**
- * API route for uploading user avatar
- * @deprecated Consider using uploadUserAvatar server action directly from client components
+ * API route for uploading task images
+ * @deprecated Consider using uploadImage server action directly from client components
  * This route is kept for backward compatibility
  */
 export async function POST(req: Request) {
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
   }
 
-  const result = await uploadUserAvatar(file);
+  const result = await uploadImage(file, "task");
 
   if ("error" in result) {
     return NextResponse.json({ error: result.error }, { status: 400 });

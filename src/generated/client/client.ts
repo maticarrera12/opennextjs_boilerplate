@@ -105,6 +105,11 @@ export type PlanLimit = Prisma.PlanLimitModel
  */
 export type WaitlistUser = Prisma.WaitlistUserModel
 /**
+ * Model KanbanColumn
+ * 
+ */
+export type KanbanColumn = Prisma.KanbanColumnModel
+/**
  * Model Task
  * 
  */

@@ -397,6 +397,7 @@ export const ModelName = {
   BrandAsset: 'BrandAsset',
   PlanLimit: 'PlanLimit',
   WaitlistUser: 'WaitlistUser',
+  KanbanColumn: 'KanbanColumn',
   Task: 'Task'
 } as const
 
@@ -413,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "organization" | "member" | "invitation" | "creditTransaction" | "purchase" | "brandProject" | "brandAsset" | "planLimit" | "waitlistUser" | "task"
+    modelProps: "user" | "session" | "account" | "verification" | "organization" | "member" | "invitation" | "creditTransaction" | "purchase" | "brandProject" | "brandAsset" | "planLimit" | "waitlistUser" | "kanbanColumn" | "task"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1379,6 +1380,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    KanbanColumn: {
+      payload: Prisma.$KanbanColumnPayload<ExtArgs>
+      fields: Prisma.KanbanColumnFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.KanbanColumnFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.KanbanColumnFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload>
+        }
+        findFirst: {
+          args: Prisma.KanbanColumnFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.KanbanColumnFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload>
+        }
+        findMany: {
+          args: Prisma.KanbanColumnFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload>[]
+        }
+        create: {
+          args: Prisma.KanbanColumnCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload>
+        }
+        createMany: {
+          args: Prisma.KanbanColumnCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.KanbanColumnCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload>[]
+        }
+        delete: {
+          args: Prisma.KanbanColumnDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload>
+        }
+        update: {
+          args: Prisma.KanbanColumnUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload>
+        }
+        deleteMany: {
+          args: Prisma.KanbanColumnDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.KanbanColumnUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.KanbanColumnUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload>[]
+        }
+        upsert: {
+          args: Prisma.KanbanColumnUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KanbanColumnPayload>
+        }
+        aggregate: {
+          args: Prisma.KanbanColumnAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateKanbanColumn>
+        }
+        groupBy: {
+          args: Prisma.KanbanColumnGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.KanbanColumnGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.KanbanColumnCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.KanbanColumnCountAggregateOutputType> | number
+        }
+      }
+    }
     Task: {
       payload: Prisma.$TaskPayload<ExtArgs>
       fields: Prisma.TaskFieldRefs
@@ -1720,6 +1795,19 @@ export const WaitlistUserScalarFieldEnum = {
 export type WaitlistUserScalarFieldEnum = (typeof WaitlistUserScalarFieldEnum)[keyof typeof WaitlistUserScalarFieldEnum]
 
 
+export const KanbanColumnScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  order: 'order',
+  color: 'color',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type KanbanColumnScalarFieldEnum = (typeof KanbanColumnScalarFieldEnum)[keyof typeof KanbanColumnScalarFieldEnum]
+
+
 export const TaskScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -1732,6 +1820,7 @@ export const TaskScalarFieldEnum = {
   tags: 'tags',
   assigneeName: 'assigneeName',
   assigneeAvatar: 'assigneeAvatar',
+  columnId: 'columnId',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2088,6 +2177,7 @@ export type GlobalOmitConfig = {
   brandAsset?: Prisma.BrandAssetOmit
   planLimit?: Prisma.PlanLimitOmit
   waitlistUser?: Prisma.WaitlistUserOmit
+  kanbanColumn?: Prisma.KanbanColumnOmit
   task?: Prisma.TaskOmit
 }
 

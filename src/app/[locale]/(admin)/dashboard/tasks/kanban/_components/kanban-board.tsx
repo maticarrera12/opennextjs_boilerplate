@@ -11,43 +11,49 @@ import {
   DragEndEvent,
   closestCorners,
 } from "@dnd-kit/core";
-import { arrayMove } from "@dnd-kit/sortable";
+import { arrayMove, SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import { FilterHorizontalIcon, PlusSignIcon } from "hugeicons-react";
 import { useState, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { toast } from "sonner";
 
+import { ColumnModal } from "./column-modal";
 import KanbanCard from "./kanban-card";
 import KanbanColumn from "./kanban-column";
 import { TaskModal } from "./task-modal";
 import { Column, Task } from "./types";
+import { reorderColumns } from "@/actions/column-actions";
+import { updateTaskStatus } from "@/actions/task-actions";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useColumnModal } from "@/hooks/use-column-modal";
 import { useTaskModal } from "@/hooks/use-task-modal";
-import { updateTaskStatus } from "@/lib/actions/task-actions";
-
-const initialColumns: Column[] = [
-  { id: "todo", title: "To Do" },
-  { id: "in-progress", title: "In Progress" },
-  { id: "completed", title: "Completed" },
-];
 
 interface KanbanBoardProps {
   initialTasks: Task[];
+  initialColumns: Column[];
 }
 
-export default function KanbanBoard({ initialTasks }: KanbanBoardProps) {
+export default function KanbanBoard({ initialTasks, initialColumns }: KanbanBoardProps) {
   // Use local state for optimistic updates, but sync with props when they change (revalidation)
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const [columns, setColumns] = useState<Column[]>(initialColumns);
+
   useEffect(() => {
     setTasks(initialTasks);
   }, [initialTasks]);
 
+  useEffect(() => {
+    setColumns(initialColumns);
+  }, [initialColumns]);
+
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const [activeColumn, setActiveColumn] = useState<Column | null>(null);
   const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
 
   const { onOpen } = useTaskModal();
+  const { onOpen: onOpenColumn } = useColumnModal();
 
   useEffect(() => {
     setMounted(true);
@@ -64,22 +70,24 @@ export default function KanbanBoard({ initialTasks }: KanbanBoardProps) {
   // Filtered tasks based on active tab
   const filteredTasks = useMemo(() => {
     if (activeTab === "all") return tasks;
-    return tasks.filter((t) => t.status === activeTab);
-  }, [tasks, activeTab]);
+    const column = columns.find((c) => c.id === activeTab);
+    if (!column) return tasks;
+    return tasks.filter((t) => t.status === column.id);
+  }, [tasks, activeTab, columns]);
 
-  // We need to pass all tasks to columns so they can manage their own state,
-  // but if we are in a specific tab, we might only want to show one column or filter tasks within columns?
-  // Usually in Kanban, "Tabs" might filter by Assignee or Priority, but if it filters by Status, it effectively hides columns.
-  // The design shows "All Tasks", "To do", "In Progress", "Completed". This implies showing only that column or all columns.
-
+  // Visible columns based on active tab
   const visibleColumns = useMemo(() => {
-    if (activeTab === "all") return initialColumns;
-    return initialColumns.filter((c) => c.id === activeTab);
-  }, [activeTab]);
+    if (activeTab === "all") return columns;
+    return columns.filter((c) => c.id === activeTab);
+  }, [activeTab, columns]);
+
+  const columnIds = useMemo(() => visibleColumns.map((c) => c.id), [visibleColumns]);
 
   const onDragStart = (event: DragStartEvent) => {
     if (event.active.data.current?.type === "Task") {
       setActiveTask(event.active.data.current.task);
+    } else if (event.active.data.current?.type === "Column") {
+      setActiveColumn(event.active.data.current.column);
     }
   };
 
@@ -93,8 +101,25 @@ export default function KanbanBoard({ initialTasks }: KanbanBoardProps) {
     if (activeId === overId) return;
 
     const isActiveTask = active.data.current?.type === "Task";
+    const isActiveColumn = active.data.current?.type === "Column";
     const isOverTask = over.data.current?.type === "Task";
+    const isOverColumn = over.data.current?.type === "Column";
 
+    // Handle Column dragging
+    if (isActiveColumn && isOverColumn) {
+      setColumns((columns) => {
+        const activeIndex = columns.findIndex((c) => c.id === activeId);
+        const overIndex = columns.findIndex((c) => c.id === overId);
+
+        if (activeIndex !== overIndex) {
+          return arrayMove(columns, activeIndex, overIndex);
+        }
+        return columns;
+      });
+      return;
+    }
+
+    // Handle Task dragging
     if (!isActiveTask) return;
 
     // Dropping a Task over another Task
@@ -117,17 +142,15 @@ export default function KanbanBoard({ initialTasks }: KanbanBoardProps) {
       });
     }
 
-    const isOverColumn = over.data.current?.type === "Column";
-
     // Dropping a Task over a Column
     if (isActiveTask && isOverColumn) {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
-        const newStatus = over.id as Task["status"]; // safe cast if valid
+        const newStatus = over.id as string;
 
         if (tasks[activeIndex].status !== newStatus) {
           const newTasks = [...tasks];
-          newTasks[activeIndex].status = newStatus; // Update status locally
+          newTasks[activeIndex].status = newStatus;
           return arrayMove(newTasks, activeIndex, activeIndex);
         }
         return tasks;
@@ -137,6 +160,7 @@ export default function KanbanBoard({ initialTasks }: KanbanBoardProps) {
 
   const onDragEnd = async (event: DragEndEvent) => {
     setActiveTask(null);
+    setActiveColumn(null);
     const { active, over } = event;
 
     if (!over) return;
@@ -147,68 +171,62 @@ export default function KanbanBoard({ initialTasks }: KanbanBoardProps) {
     if (activeId === overId) return;
 
     const isActiveTask = active.data.current?.type === "Task";
+    const isActiveColumn = active.data.current?.type === "Column";
     const isOverTask = over.data.current?.type === "Task";
     const isOverColumn = over.data.current?.type === "Column";
 
-    let newStatus = "";
-    let newOrder = 0;
+    // Handle Column reordering
+    if (isActiveColumn && isOverColumn) {
+      const newColumnOrder = columns.map((c) => c.id);
+      const activeIndex = newColumnOrder.indexOf(activeId);
+      const overIndex = newColumnOrder.indexOf(overId);
+      const reordered = arrayMove(newColumnOrder, activeIndex, overIndex);
 
-    // Calculate new state for server update
-    if (isActiveTask && isOverTask) {
-      // Find the task we dropped over to get its status and order
-      const overTask = tasks.find((t) => t.id === overId);
-      if (overTask) {
-        newStatus = overTask.status;
-        // In a real app with lexorank, we'd calculate exact order.
-        // For now, we just rely on the array index from `tasks` state which was updated in DragOver
-        // But DragOver updates are optimistic.
-        // Let's just persist the status change for now.
-        // If we want to persist order, we need to send the whole list order or calculate new index.
-        // Let's simplifiy: Just update Status. Order persistence requires reordering the whole list in DB or using floats.
-      }
-    } else if (isActiveTask && isOverColumn) {
-      newStatus = over.id as string;
-    }
+      // Save previous state for revert
+      const previousColumns = [...columns];
 
-    // We still run the local state update in DragEnd to ensure it settles
-    if (isActiveTask && isOverTask) {
-      setTasks((tasks) => {
-        const activeIndex = tasks.findIndex((t) => t.id === activeId);
-        const overIndex = tasks.findIndex((t) => t.id === overId);
-
-        if (tasks[activeIndex].status !== tasks[overIndex].status) {
-          const newTasks = [...tasks];
-          newTasks[activeIndex].status = tasks[overIndex].status;
-          newStatus = tasks[overIndex].status; // Capture for server call
-          return arrayMove(newTasks, activeIndex, overIndex);
-        }
-
-        if (activeIndex !== overIndex) {
-          return arrayMove(tasks, activeIndex, overIndex);
-        }
-
-        return tasks;
-      });
-    }
-
-    // Call Server Action
-    if (newStatus) {
-      // Determine the new order. This is complex without re-reading the state *after* the set state.
-      // A simple approach: wait for the optimistic update, then send the request?
-      // Or just send the status update.
       try {
-        await updateTaskStatus(activeId, newStatus, 0); // Order 0 for now, improvement: calculate order
-        // toast.success("Moved");
+        const result = await reorderColumns(reordered);
+        if (result.error) {
+          toast.error(result.error);
+          // Revert by restoring previous order
+          setColumns(previousColumns);
+        }
       } catch (e) {
-        toast.error("Failed to save move");
-        // Revert state?
+        toast.error("Failed to reorder columns");
+        // Revert by restoring previous order
+        setColumns(previousColumns);
+      }
+      return;
+    }
+
+    // Handle Task moving
+    if (isActiveTask) {
+      let newStatus = "";
+
+      if (isOverTask) {
+        const overTask = tasks.find((t) => t.id === overId);
+        if (overTask) {
+          newStatus = overTask.status;
+        }
+      } else if (isOverColumn) {
+        newStatus = over.id as string;
+      }
+
+      if (newStatus) {
+        try {
+          await updateTaskStatus(activeId, newStatus, 0);
+        } catch (e) {
+          toast.error("Failed to save move");
+        }
       }
     }
   };
 
   return (
     <div className="flex flex-col h-full">
-      <TaskModal />
+      <TaskModal columns={columns} />
+      <ColumnModal />
 
       {/* Toolbar */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
@@ -225,24 +243,14 @@ export default function KanbanBoard({ initialTasks }: KanbanBoardProps) {
                 {tasks.length}
               </span>
             </TabsTrigger>
-            <TabsTrigger value="todo" className="text-xs md:text-sm">
-              To do{" "}
-              <span className="ml-2 bg-background/50 px-1.5 py-0.5 rounded-full text-[10px]">
-                {tasks.filter((t) => t.status === "todo").length}
-              </span>
-            </TabsTrigger>
-            <TabsTrigger value="in-progress" className="text-xs md:text-sm">
-              In Progress{" "}
-              <span className="ml-2 bg-background/50 px-1.5 py-0.5 rounded-full text-[10px]">
-                {tasks.filter((t) => t.status === "in-progress").length}
-              </span>
-            </TabsTrigger>
-            <TabsTrigger value="completed" className="text-xs md:text-sm">
-              Completed{" "}
-              <span className="ml-2 bg-background/50 px-1.5 py-0.5 rounded-full text-[10px]">
-                {tasks.filter((t) => t.status === "completed").length}
-              </span>
-            </TabsTrigger>
+            {columns.map((column) => (
+              <TabsTrigger key={column.id} value={column.id} className="text-xs md:text-sm">
+                {column.title}{" "}
+                <span className="ml-2 bg-background/50 px-1.5 py-0.5 rounded-full text-[10px]">
+                  {tasks.filter((t) => t.status === column.id).length}
+                </span>
+              </TabsTrigger>
+            ))}
           </TabsList>
         </Tabs>
 
@@ -250,6 +258,10 @@ export default function KanbanBoard({ initialTasks }: KanbanBoardProps) {
           <Button variant="outline" className="gap-2">
             <FilterHorizontalIcon size={16} />
             Filter & Sort
+          </Button>
+          <Button variant="outline" className="gap-2" onClick={() => onOpenColumn("create")}>
+            <PlusSignIcon size={16} />
+            Add Column
           </Button>
           <Button
             className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
@@ -269,19 +281,28 @@ export default function KanbanBoard({ initialTasks }: KanbanBoardProps) {
         onDragOver={onDragOver}
         onDragEnd={onDragEnd}
       >
-        <div className="flex-1 flex gap-6 overflow-x-auto pb-4">
-          {visibleColumns.map((column) => (
-            <KanbanColumn
-              key={column.id}
-              column={column}
-              tasks={tasks.filter((task) => task.status === column.id)}
-            />
-          ))}
-        </div>
+        <SortableContext items={columnIds} strategy={horizontalListSortingStrategy}>
+          <div className="flex-1 flex gap-6 overflow-x-auto pb-4">
+            {visibleColumns.map((column) => (
+              <KanbanColumn
+                key={column.id}
+                column={column}
+                tasks={tasks.filter((task) => task.status === column.id)}
+              />
+            ))}
+          </div>
+        </SortableContext>
 
         {mounted &&
           createPortal(
-            <DragOverlay>{activeTask && <KanbanCard task={activeTask} />}</DragOverlay>,
+            <DragOverlay>
+              {activeTask && <KanbanCard task={activeTask} />}
+              {activeColumn && (
+                <div className="w-[350px] min-w-[350px] rounded-lg bg-muted/30 p-4 opacity-90">
+                  <h3 className="font-semibold text-base">{activeColumn.title}</h3>
+                </div>
+              )}
+            </DragOverlay>,
             document.body
           )}
       </DndContext>

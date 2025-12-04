@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
+import { uploadUserAvatar } from "@/actions/upload-actions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 
@@ -28,19 +29,11 @@ export function ProfilePictureSection({ user, plan }: ProfilePictureSectionProps
   // --- MUTATION: Upload Avatar ---
   const uploadAvatar = useMutation({
     mutationFn: async (file: File) => {
-      /* eslint-env browser */
-      // eslint-disable-next-line no-undef
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const res = await fetch("/api/user/avatar", {
-        method: "POST",
-        body: formData,
-      });
-
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || "Failed to upload image");
-      return json.url as string;
+      const result = await uploadUserAvatar(file);
+      if ("error" in result) {
+        throw new Error(result.error);
+      }
+      return result.url;
     },
     onSuccess: async (url) => {
       toast.success("Profile picture updated!");

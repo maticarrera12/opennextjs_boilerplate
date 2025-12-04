@@ -68,6 +68,7 @@ model User {
   creditHistory CreditTransaction[]
   purchases     Purchase[]
   tasks         Task[]
+  kanbanColumns KanbanColumn[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -425,10 +426,28 @@ model WaitlistUser {
 // TASKS (KANBAN)
 // ============================================
 
+model KanbanColumn {
+  id          String   @id @default(cuid())
+  title       String
+  order       Float    @default(0)
+  color       String?  // Optional color for the column badge
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  tasks       Task[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([userId, order])
+}
+
 model Task {
   id          String   @id @default(cuid())
   title       String
-  status      String   @default("todo") // todo, in-progress, completed
+  status      String   @default("todo") // References KanbanColumn.id
   order       Float    @default(0)
   dueDate     DateTime?
   priority    String?  @default("medium") // low, medium, high
@@ -444,6 +463,9 @@ model Task {
   assigneeName   String?
   assigneeAvatar String?
 
+  columnId    String?
+  column      KanbanColumn? @relation(fields: [columnId], references: [id], onDelete: SetNull)
+
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -452,4 +474,5 @@ model Task {
 
   @@index([userId])
   @@index([status])
+  @@index([columnId])
 }

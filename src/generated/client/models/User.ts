@@ -389,6 +389,7 @@ export type UserWhereInput = {
   creditHistory?: Prisma.CreditTransactionListRelationFilter
   purchases?: Prisma.PurchaseListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
+  kanbanColumns?: Prisma.KanbanColumnListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -426,6 +427,7 @@ export type UserOrderByWithRelationInput = {
   creditHistory?: Prisma.CreditTransactionOrderByRelationAggregateInput
   purchases?: Prisma.PurchaseOrderByRelationAggregateInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
+  kanbanColumns?: Prisma.KanbanColumnOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -466,6 +468,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   creditHistory?: Prisma.CreditTransactionListRelationFilter
   purchases?: Prisma.PurchaseListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
+  kanbanColumns?: Prisma.KanbanColumnListRelationFilter
 }, "id" | "email" | "subscriptionId" | "stripeCustomerId" | "lemonSqueezyCustomerId">
 
 export type UserOrderByWithAggregationInput = {
@@ -567,6 +570,7 @@ export type UserCreateInput = {
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -604,6 +608,7 @@ export type UserUncheckedCreateInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -641,6 +646,7 @@ export type UserUpdateInput = {
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -678,6 +684,7 @@ export type UserUncheckedUpdateInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1015,6 +1022,20 @@ export type UserUpdateOneRequiredWithoutAssetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssetsInput, Prisma.UserUpdateWithoutAssetsInput>, Prisma.UserUncheckedUpdateWithoutAssetsInput>
 }
 
+export type UserCreateNestedOneWithoutKanbanColumnsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutKanbanColumnsInput, Prisma.UserUncheckedCreateWithoutKanbanColumnsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutKanbanColumnsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutKanbanColumnsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutKanbanColumnsInput, Prisma.UserUncheckedCreateWithoutKanbanColumnsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutKanbanColumnsInput
+  upsert?: Prisma.UserUpsertWithoutKanbanColumnsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutKanbanColumnsInput, Prisma.UserUpdateWithoutKanbanColumnsInput>, Prisma.UserUncheckedUpdateWithoutKanbanColumnsInput>
+}
+
 export type UserCreateNestedOneWithoutTasksInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutTasksInput, Prisma.UserUncheckedCreateWithoutTasksInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutTasksInput
@@ -1063,6 +1084,7 @@ export type UserCreateWithoutSessionsInput = {
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1099,6 +1121,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1151,6 +1174,7 @@ export type UserUpdateWithoutSessionsInput = {
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1187,6 +1211,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -1223,6 +1248,7 @@ export type UserCreateWithoutAccountsInput = {
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1259,6 +1285,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1311,6 +1338,7 @@ export type UserUpdateWithoutAccountsInput = {
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1347,6 +1375,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMembersInput = {
@@ -1383,6 +1412,7 @@ export type UserCreateWithoutMembersInput = {
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembersInput = {
@@ -1419,6 +1449,7 @@ export type UserUncheckedCreateWithoutMembersInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembersInput = {
@@ -1471,6 +1502,7 @@ export type UserUpdateWithoutMembersInput = {
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembersInput = {
@@ -1507,6 +1539,7 @@ export type UserUncheckedUpdateWithoutMembersInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInvitationsInput = {
@@ -1543,6 +1576,7 @@ export type UserCreateWithoutInvitationsInput = {
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInvitationsInput = {
@@ -1579,6 +1613,7 @@ export type UserUncheckedCreateWithoutInvitationsInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInvitationsInput = {
@@ -1631,6 +1666,7 @@ export type UserUpdateWithoutInvitationsInput = {
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitationsInput = {
@@ -1667,6 +1703,7 @@ export type UserUncheckedUpdateWithoutInvitationsInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreditHistoryInput = {
@@ -1703,6 +1740,7 @@ export type UserCreateWithoutCreditHistoryInput = {
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreditHistoryInput = {
@@ -1739,6 +1777,7 @@ export type UserUncheckedCreateWithoutCreditHistoryInput = {
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreditHistoryInput = {
@@ -1791,6 +1830,7 @@ export type UserUpdateWithoutCreditHistoryInput = {
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreditHistoryInput = {
@@ -1827,6 +1867,7 @@ export type UserUncheckedUpdateWithoutCreditHistoryInput = {
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPurchasesInput = {
@@ -1863,6 +1904,7 @@ export type UserCreateWithoutPurchasesInput = {
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPurchasesInput = {
@@ -1899,6 +1941,7 @@ export type UserUncheckedCreateWithoutPurchasesInput = {
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPurchasesInput = {
@@ -1951,6 +1994,7 @@ export type UserUpdateWithoutPurchasesInput = {
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPurchasesInput = {
@@ -1987,6 +2031,7 @@ export type UserUncheckedUpdateWithoutPurchasesInput = {
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectsInput = {
@@ -2023,6 +2068,7 @@ export type UserCreateWithoutProjectsInput = {
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectsInput = {
@@ -2059,6 +2105,7 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectsInput = {
@@ -2111,6 +2158,7 @@ export type UserUpdateWithoutProjectsInput = {
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -2147,6 +2195,7 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAssetsInput = {
@@ -2183,6 +2232,7 @@ export type UserCreateWithoutAssetsInput = {
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssetsInput = {
@@ -2219,6 +2269,7 @@ export type UserUncheckedCreateWithoutAssetsInput = {
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssetsInput = {
@@ -2271,6 +2322,7 @@ export type UserUpdateWithoutAssetsInput = {
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssetsInput = {
@@ -2304,6 +2356,171 @@ export type UserUncheckedUpdateWithoutAssetsInput = {
   members?: Prisma.MemberUncheckedUpdateManyWithoutUserNestedInput
   invitations?: Prisma.InvitationUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.BrandProjectUncheckedUpdateManyWithoutUserNestedInput
+  creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutKanbanColumnsInput = {
+  id?: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  theme?: string | null
+  language?: string | null
+  banned?: boolean
+  role?: string
+  plan?: $Enums.PlanType
+  planStatus?: $Enums.PlanStatus
+  credits?: number
+  lifetimeCredits?: number
+  subscriptionProvider?: $Enums.SubscriptionProvider | null
+  subscriptionId?: string | null
+  subscriptionStatus?: string | null
+  currentPeriodStart?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  cancelAtPeriodEnd?: boolean
+  stripeCustomerId?: string | null
+  stripePriceId?: string | null
+  lemonSqueezyCustomerId?: string | null
+  lemonSqueezyVariantId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  members?: Prisma.MemberCreateNestedManyWithoutUserInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutUserInput
+  projects?: Prisma.BrandProjectCreateNestedManyWithoutUserInput
+  assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
+  creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutKanbanColumnsInput = {
+  id?: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  theme?: string | null
+  language?: string | null
+  banned?: boolean
+  role?: string
+  plan?: $Enums.PlanType
+  planStatus?: $Enums.PlanStatus
+  credits?: number
+  lifetimeCredits?: number
+  subscriptionProvider?: $Enums.SubscriptionProvider | null
+  subscriptionId?: string | null
+  subscriptionStatus?: string | null
+  currentPeriodStart?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  cancelAtPeriodEnd?: boolean
+  stripeCustomerId?: string | null
+  stripePriceId?: string | null
+  lemonSqueezyCustomerId?: string | null
+  lemonSqueezyVariantId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  members?: Prisma.MemberUncheckedCreateNestedManyWithoutUserInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.BrandProjectUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
+  creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutKanbanColumnsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutKanbanColumnsInput, Prisma.UserUncheckedCreateWithoutKanbanColumnsInput>
+}
+
+export type UserUpsertWithoutKanbanColumnsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutKanbanColumnsInput, Prisma.UserUncheckedUpdateWithoutKanbanColumnsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutKanbanColumnsInput, Prisma.UserUncheckedCreateWithoutKanbanColumnsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutKanbanColumnsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutKanbanColumnsInput, Prisma.UserUncheckedUpdateWithoutKanbanColumnsInput>
+}
+
+export type UserUpdateWithoutKanbanColumnsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  planStatus?: Prisma.EnumPlanStatusFieldUpdateOperationsInput | $Enums.PlanStatus
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  lifetimeCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  subscriptionProvider?: Prisma.NullableEnumSubscriptionProviderFieldUpdateOperationsInput | $Enums.SubscriptionProvider | null
+  subscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentPeriodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelAtPeriodEnd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePriceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lemonSqueezyCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lemonSqueezyVariantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  members?: Prisma.MemberUpdateManyWithoutUserNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutUserNestedInput
+  projects?: Prisma.BrandProjectUpdateManyWithoutUserNestedInput
+  assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
+  creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutKanbanColumnsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  planStatus?: Prisma.EnumPlanStatusFieldUpdateOperationsInput | $Enums.PlanStatus
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  lifetimeCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  subscriptionProvider?: Prisma.NullableEnumSubscriptionProviderFieldUpdateOperationsInput | $Enums.SubscriptionProvider | null
+  subscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentPeriodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelAtPeriodEnd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePriceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lemonSqueezyCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lemonSqueezyVariantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  members?: Prisma.MemberUncheckedUpdateManyWithoutUserNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.BrandProjectUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
@@ -2343,6 +2560,7 @@ export type UserCreateWithoutTasksInput = {
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTasksInput = {
@@ -2379,6 +2597,7 @@ export type UserUncheckedCreateWithoutTasksInput = {
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTasksInput = {
@@ -2431,6 +2650,7 @@ export type UserUpdateWithoutTasksInput = {
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTasksInput = {
@@ -2467,6 +2687,7 @@ export type UserUncheckedUpdateWithoutTasksInput = {
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  kanbanColumns?: Prisma.KanbanColumnUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -2484,6 +2705,7 @@ export type UserCountOutputType = {
   creditHistory: number
   purchases: number
   tasks: number
+  kanbanColumns: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2496,6 +2718,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   creditHistory?: boolean | UserCountOutputTypeCountCreditHistoryArgs
   purchases?: boolean | UserCountOutputTypeCountPurchasesArgs
   tasks?: boolean | UserCountOutputTypeCountTasksArgs
+  kanbanColumns?: boolean | UserCountOutputTypeCountKanbanColumnsArgs
 }
 
 /**
@@ -2571,6 +2794,13 @@ export type UserCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.TaskWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountKanbanColumnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.KanbanColumnWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2607,6 +2837,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   creditHistory?: boolean | Prisma.User$creditHistoryArgs<ExtArgs>
   purchases?: boolean | Prisma.User$purchasesArgs<ExtArgs>
   tasks?: boolean | Prisma.User$tasksArgs<ExtArgs>
+  kanbanColumns?: boolean | Prisma.User$kanbanColumnsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2705,6 +2936,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   creditHistory?: boolean | Prisma.User$creditHistoryArgs<ExtArgs>
   purchases?: boolean | Prisma.User$purchasesArgs<ExtArgs>
   tasks?: boolean | Prisma.User$tasksArgs<ExtArgs>
+  kanbanColumns?: boolean | Prisma.User$kanbanColumnsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2722,6 +2954,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     creditHistory: Prisma.$CreditTransactionPayload<ExtArgs>[]
     purchases: Prisma.$PurchasePayload<ExtArgs>[]
     tasks: Prisma.$TaskPayload<ExtArgs>[]
+    kanbanColumns: Prisma.$KanbanColumnPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3152,6 +3385,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   creditHistory<T extends Prisma.User$creditHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$creditHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchases<T extends Prisma.User$purchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$purchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tasks<T extends Prisma.User$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  kanbanColumns<T extends Prisma.User$kanbanColumnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$kanbanColumnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KanbanColumnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3807,6 +4041,30 @@ export type User$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
+ * User.kanbanColumns
+ */
+export type User$kanbanColumnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the KanbanColumn
+   */
+  select?: Prisma.KanbanColumnSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the KanbanColumn
+   */
+  omit?: Prisma.KanbanColumnOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.KanbanColumnInclude<ExtArgs> | null
+  where?: Prisma.KanbanColumnWhereInput
+  orderBy?: Prisma.KanbanColumnOrderByWithRelationInput | Prisma.KanbanColumnOrderByWithRelationInput[]
+  cursor?: Prisma.KanbanColumnWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.KanbanColumnScalarFieldEnum | Prisma.KanbanColumnScalarFieldEnum[]
 }
 
 /**

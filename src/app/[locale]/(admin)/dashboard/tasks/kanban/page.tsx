@@ -3,7 +3,8 @@ import React from "react";
 
 import KanbanBoard from "./_components/kanban-board";
 import PageBreadcrumb from "../../../_components/page-bread-crumb";
-import { getTasks } from "@/lib/actions/task-actions";
+import { getColumns } from "@/actions/column-actions";
+import { getTasks } from "@/actions/task-actions";
 import { auth } from "@/lib/auth";
 
 export default async function KanbanPage() {
@@ -13,16 +14,18 @@ export default async function KanbanPage() {
   });
 
   let tasks: any[] = [];
+  let columns: any[] = [];
 
   if (session?.user) {
     tasks = await getTasks();
+    columns = await getColumns();
   }
 
   return (
     <div className="flex flex-col h-full min-h-[calc(100vh-100px)]">
       <PageBreadcrumb pageTitle="Kanban" />
       <div className="flex-1">
-        <KanbanBoard initialTasks={tasks as any} />
+        <KanbanBoard initialTasks={tasks as any} initialColumns={columns as any} />
       </div>
     </div>
   );
