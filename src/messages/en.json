@@ -423,6 +423,9 @@
       "revenueBilling": "Revenue & Billing",
       "productUsage": "Product Usage",
       "calendar": "Calendar",
+      "tasks": "Tasks",
+      "list": "List",
+      "kanban": "Kanban",
       "logout": "Log Out"
     }
   },

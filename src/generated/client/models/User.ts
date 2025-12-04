@@ -388,6 +388,7 @@ export type UserWhereInput = {
   assets?: Prisma.BrandAssetListRelationFilter
   creditHistory?: Prisma.CreditTransactionListRelationFilter
   purchases?: Prisma.PurchaseListRelationFilter
+  tasks?: Prisma.TaskListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -424,6 +425,7 @@ export type UserOrderByWithRelationInput = {
   assets?: Prisma.BrandAssetOrderByRelationAggregateInput
   creditHistory?: Prisma.CreditTransactionOrderByRelationAggregateInput
   purchases?: Prisma.PurchaseOrderByRelationAggregateInput
+  tasks?: Prisma.TaskOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -463,6 +465,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   assets?: Prisma.BrandAssetListRelationFilter
   creditHistory?: Prisma.CreditTransactionListRelationFilter
   purchases?: Prisma.PurchaseListRelationFilter
+  tasks?: Prisma.TaskListRelationFilter
 }, "id" | "email" | "subscriptionId" | "stripeCustomerId" | "lemonSqueezyCustomerId">
 
 export type UserOrderByWithAggregationInput = {
@@ -563,6 +566,7 @@ export type UserCreateInput = {
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -599,6 +603,7 @@ export type UserUncheckedCreateInput = {
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -635,6 +640,7 @@ export type UserUpdateInput = {
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -671,6 +677,7 @@ export type UserUncheckedUpdateInput = {
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1008,6 +1015,20 @@ export type UserUpdateOneRequiredWithoutAssetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssetsInput, Prisma.UserUpdateWithoutAssetsInput>, Prisma.UserUncheckedUpdateWithoutAssetsInput>
 }
 
+export type UserCreateNestedOneWithoutTasksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTasksInput, Prisma.UserUncheckedCreateWithoutTasksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTasksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTasksInput, Prisma.UserUncheckedCreateWithoutTasksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTasksInput
+  upsert?: Prisma.UserUpsertWithoutTasksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTasksInput, Prisma.UserUpdateWithoutTasksInput>, Prisma.UserUncheckedUpdateWithoutTasksInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   name: string
@@ -1041,6 +1062,7 @@ export type UserCreateWithoutSessionsInput = {
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1076,6 +1098,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1127,6 +1150,7 @@ export type UserUpdateWithoutSessionsInput = {
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1162,6 +1186,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -1197,6 +1222,7 @@ export type UserCreateWithoutAccountsInput = {
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1232,6 +1258,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1283,6 +1310,7 @@ export type UserUpdateWithoutAccountsInput = {
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1318,6 +1346,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMembersInput = {
@@ -1353,6 +1382,7 @@ export type UserCreateWithoutMembersInput = {
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembersInput = {
@@ -1388,6 +1418,7 @@ export type UserUncheckedCreateWithoutMembersInput = {
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembersInput = {
@@ -1439,6 +1470,7 @@ export type UserUpdateWithoutMembersInput = {
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembersInput = {
@@ -1474,6 +1506,7 @@ export type UserUncheckedUpdateWithoutMembersInput = {
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInvitationsInput = {
@@ -1509,6 +1542,7 @@ export type UserCreateWithoutInvitationsInput = {
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInvitationsInput = {
@@ -1544,6 +1578,7 @@ export type UserUncheckedCreateWithoutInvitationsInput = {
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInvitationsInput = {
@@ -1595,6 +1630,7 @@ export type UserUpdateWithoutInvitationsInput = {
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitationsInput = {
@@ -1630,6 +1666,7 @@ export type UserUncheckedUpdateWithoutInvitationsInput = {
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreditHistoryInput = {
@@ -1665,6 +1702,7 @@ export type UserCreateWithoutCreditHistoryInput = {
   projects?: Prisma.BrandProjectCreateNestedManyWithoutUserInput
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreditHistoryInput = {
@@ -1700,6 +1738,7 @@ export type UserUncheckedCreateWithoutCreditHistoryInput = {
   projects?: Prisma.BrandProjectUncheckedCreateNestedManyWithoutUserInput
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreditHistoryInput = {
@@ -1751,6 +1790,7 @@ export type UserUpdateWithoutCreditHistoryInput = {
   projects?: Prisma.BrandProjectUpdateManyWithoutUserNestedInput
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreditHistoryInput = {
@@ -1786,6 +1826,7 @@ export type UserUncheckedUpdateWithoutCreditHistoryInput = {
   projects?: Prisma.BrandProjectUncheckedUpdateManyWithoutUserNestedInput
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPurchasesInput = {
@@ -1821,6 +1862,7 @@ export type UserCreateWithoutPurchasesInput = {
   projects?: Prisma.BrandProjectCreateNestedManyWithoutUserInput
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPurchasesInput = {
@@ -1856,6 +1898,7 @@ export type UserUncheckedCreateWithoutPurchasesInput = {
   projects?: Prisma.BrandProjectUncheckedCreateNestedManyWithoutUserInput
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPurchasesInput = {
@@ -1907,6 +1950,7 @@ export type UserUpdateWithoutPurchasesInput = {
   projects?: Prisma.BrandProjectUpdateManyWithoutUserNestedInput
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPurchasesInput = {
@@ -1942,6 +1986,7 @@ export type UserUncheckedUpdateWithoutPurchasesInput = {
   projects?: Prisma.BrandProjectUncheckedUpdateManyWithoutUserNestedInput
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectsInput = {
@@ -1977,6 +2022,7 @@ export type UserCreateWithoutProjectsInput = {
   assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectsInput = {
@@ -2012,6 +2058,7 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectsInput = {
@@ -2063,6 +2110,7 @@ export type UserUpdateWithoutProjectsInput = {
   assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -2098,6 +2146,7 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAssetsInput = {
@@ -2133,6 +2182,7 @@ export type UserCreateWithoutAssetsInput = {
   projects?: Prisma.BrandProjectCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssetsInput = {
@@ -2168,6 +2218,7 @@ export type UserUncheckedCreateWithoutAssetsInput = {
   projects?: Prisma.BrandProjectUncheckedCreateNestedManyWithoutUserInput
   creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssetsInput = {
@@ -2219,6 +2270,7 @@ export type UserUpdateWithoutAssetsInput = {
   projects?: Prisma.BrandProjectUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssetsInput = {
@@ -2254,6 +2306,167 @@ export type UserUncheckedUpdateWithoutAssetsInput = {
   projects?: Prisma.BrandProjectUncheckedUpdateManyWithoutUserNestedInput
   creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTasksInput = {
+  id?: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  theme?: string | null
+  language?: string | null
+  banned?: boolean
+  role?: string
+  plan?: $Enums.PlanType
+  planStatus?: $Enums.PlanStatus
+  credits?: number
+  lifetimeCredits?: number
+  subscriptionProvider?: $Enums.SubscriptionProvider | null
+  subscriptionId?: string | null
+  subscriptionStatus?: string | null
+  currentPeriodStart?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  cancelAtPeriodEnd?: boolean
+  stripeCustomerId?: string | null
+  stripePriceId?: string | null
+  lemonSqueezyCustomerId?: string | null
+  lemonSqueezyVariantId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  members?: Prisma.MemberCreateNestedManyWithoutUserInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutUserInput
+  projects?: Prisma.BrandProjectCreateNestedManyWithoutUserInput
+  assets?: Prisma.BrandAssetCreateNestedManyWithoutUserInput
+  creditHistory?: Prisma.CreditTransactionCreateNestedManyWithoutUserInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTasksInput = {
+  id?: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  theme?: string | null
+  language?: string | null
+  banned?: boolean
+  role?: string
+  plan?: $Enums.PlanType
+  planStatus?: $Enums.PlanStatus
+  credits?: number
+  lifetimeCredits?: number
+  subscriptionProvider?: $Enums.SubscriptionProvider | null
+  subscriptionId?: string | null
+  subscriptionStatus?: string | null
+  currentPeriodStart?: Date | string | null
+  currentPeriodEnd?: Date | string | null
+  cancelAtPeriodEnd?: boolean
+  stripeCustomerId?: string | null
+  stripePriceId?: string | null
+  lemonSqueezyCustomerId?: string | null
+  lemonSqueezyVariantId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  members?: Prisma.MemberUncheckedCreateNestedManyWithoutUserInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.BrandProjectUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.BrandAssetUncheckedCreateNestedManyWithoutUserInput
+  creditHistory?: Prisma.CreditTransactionUncheckedCreateNestedManyWithoutUserInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTasksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTasksInput, Prisma.UserUncheckedCreateWithoutTasksInput>
+}
+
+export type UserUpsertWithoutTasksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTasksInput, Prisma.UserUncheckedUpdateWithoutTasksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTasksInput, Prisma.UserUncheckedCreateWithoutTasksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTasksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTasksInput, Prisma.UserUncheckedUpdateWithoutTasksInput>
+}
+
+export type UserUpdateWithoutTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  planStatus?: Prisma.EnumPlanStatusFieldUpdateOperationsInput | $Enums.PlanStatus
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  lifetimeCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  subscriptionProvider?: Prisma.NullableEnumSubscriptionProviderFieldUpdateOperationsInput | $Enums.SubscriptionProvider | null
+  subscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentPeriodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelAtPeriodEnd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePriceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lemonSqueezyCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lemonSqueezyVariantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  members?: Prisma.MemberUpdateManyWithoutUserNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutUserNestedInput
+  projects?: Prisma.BrandProjectUpdateManyWithoutUserNestedInput
+  assets?: Prisma.BrandAssetUpdateManyWithoutUserNestedInput
+  creditHistory?: Prisma.CreditTransactionUpdateManyWithoutUserNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  theme?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  plan?: Prisma.EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+  planStatus?: Prisma.EnumPlanStatusFieldUpdateOperationsInput | $Enums.PlanStatus
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  lifetimeCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  subscriptionProvider?: Prisma.NullableEnumSubscriptionProviderFieldUpdateOperationsInput | $Enums.SubscriptionProvider | null
+  subscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentPeriodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelAtPeriodEnd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePriceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lemonSqueezyCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lemonSqueezyVariantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  members?: Prisma.MemberUncheckedUpdateManyWithoutUserNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.BrandProjectUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.BrandAssetUncheckedUpdateManyWithoutUserNestedInput
+  creditHistory?: Prisma.CreditTransactionUncheckedUpdateManyWithoutUserNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -2270,6 +2483,7 @@ export type UserCountOutputType = {
   assets: number
   creditHistory: number
   purchases: number
+  tasks: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2281,6 +2495,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   assets?: boolean | UserCountOutputTypeCountAssetsArgs
   creditHistory?: boolean | UserCountOutputTypeCountCreditHistoryArgs
   purchases?: boolean | UserCountOutputTypeCountPurchasesArgs
+  tasks?: boolean | UserCountOutputTypeCountTasksArgs
 }
 
 /**
@@ -2349,6 +2564,13 @@ export type UserCountOutputTypeCountPurchasesArgs<ExtArgs extends runtime.Types.
   where?: Prisma.PurchaseWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaskWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2384,6 +2606,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   assets?: boolean | Prisma.User$assetsArgs<ExtArgs>
   creditHistory?: boolean | Prisma.User$creditHistoryArgs<ExtArgs>
   purchases?: boolean | Prisma.User$purchasesArgs<ExtArgs>
+  tasks?: boolean | Prisma.User$tasksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2481,6 +2704,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   assets?: boolean | Prisma.User$assetsArgs<ExtArgs>
   creditHistory?: boolean | Prisma.User$creditHistoryArgs<ExtArgs>
   purchases?: boolean | Prisma.User$purchasesArgs<ExtArgs>
+  tasks?: boolean | Prisma.User$tasksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2497,6 +2721,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     assets: Prisma.$BrandAssetPayload<ExtArgs>[]
     creditHistory: Prisma.$CreditTransactionPayload<ExtArgs>[]
     purchases: Prisma.$PurchasePayload<ExtArgs>[]
+    tasks: Prisma.$TaskPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2926,6 +3151,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   assets<T extends Prisma.User$assetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BrandAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   creditHistory<T extends Prisma.User$creditHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$creditHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchases<T extends Prisma.User$purchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$purchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tasks<T extends Prisma.User$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3557,6 +3783,30 @@ export type User$purchasesArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.PurchaseScalarFieldEnum | Prisma.PurchaseScalarFieldEnum[]
+}
+
+/**
+ * User.tasks
+ */
+export type User$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Task
+   */
+  select?: Prisma.TaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Task
+   */
+  omit?: Prisma.TaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaskInclude<ExtArgs> | null
+  where?: Prisma.TaskWhereInput
+  orderBy?: Prisma.TaskOrderByWithRelationInput | Prisma.TaskOrderByWithRelationInput[]
+  cursor?: Prisma.TaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
 }
 
 /**

@@ -423,6 +423,9 @@
       "revenueBilling": "Ingresos y Facturación",
       "productUsage": "Uso del Producto",
       "calendar": "Calendario",
+      "tasks": "Tareas",
+      "list": "Lista",
+      "kanban": "Kanban",
       "logout": "Cerrar Sesión"
     }
   },

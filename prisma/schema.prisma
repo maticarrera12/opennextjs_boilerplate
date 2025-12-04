@@ -67,6 +67,7 @@ model User {
   assets        BrandAsset[]
   creditHistory CreditTransaction[]
   purchases     Purchase[]
+  tasks         Task[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -418,4 +419,37 @@ model WaitlistUser {
   referrals     WaitlistUser[] @relation("Referrals")
   invited       Boolean  @default(false)
   createdAt     DateTime @default(now())
+}
+
+// ============================================
+// TASKS (KANBAN)
+// ============================================
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  status      String   @default("todo") // todo, in-progress, completed
+  order       Float    @default(0)
+  dueDate     DateTime?
+  priority    String?  @default("medium") // low, medium, high
+  description String?
+  
+  // Metadata for UI
+  image       String?
+  
+  // Tags stored as JSON array of objects { label: string, color: string }
+  tags        Json?
+
+  // Assignment (simple version)
+  assigneeName   String?
+  assigneeAvatar String?
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
 }

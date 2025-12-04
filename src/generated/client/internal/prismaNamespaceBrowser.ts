@@ -63,7 +63,8 @@ export const ModelName = {
   BrandProject: 'BrandProject',
   BrandAsset: 'BrandAsset',
   PlanLimit: 'PlanLimit',
-  WaitlistUser: 'WaitlistUser'
+  WaitlistUser: 'WaitlistUser',
+  Task: 'Task'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -308,6 +309,26 @@ export const WaitlistUserScalarFieldEnum = {
 } as const
 
 export type WaitlistUserScalarFieldEnum = (typeof WaitlistUserScalarFieldEnum)[keyof typeof WaitlistUserScalarFieldEnum]
+
+
+export const TaskScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  status: 'status',
+  order: 'order',
+  dueDate: 'dueDate',
+  priority: 'priority',
+  description: 'description',
+  image: 'image',
+  tags: 'tags',
+  assigneeName: 'assigneeName',
+  assigneeAvatar: 'assigneeAvatar',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
 
 
 export const SortOrder = {

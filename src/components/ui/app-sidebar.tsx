@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft02Icon, Logout01Icon } from "hugeicons-react";
+import { ArrowLeft02Icon, Logout01Icon, ArrowDown01Icon } from "hugeicons-react";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
@@ -13,17 +13,21 @@ import { useLocaleRouting } from "@/hooks/useLocaleRouting";
 import { Link } from "@/i18n/routing";
 import { signOut } from "@/lib/actions/auth-actions";
 import { cn } from "@/lib/utils";
+
 export interface SidebarItem {
   name: string;
-  href: string;
+  href?: string;
   icon: any;
   localeAware?: boolean;
   matchPrefixes?: string[];
+  items?: SidebarItem[];
 }
+
 export interface SidebarSection {
   label: string;
   items: SidebarItem[];
 }
+
 interface AppSidebarProps {
   title: string;
   sections: SidebarSection[];
@@ -31,6 +35,126 @@ interface AppSidebarProps {
   topContent?: React.ReactNode;
   topContentHeightClass?: string;
 }
+
+const SidebarMenuItem = ({
+  item,
+  pathname,
+  setIsOpen,
+  animateState,
+  contentVariants,
+  isMobile,
+}: {
+  item: SidebarItem;
+  pathname: string;
+  setIsOpen: (isOpen: boolean) => void;
+  animateState: any;
+  contentVariants: any;
+  isMobile: boolean;
+}) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const Icon = item.icon;
+
+  // Check if this item or any of its children are active
+  const isChildActive = (item: SidebarItem): boolean => {
+    if (
+      item.href &&
+      (pathname === item.href || item.matchPrefixes?.some((p) => pathname.startsWith(p)))
+    ) {
+      return true;
+    }
+    if (item.items) {
+      return item.items.some((child) => isChildActive(child));
+    }
+    return false;
+  };
+
+  const isActive = isChildActive(item);
+
+  useEffect(() => {
+    if (isActive) {
+      setIsExpanded(true);
+    }
+  }, [isActive]);
+
+  const hasChildren = item.items && item.items.length > 0;
+
+  if (hasChildren) {
+    return (
+      <div className="flex flex-col gap-1">
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className={cn(
+            "group relative flex w-full items-center gap-3 px-2 py-2 rounded-lg transition-all duration-200",
+            !isActive && "hover:bg-muted/50",
+            isActive && "bg-muted/50 text-foreground font-medium"
+          )}
+        >
+          <div className="shrink-0 w-6 h-6 flex items-center justify-center">
+            <Icon size={20} />
+          </div>
+          <motion.span
+            variants={!isMobile ? contentVariants : undefined}
+            animate={animateState}
+            className="whitespace-nowrap text-sm flex-1 text-left flex items-center justify-between"
+          >
+            {item.name}
+            <ArrowDown01Icon
+              size={16}
+              className={cn("transition-transform duration-200", isExpanded && "rotate-180")}
+            />
+          </motion.span>
+        </button>
+        <AnimatePresence>
+          {isExpanded && animateState !== "collapsed" && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="overflow-hidden"
+            >
+              <div className="flex flex-col gap-1 pl-4 border-l ml-5">
+                {item.items!.map((subItem) => (
+                  <SidebarMenuItem
+                    key={subItem.name}
+                    item={subItem}
+                    pathname={pathname}
+                    setIsOpen={setIsOpen}
+                    animateState={animateState}
+                    contentVariants={contentVariants}
+                    isMobile={isMobile}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={item.href || "#"}
+      onClick={() => setIsOpen(false)}
+      className={cn(
+        "group relative flex items-center gap-3 px-2 py-2 rounded-lg transition-all duration-200",
+        !isActive && "hover:bg-muted/50",
+        isActive && "bg-primary text-primary-foreground"
+      )}
+    >
+      <div className="shrink-0 w-6 h-6 flex items-center justify-center">
+        <Icon size={20} />
+      </div>
+      <motion.span
+        variants={!isMobile ? contentVariants : undefined}
+        animate={animateState}
+        className="whitespace-nowrap text-sm"
+      >
+        {item.name}
+      </motion.span>
+    </Link>
+  );
+};
 
 export default function AppSidebar({
   title,
@@ -217,36 +341,17 @@ export default function AppSidebar({
                   </motion.span>
                 </div>
                 <nav className="flex flex-col gap-0.5">
-                  {section.items.map((item) => {
-                    const Icon = item.icon;
-                    const isActive =
-                      pathname === item.href ||
-                      (item.matchPrefixes &&
-                        item.matchPrefixes.some((prefix) => pathname.startsWith(prefix)));
-                    return (
-                      <Link
-                        href={item.href}
-                        key={item.name}
-                        onClick={() => setIsOpen(false)}
-                        className={cn(
-                          "group relative flex items-center gap-3 px-2 py-2 rounded-lg transition-all duration-200",
-                          !isActive && "hover:bg-muted/50",
-                          isActive && "bg-primary text-primary-foreground"
-                        )}
-                      >
-                        <div className="shrink-0 w-6 h-6 flex items-center justify-center">
-                          <Icon size={20} />
-                        </div>
-                        <motion.span
-                          variants={!isMobile ? contentVariants : undefined}
-                          animate={animateState}
-                          className="whitespace-nowrap text-sm"
-                        >
-                          {item.name}
-                        </motion.span>
-                      </Link>
-                    );
-                  })}
+                  {section.items.map((item) => (
+                    <SidebarMenuItem
+                      key={item.name}
+                      item={item}
+                      pathname={pathname}
+                      setIsOpen={setIsOpen}
+                      animateState={animateState}
+                      contentVariants={contentVariants}
+                      isMobile={isMobile}
+                    />
+                  ))}
                 </nav>
               </div>
             ))}

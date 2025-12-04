@@ -104,3 +104,8 @@ export type PlanLimit = Prisma.PlanLimitModel
  * 
  */
 export type WaitlistUser = Prisma.WaitlistUserModel
+/**
+ * Model Task
+ * 
+ */
+export type Task = Prisma.TaskModel
