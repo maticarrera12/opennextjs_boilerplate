@@ -1,10 +1,10 @@
 # 1️⃣ Clone the repository
 
-git clone https://github.com/maticarrera12/opennextjs.git
+git clone https://github.com/maticarrera12/opennextjs_boilerplate.git
 
 # 2️⃣ Enter the project folder
 
-cd opennextjs
+cd opennextjs_boilerplate
 
 # 3️⃣ Copy environment variables
 
