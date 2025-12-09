@@ -75,7 +75,6 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <FooterLink href="/faq">{t("help.faq")}</FooterLink>
-              <FooterLink href="/docs">Documentation</FooterLink>
               <FooterLink href="/api">API Status</FooterLink>
             </ul>
           </div>

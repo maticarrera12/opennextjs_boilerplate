@@ -17,8 +17,6 @@ const prependLocale = (href, locale) => {
   if (
     firstSegment === locale ||
     routing.locales.includes(firstSegment) ||
-    normalizedHref === "/docs" ||
-    normalizedHref.startsWith("/docs/") ||
     normalizedHref === "/legal" ||
     normalizedHref.startsWith("/legal/")
   ) {

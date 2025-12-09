@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { BookOpen01Icon, Home12Icon, SaleTag01Icon } from "hugeicons-react";
+import { Home12Icon, SaleTag01Icon } from "hugeicons-react";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -22,7 +22,6 @@ import { cn } from "@/lib/utils";
 const navigationLinks = [
   { href: "/", label: "Home", icon: Home12Icon, scrollTo: "top" },
   { href: "#pricing", label: "Pricing", icon: SaleTag01Icon, scrollTo: "pricing" },
-  { href: "/docs", label: "Docs", icon: BookOpen01Icon },
 ];
 
 const sidebarVariants: Variants = {
@@ -75,7 +74,6 @@ export default function Navbar() {
 
   const getLocalizedPath = (path: string) => {
     if (!path.startsWith("/")) return path;
-    if (path === "/docs" || path.startsWith("/docs/")) return `/${locale}/docs`;
     if (path === "/") return `/${locale}`;
     return `/${locale}${path}`;
   };
@@ -118,11 +116,7 @@ export default function Navbar() {
 
     if (link.href.startsWith("/")) {
       e.preventDefault();
-      if (link.href === "/docs" || link.href.startsWith("/docs/")) {
-        window.location.href = `/${locale}/docs`;
-      } else {
-        push(link.href);
-      }
+      push(link.href);
     }
   };
 

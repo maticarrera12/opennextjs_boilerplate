@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
+import { createTask, updateTask } from "@/actions/task-actions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -32,7 +33,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useTaskModal } from "@/hooks/use-task-modal";
-import { createTask, updateTask } from "@/lib/actions/task-actions";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
